@@ -11,11 +11,6 @@ type Clash struct {
 }
 
 func (c Clash) Provide() string {
-	//data, err := yaml.Marshal(c)
-	//if err != nil {
-	//
-	//}
-	//return string(data)
 	var resultBuilder strings.Builder
 
 	resultBuilder.WriteString("proxies:\n")
@@ -32,14 +27,18 @@ func checkClashSupport(p proxy.Proxy) bool {
 	switch p.(type) {
 	case proxy.ShadowsocksR:
 		ssr := p.(proxy.ShadowsocksR)
-		if checkInList(cipherList, ssr.Cipher) && checkInList(protocolList, ssr.Protocol) && checkInList(obfsList, ssr.Obfs) {
+		if checkInList(ssrCipherList, ssr.Cipher) && checkInList(ssrProtocolList, ssr.Protocol) && checkInList(ssrObfsList, ssr.Obfs) {
 			return true
-		} else {
-			return false
+		}
+	case proxy.Vmess:
+		vmess := p.(proxy.Vmess)
+		if checkInList(vmessCipherList, vmess.Cipher) {
+			return true
 		}
 	default:
 		return false
 	}
+	return false
 }
 
 func checkInList(list []string, item string) bool {
@@ -51,7 +50,7 @@ func checkInList(list []string, item string) bool {
 	return false
 }
 
-var cipherList = []string{
+var ssrCipherList = []string{
 	"aes-128-cfb",
 	"aes-192-cfb",
 	"aes-256-cfb",
@@ -75,7 +74,7 @@ var cipherList = []string{
 	"seed-cfb",
 }
 
-var obfsList = []string{
+var ssrObfsList = []string{
 	"plain",
 	"http_simple",
 	"http_post",
@@ -84,7 +83,7 @@ var obfsList = []string{
 	"tls1.2_ticket_fastauth",
 }
 
-var protocolList = []string{
+var ssrProtocolList = []string{
 	"origin",
 	"verify_deflate",
 	"verify_sha1",
@@ -95,4 +94,11 @@ var protocolList = []string{
 	"auth_aes128_sha1",
 	"auth_chain_a",
 	"auth_chain_b",
+}
+
+var vmessCipherList = []string{
+	"auto",
+	"aes-128-gcm",
+	"chacha20-poly1305",
+	"none",
 }

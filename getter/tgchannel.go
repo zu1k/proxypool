@@ -2,6 +2,7 @@ package getter
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/gocolly/colly"
 	"github.com/zu1k/proxypool/proxy"
@@ -14,7 +15,7 @@ type TGChannelGetter struct {
 	Url       string
 }
 
-func NewTGSsrlistGetter(url string, numNeeded int) *TGChannelGetter {
+func NewTGChannelGetter(url string, numNeeded int) *TGChannelGetter {
 	if numNeeded <= 0 {
 		numNeeded = 200
 	}
@@ -30,6 +31,7 @@ func (g TGChannelGetter) Get() []proxy.Proxy {
 	// 找到所有的文字消息
 	g.c.OnHTML("div.tgme_widget_message_text", func(e *colly.HTMLElement) {
 		g.Results = append(g.Results, proxy.GrepSSRLinkFromString(e.Text)...)
+		g.Results = append(g.Results, proxy.GrepVmessLinkFromString(e.Text)...)
 	})
 
 	// 找到之前消息页面的链接，加入访问队列
@@ -46,12 +48,17 @@ func (g TGChannelGetter) Get() []proxy.Proxy {
 	}
 
 	results := make([]proxy.Proxy, 0)
+	var data proxy.Proxy
 	for _, link := range g.Results {
-		data, err := proxy.ParseSSRLink(link)
+		if strings.HasPrefix(link, "ssr://") {
+			data, err = proxy.ParseSSRLink(link)
+		} else if strings.HasPrefix(link, "vmess://") {
+			data, err = proxy.ParseVmessLink(link)
+		}
 		if err != nil {
 			continue
 		}
-		results = append(results, *data)
+		results = append(results, data)
 	}
 	return results
 }
