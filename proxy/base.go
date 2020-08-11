@@ -1,7 +1,5 @@
 package proxy
 
-import "C"
-
 type Base struct {
 	Name   string `yaml:"name" json:"name"`
 	Server string `yaml:"server" json:"server"`
