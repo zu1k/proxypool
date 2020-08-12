@@ -10,6 +10,6 @@ import (
 func main() {
 	go app.Cron()
 	fmt.Println("Do the first crawl...")
-	app.CrawlTGChannel()
+	app.CrawlGo()
 	api.Run()
 }

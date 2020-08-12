@@ -2,6 +2,7 @@ package getter
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/gocolly/colly"
 	"github.com/zu1k/proxypool/proxy"
@@ -46,4 +47,13 @@ func (g TGChannelGetter) Get() []proxy.Proxy {
 	}
 
 	return StringArray2ProxyArray(g.Results)
+}
+
+func (g TGChannelGetter) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
+	wg.Add(1)
+	nodes := g.Get()
+	for _, node := range nodes {
+		pc <- node
+	}
+	wg.Done()
 }

@@ -2,12 +2,14 @@ package getter
 
 import (
 	"strings"
+	"sync"
 
 	"github.com/zu1k/proxypool/proxy"
 )
 
 type Getter interface {
 	Get() []proxy.Proxy
+	Get2Chan(pc chan proxy.Proxy, wg sync.WaitGroup)
 }
 
 func String2Proxy(link string) proxy.Proxy {
