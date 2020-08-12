@@ -54,6 +54,7 @@ func Crawl() {
 	for i := 0; i < num; i++ {
 		proxies[i].SetName(strconv.Itoa(rand.Int()))
 	}
+	log.Println("Crawl node count:", num)
 	cache.SetProxies(proxies)
 	cache.SetString("clashproxies", provider.Clash{Proxies: proxies}.Provide())
 }
