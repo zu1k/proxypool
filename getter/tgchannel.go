@@ -2,7 +2,6 @@ package getter
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/gocolly/colly"
 	"github.com/zu1k/proxypool/proxy"
@@ -47,18 +46,5 @@ func (g TGChannelGetter) Get() []proxy.Proxy {
 		_ = fmt.Errorf("%s", err.Error())
 	}
 
-	results := make([]proxy.Proxy, 0)
-	var data proxy.Proxy
-	for _, link := range g.Results {
-		if strings.HasPrefix(link, "ssr://") {
-			data, err = proxy.ParseSSRLink(link)
-		} else if strings.HasPrefix(link, "vmess://") {
-			data, err = proxy.ParseVmessLink(link)
-		}
-		if err != nil {
-			continue
-		}
-		results = append(results, data)
-	}
-	return results
+	return StringArray2ProxyArray(g.Results)
 }
