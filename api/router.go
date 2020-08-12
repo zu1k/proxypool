@@ -3,9 +3,10 @@ package api
 import (
 	"os"
 
+	"github.com/zu1k/proxypool/app/cache"
+
 	"github.com/gin-gonic/gin"
 	_ "github.com/heroku/x/hmetrics/onload"
-	"github.com/zu1k/proxypool/app"
 	"github.com/zu1k/proxypool/provider"
 )
 
@@ -16,9 +17,14 @@ func setupRouter() {
 
 	router.StaticFile("/clash/config", "example/clash-config.yaml")
 	router.GET("/clash/proxies", func(c *gin.Context) {
-		proxies := app.GetProxies()
-		clash := provider.Clash{Proxies: proxies}
-		c.String(200, clash.Provide())
+		text := cache.GetString("clashproxies")
+		if text == "" {
+			proxies := cache.GetProxies()
+			clash := provider.Clash{Proxies: proxies}
+			text = clash.Provide()
+			cache.SetString("clashproxies", text)
+		}
+		c.String(200, text)
 	})
 }
 
