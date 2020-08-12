@@ -4,7 +4,6 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"io/ioutil"
-	"net/http"
 	"sync"
 
 	"github.com/zu1k/proxypool/proxy"
@@ -25,7 +24,7 @@ func NewWebLucnorg(options tool.Options) Getter {
 }
 
 func (w *WebLucnOrg) Get() []proxy.Proxy {
-	resp, err := http.Post(lucnorgSsrLink, "", nil)
+	resp, err := tool.GetHttpClient().Post(lucnorgSsrLink, nil)
 	if err != nil {
 		return nil
 	}

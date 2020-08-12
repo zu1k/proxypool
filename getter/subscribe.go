@@ -2,7 +2,6 @@ package getter
 
 import (
 	"io/ioutil"
-	"net/http"
 	"strings"
 	"sync"
 
@@ -19,7 +18,7 @@ type Subscribe struct {
 }
 
 func (s *Subscribe) Get() []proxy.Proxy {
-	resp, err := http.Get(s.Url)
+	resp, err := tool.GetHttpClient().Get(s.Url)
 	if err != nil {
 		return nil
 	}

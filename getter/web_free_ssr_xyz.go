@@ -3,7 +3,6 @@ package getter
 import (
 	"encoding/json"
 	"io/ioutil"
-	"net/http"
 	"sync"
 
 	"github.com/zu1k/proxypool/proxy"
@@ -41,7 +40,7 @@ func (w *WebFreessrXyz) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
 }
 
 func freessrxyzFetch(link string) []proxy.Proxy {
-	resp, err := http.Get(link)
+	resp, err := tool.GetHttpClient().Get(link)
 	if err != nil {
 		return nil
 	}
