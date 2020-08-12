@@ -12,12 +12,20 @@ import (
 	"github.com/zu1k/proxypool/proxy"
 )
 
+func init() {
+	Register("web-lucnorg", NewWebLucnorg)
+}
+
 const lucnorgSsrLink = "https://lncn.org/api/ssrList"
 
 type WebLucnOrg struct {
 }
 
-func (w WebLucnOrg) Get() []proxy.Proxy {
+func NewWebLucnorg(options tool.Options) Getter {
+	return &WebLucnOrg{}
+}
+
+func (w *WebLucnOrg) Get() []proxy.Proxy {
 	resp, err := http.Post(lucnorgSsrLink, "", nil)
 	if err != nil {
 		return nil
@@ -58,7 +66,7 @@ func (w WebLucnOrg) Get() []proxy.Proxy {
 	return StringArray2ProxyArray(result)
 }
 
-func (w WebLucnOrg) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
+func (w *WebLucnOrg) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
 	wg.Add(1)
 	nodes := w.Get()
 	for _, node := range nodes {

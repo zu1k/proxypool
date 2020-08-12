@@ -10,11 +10,15 @@ import (
 	"github.com/zu1k/proxypool/tool"
 )
 
+func init() {
+	Register("subscribe", NewSubscribe)
+}
+
 type Subscribe struct {
 	Url string
 }
 
-func (s Subscribe) Get() []proxy.Proxy {
+func (s *Subscribe) Get() []proxy.Proxy {
 	resp, err := http.Get(s.Url)
 	if err != nil {
 		return nil
@@ -35,7 +39,7 @@ func (s Subscribe) Get() []proxy.Proxy {
 	return StringArray2ProxyArray(nodes)
 }
 
-func (s Subscribe) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
+func (s *Subscribe) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
 	wg.Add(1)
 	nodes := s.Get()
 	for _, node := range nodes {
@@ -44,8 +48,12 @@ func (s Subscribe) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
 	wg.Done()
 }
 
-func NewSubscribe(url string) *Subscribe {
-	return &Subscribe{
-		Url: url,
+func NewSubscribe(options tool.Options) Getter {
+	url, found := options["url"]
+	if found {
+		return &Subscribe{
+			Url: url.(string),
+		}
 	}
+	return nil
 }
