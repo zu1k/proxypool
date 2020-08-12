@@ -19,9 +19,11 @@ func Deduplication(src []Proxy) []Proxy {
 	result := make([]Proxy, 0, len(src))
 	temp := map[string]struct{}{}
 	for _, item := range src {
-		if _, ok := temp[item.Identifier()]; !ok {
-			temp[item.Identifier()] = struct{}{}
-			result = append(result, item)
+		if item != nil {
+			if _, ok := temp[item.Identifier()]; !ok {
+				temp[item.Identifier()] = struct{}{}
+				result = append(result, item)
+			}
 		}
 	}
 	return result
