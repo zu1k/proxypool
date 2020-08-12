@@ -6,10 +6,8 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/zu1k/proxypool/provider"
-
 	"github.com/zu1k/proxypool/app/cache"
-
+	"github.com/zu1k/proxypool/provider"
 	"github.com/zu1k/proxypool/proxy"
 )
 

@@ -5,10 +5,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/zu1k/proxypool/config"
-
 	"github.com/zu1k/proxypool/api"
 	"github.com/zu1k/proxypool/app"
+	"github.com/zu1k/proxypool/config"
 )
 
 func main() {
