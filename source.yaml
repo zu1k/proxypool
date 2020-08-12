@@ -1,6 +1,9 @@
 sources:
   - type: subscribe
     options:
+      url: http://ssrdingyue.ueuo.com/v2/8y12r
+  - type: subscribe
+    options:
       url: https://www.suncloud.fun/link/Su683BQEyUdxtyuY?mu=1&extend=1
   - type: subscribe
     options:
