@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
+	"sync"
 
 	"github.com/zu1k/proxypool/proxy"
 	"github.com/zu1k/proxypool/tool"
@@ -32,6 +33,15 @@ func (s Subscribe) Get() []proxy.Proxy {
 
 	nodes := strings.Split(nodesString, "\n")
 	return StringArray2ProxyArray(nodes)
+}
+
+func (s Subscribe) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
+	wg.Add(1)
+	nodes := s.Get()
+	for _, node := range nodes {
+		pc <- node
+	}
+	wg.Done()
 }
 
 func NewSubscribe(url string) *Subscribe {

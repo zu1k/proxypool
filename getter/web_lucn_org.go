@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"sync"
 
 	"github.com/zu1k/proxypool/tool"
 
@@ -55,6 +56,15 @@ func (w WebLucnOrg) Get() []proxy.Proxy {
 		result = append(result, node.Url)
 	}
 	return StringArray2ProxyArray(result)
+}
+
+func (w WebLucnOrg) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
+	wg.Add(1)
+	nodes := w.Get()
+	for _, node := range nodes {
+		pc <- node
+	}
+	wg.Done()
 }
 
 func decryptAesForLucn(code string, c string) []byte {

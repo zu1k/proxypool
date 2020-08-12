@@ -3,7 +3,6 @@ package proxy
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"math/rand"
 	"net"
 	"net/url"
@@ -103,7 +102,6 @@ func ParseVmessLink(link string) (*Vmess, error) {
 		if err != nil {
 			return nil, ErrorVmessPayloadParseFail
 		}
-		fmt.Println(baseInfo)
 		baseInfoPath := strings.Split(baseInfo, ":")
 		if len(baseInfoPath) < 3 {
 			return nil, ErrorPathNotComplete
@@ -123,7 +121,6 @@ func ParseVmessLink(link string) (*Vmess, error) {
 		}
 
 		moreInfo, _ := url.ParseQuery(infoPayloads[1])
-		fmt.Println(moreInfo)
 		remarks := moreInfo.Get("remarks")
 		obfs := moreInfo.Get("obfs")
 		network := "tcp"
