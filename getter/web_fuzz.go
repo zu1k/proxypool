@@ -2,7 +2,6 @@ package getter
 
 import (
 	"io/ioutil"
-	"net/http"
 	"sync"
 
 	"github.com/zu1k/proxypool/proxy"
@@ -18,7 +17,7 @@ type WebFuzz struct {
 }
 
 func (w *WebFuzz) Get() []proxy.Proxy {
-	resp, err := http.Get(w.Url)
+	resp, err := tool.GetHttpClient().Get(w.Url)
 	if err != nil {
 		return nil
 	}
