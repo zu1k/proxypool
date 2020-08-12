@@ -7,7 +7,7 @@ import (
 )
 
 type Getter interface {
-	Get() []*proxy.Proxy
+	Get() []proxy.Proxy
 }
 
 func String2Proxy(link string) proxy.Proxy {
