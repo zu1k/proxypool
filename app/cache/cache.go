@@ -1,4 +1,4 @@
-package app
+package cache
 
 import (
 	"log"
@@ -22,4 +22,16 @@ func GetProxies() []proxy.Proxy {
 
 func SetProxies(proxies []proxy.Proxy) {
 	c.Set("proxies", proxies, cache.NoExpiration)
+}
+
+func SetString(key, value string) {
+	c.Set(key, value, cache.NoExpiration)
+}
+
+func GetString(key string) string {
+	result, found := c.Get(key)
+	if found {
+		return result.(string)
+	}
+	return ""
 }
