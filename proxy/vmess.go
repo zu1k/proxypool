@@ -204,7 +204,7 @@ func ParseVmessLink(link string) (*Vmess, error) {
 }
 
 var (
-	vmessPlainRe = regexp.MustCompile("vmess://([A-Za-z0-9+/_-])+")
+	vmessPlainRe = regexp.MustCompile("vmess://([A-Za-z0-9+/_?&=-])+")
 )
 
 func GrepVmessLinkFromString(text string) []string {
