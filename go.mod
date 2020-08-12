@@ -14,18 +14,20 @@ require (
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gocolly/colly v1.2.0
 	github.com/golang/protobuf v1.4.2 // indirect
-	github.com/heroku/x v0.0.25
 	github.com/jasonlvhit/gocron v0.0.1
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
+	github.com/kr/pretty v0.1.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible
-	github.com/prometheus/common v0.11.1 // indirect
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
+	github.com/stretchr/testify v1.5.1 // indirect
 	github.com/temoto/robotstxt v1.1.1 // indirect
+	golang.org/x/net v0.0.0-20200625001655-4c5254603344 // indirect
 	golang.org/x/sys v0.0.0-20200810151505-1b9f1253b3ed // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
+	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )

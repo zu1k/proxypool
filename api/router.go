@@ -3,10 +3,8 @@ package api
 import (
 	"os"
 
-	"github.com/zu1k/proxypool/app/cache"
-
 	"github.com/gin-gonic/gin"
-	_ "github.com/heroku/x/hmetrics/onload"
+	"github.com/zu1k/proxypool/app/cache"
 	"github.com/zu1k/proxypool/provider"
 )
 
