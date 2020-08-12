@@ -5,11 +5,28 @@ import (
 	"sync"
 
 	"github.com/zu1k/proxypool/proxy"
+	"github.com/zu1k/proxypool/tool"
 )
 
 type Getter interface {
 	Get() []proxy.Proxy
-	Get2Chan(pc chan proxy.Proxy, wg sync.WaitGroup)
+	Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup)
+}
+
+type creator func(options tool.Options) Getter
+
+var creatorMap = make(map[string]creator)
+
+func Register(sourceType string, c creator) {
+	creatorMap[sourceType] = c
+}
+
+func NewGetter(sourceType string, options tool.Options) Getter {
+	c, ok := creatorMap[sourceType]
+	if ok {
+		return c(options)
+	}
+	return nil
 }
 
 func String2Proxy(link string) proxy.Proxy {

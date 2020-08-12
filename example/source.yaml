@@ -1,0 +1,24 @@
+sources:
+  - type: subscribe
+    options:
+      url: https://raw.githubusercontent.com/ssrsub/ssr/master/v2ray
+
+  - type: webfuzz
+    options:
+      url: https://merlinblog.xyz/wiki/freess.html
+
+  - type: tgchannel
+    options:
+      channel: ssrList
+      num: 200
+
+  - type: web-fanqiangdang
+    options:
+      url: https://fanqiangdang.com/forum.php?mod=rss&fid=50&auth=0
+      num: 200
+
+  - type: web-freessrxyz
+    options:
+
+  - type: web-lucnorg
+    options:

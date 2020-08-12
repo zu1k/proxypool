@@ -6,8 +6,14 @@ import (
 	"net/http"
 	"sync"
 
+	"github.com/zu1k/proxypool/tool"
+
 	"github.com/zu1k/proxypool/proxy"
 )
+
+func init() {
+	Register("web-freessrxyz", NewWebFreessrxyzGetter)
+}
 
 const (
 	freessrxyzSsrLink   = "https://api.free-ssr.xyz/ssr"
@@ -17,13 +23,17 @@ const (
 type WebFreessrXyz struct {
 }
 
-func (w WebFreessrXyz) Get() []proxy.Proxy {
+func NewWebFreessrxyzGetter(options tool.Options) Getter {
+	return &WebFreessrXyz{}
+}
+
+func (w *WebFreessrXyz) Get() []proxy.Proxy {
 	results := freessrxyzFetch(freessrxyzSsrLink)
 	results = append(results, freessrxyzFetch(freessrxyzV2rayLink)...)
 	return results
 }
 
-func (w WebFreessrXyz) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
+func (w *WebFreessrXyz) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
 	wg.Add(1)
 	nodes := w.Get()
 	for _, node := range nodes {
