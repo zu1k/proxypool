@@ -1,6 +1,9 @@
 package app
 
 import (
+	"math/rand"
+	"strconv"
+
 	"github.com/zu1k/proxypool/getter"
 	"github.com/zu1k/proxypool/proxy"
 )
@@ -31,5 +34,10 @@ func CrawlTGChannel() {
 
 	node = append(node, GetProxies()...)
 	node = proxy.Deduplication(node)
+
+	num := len(node)
+	for i := 0; i < num; i++ {
+		node[i].SetName("@tgbotlist_" + strconv.Itoa(rand.Int()))
+	}
 	SetProxies(node)
 }

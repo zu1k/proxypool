@@ -12,6 +12,7 @@ type Proxy interface {
 	String() string
 	ToClash() string
 	Identifier() string
+	SetName(name string)
 }
 
 func Deduplication(src []Proxy) []Proxy {
