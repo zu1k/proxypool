@@ -29,8 +29,7 @@ func NewTGChannelGetter(url string, numNeeded int) *TGChannelGetter {
 func (g TGChannelGetter) Get() []proxy.Proxy {
 	// 找到所有的文字消息
 	g.c.OnHTML("div.tgme_widget_message_text", func(e *colly.HTMLElement) {
-		g.Results = append(g.Results, proxy.GrepSSRLinkFromString(e.Text)...)
-		g.Results = append(g.Results, proxy.GrepVmessLinkFromString(e.Text)...)
+		g.Results = append(g.Results, GrepLinksFromString(e.Text)...)
 	})
 
 	// 找到之前消息页面的链接，加入访问队列
