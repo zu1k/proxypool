@@ -112,8 +112,11 @@ func ParseSSRLink(link string) (*ShadowsocksR, error) {
 	if err != nil {
 		return nil, ErrorProtocolParamParseFail
 	}
-	if strings.HasSuffix(protocolParam, "_compatible") {
-		protocolParam = strings.ReplaceAll(protocolParam, "_compatible", "")
+	if tool.ContainChineseChar(protocolParam) {
+		protocolParam = ""
+	}
+	if strings.HasSuffix(protocol, "_compatible") {
+		protocol = strings.ReplaceAll(protocol, "_compatible", "")
 	}
 
 	// obfs param
@@ -121,8 +124,11 @@ func ParseSSRLink(link string) (*ShadowsocksR, error) {
 	if err != nil {
 		return nil, ErrorObfsParamParseFail
 	}
-	if strings.HasSuffix(obfsParam, "_compatible") {
-		obfsParam = strings.ReplaceAll(obfsParam, "_compatible", "")
+	if tool.ContainChineseChar(obfsParam) {
+		obfsParam = ""
+	}
+	if strings.HasSuffix(obfs, "_compatible") {
+		obfs = strings.ReplaceAll(obfs, "_compatible", "")
 	}
 
 	//group, err := tool.Base64DecodeString(moreInfo.Get("group"))
