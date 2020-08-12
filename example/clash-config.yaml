@@ -21,10 +21,10 @@ proxy-groups:
   - name: 全局选择
     type: select
     proxies:
-      - 手动选择
       - 延迟最低
-      - 负载均衡
       - 失败切换
+      - 手动选择
+      - 负载均衡
   - name: 手动选择
     type: select
     use:
