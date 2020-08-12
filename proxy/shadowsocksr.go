@@ -53,32 +53,32 @@ func (ssr ShadowsocksR) ToClash() string {
 	return "- " + string(data)
 }
 
-func (ssr ShadowsocksR) SetName(name string) {
+func (ssr *ShadowsocksR) SetName(name string) {
 	ssr.Name = name
 }
 
-func ParseSSRLink(link string) (ShadowsocksR, error) {
+func ParseSSRLink(link string) (*ShadowsocksR, error) {
 	if !strings.HasPrefix(link, "ssr") {
-		return ShadowsocksR{}, ErrorNotSSRLink
+		return nil, ErrorNotSSRLink
 	}
 
 	ssrmix := strings.SplitN(link, "://", 2)
 	if len(ssrmix) < 2 {
-		return ShadowsocksR{}, ErrorNotSSRLink
+		return nil, ErrorNotSSRLink
 	}
 	linkPayloadBase64 := ssrmix[1]
 	payload, err := tool.Base64DecodeString(linkPayloadBase64)
 	if err != nil {
-		return ShadowsocksR{}, ErrorMissingQuery
+		return nil, ErrorMissingQuery
 	}
 
 	infoPayload := strings.SplitN(payload, "/?", 2)
 	if len(infoPayload) < 2 {
-		return ShadowsocksR{}, ErrorNotSSRLink
+		return nil, ErrorNotSSRLink
 	}
 	ssrpath := strings.Split(infoPayload[0], ":")
 	if len(ssrpath) < 6 {
-		return ShadowsocksR{}, ErrorPathNotComplete
+		return nil, ErrorPathNotComplete
 	}
 	// base info
 	server := strings.ToLower(ssrpath[0])
@@ -88,7 +88,7 @@ func ParseSSRLink(link string) (ShadowsocksR, error) {
 	obfs := strings.ToLower(ssrpath[4])
 	password, err := tool.Base64DecodeString(ssrpath[5])
 	if err != nil {
-		return ShadowsocksR{}, ErrorPasswordParseFail
+		return nil, ErrorPasswordParseFail
 	}
 
 	moreInfo, _ := url.ParseQuery(infoPayload[1])
@@ -110,7 +110,7 @@ func ParseSSRLink(link string) (ShadowsocksR, error) {
 	// protocol param
 	protocolParam, err := tool.Base64DecodeString(moreInfo.Get("protoparam"))
 	if err != nil {
-		return ShadowsocksR{}, ErrorProtocolParamParseFail
+		return nil, ErrorProtocolParamParseFail
 	}
 	if strings.HasSuffix(protocolParam, "_compatible") {
 		protocolParam = strings.ReplaceAll(protocolParam, "_compatible", "")
@@ -119,7 +119,7 @@ func ParseSSRLink(link string) (ShadowsocksR, error) {
 	// obfs param
 	obfsParam, err := tool.Base64DecodeString(moreInfo.Get("obfsparam"))
 	if err != nil {
-		return ShadowsocksR{}, ErrorObfsParamParseFail
+		return nil, ErrorObfsParamParseFail
 	}
 	if strings.HasSuffix(obfsParam, "_compatible") {
 		obfsParam = strings.ReplaceAll(obfsParam, "_compatible", "")
@@ -131,7 +131,7 @@ func ParseSSRLink(link string) (ShadowsocksR, error) {
 	//}
 	group := ""
 
-	return ShadowsocksR{
+	return &ShadowsocksR{
 		Base: Base{
 			Name:   remarks + "_" + strconv.Itoa(rand.Int()),
 			Server: server,

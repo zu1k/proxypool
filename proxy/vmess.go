@@ -17,11 +17,6 @@ import (
 var (
 	ErrorNotVmessLink          = errors.New("not a correct vmess link")
 	ErrorVmessPayloadParseFail = errors.New("vmess link payload parse failed")
-	//ErrorPasswordParseFail      = errors.New("password parse failed")
-	//ErrorPathNotComplete        = errors.New("path not complete")
-	//ErrorMissingQuery           = errors.New("link missing query")
-	//ErrorProtocolParamParseFail = errors.New("protocol param parse failed")
-	//ErrorObfsParamParseFail     = errors.New("obfs param parse failed")
 )
 
 type Vmess struct {
@@ -64,7 +59,7 @@ func (v Vmess) ToClash() string {
 	return "- " + string(data)
 }
 
-func (v Vmess) SetName(name string) {
+func (v *Vmess) SetName(name string) {
 	v.Name = name
 }
 
@@ -82,14 +77,14 @@ type vmessLinkJson struct {
 	Tls  string      `json:"tls"`
 }
 
-func ParseVmessLink(link string) (Vmess, error) {
+func ParseVmessLink(link string) (*Vmess, error) {
 	if !strings.HasPrefix(link, "vmess") {
-		return Vmess{}, ErrorNotVmessLink
+		return nil, ErrorNotVmessLink
 	}
 
 	vmessmix := strings.SplitN(link, "://", 2)
 	if len(vmessmix) < 2 {
-		return Vmess{}, ErrorNotVmessLink
+		return nil, ErrorNotVmessLink
 	}
 	linkPayload := vmessmix[1]
 	if strings.Contains(linkPayload, "?") {
@@ -101,30 +96,30 @@ func ParseVmessLink(link string) (Vmess, error) {
 			infoPayloads = strings.SplitN(linkPayload, "?", 2)
 		}
 		if len(infoPayloads) < 2 {
-			return Vmess{}, ErrorNotVmessLink
+			return nil, ErrorNotVmessLink
 		}
 
 		baseInfo, err := tool.Base64DecodeString(infoPayloads[0])
 		if err != nil {
-			return Vmess{}, ErrorVmessPayloadParseFail
+			return nil, ErrorVmessPayloadParseFail
 		}
 		fmt.Println(baseInfo)
 		baseInfoPath := strings.Split(baseInfo, ":")
 		if len(baseInfoPath) < 3 {
-			return Vmess{}, ErrorPathNotComplete
+			return nil, ErrorPathNotComplete
 		}
 		// base info
 		cipher := baseInfoPath[0]
 		mixInfo := strings.SplitN(baseInfoPath[1], "@", 2)
 		if len(mixInfo) < 2 {
-			return Vmess{}, ErrorVmessPayloadParseFail
+			return nil, ErrorVmessPayloadParseFail
 		}
 		uuid := mixInfo[0]
 		server := mixInfo[1]
 		portStr := baseInfoPath[2]
 		port, err := strconv.Atoi(portStr)
 		if err != nil {
-			return Vmess{}, ErrorVmessPayloadParseFail
+			return nil, ErrorVmessPayloadParseFail
 		}
 
 		moreInfo, _ := url.ParseQuery(infoPayloads[1])
@@ -140,7 +135,7 @@ func ParseVmessLink(link string) (Vmess, error) {
 		tls := moreInfo.Get("tls") == "1"
 
 		wsHeaders := make(map[string]string)
-		return Vmess{
+		return &Vmess{
 			Base: Base{
 				Name:   remarks + "_" + strconv.Itoa(rand.Int()),
 				Server: server,
@@ -162,12 +157,12 @@ func ParseVmessLink(link string) (Vmess, error) {
 	} else {
 		payload, err := tool.Base64DecodeString(linkPayload)
 		if err != nil {
-			return Vmess{}, ErrorVmessPayloadParseFail
+			return nil, ErrorVmessPayloadParseFail
 		}
 		vmessJson := vmessLinkJson{}
 		err = json.Unmarshal([]byte(payload), &vmessJson)
 		if err != nil {
-			return Vmess{}, err
+			return nil, err
 		}
 		port := 443
 		portInterface := vmessJson.Port
@@ -186,7 +181,7 @@ func ParseVmessLink(link string) (Vmess, error) {
 		wsHeaders := make(map[string]string)
 		wsHeaders["HOST"] = vmessJson.Host
 
-		return Vmess{
+		return &Vmess{
 			Base: Base{
 				Name:   vmessJson.Ps + "_" + strconv.Itoa(rand.Int()),
 				Server: vmessJson.Add,

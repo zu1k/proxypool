@@ -25,13 +25,13 @@ func (c Clash) Provide() string {
 
 func checkClashSupport(p proxy.Proxy) bool {
 	switch p.(type) {
-	case proxy.ShadowsocksR:
-		ssr := p.(proxy.ShadowsocksR)
+	case *proxy.ShadowsocksR:
+		ssr := p.(*proxy.ShadowsocksR)
 		if checkInList(ssrCipherList, ssr.Cipher) && checkInList(ssrProtocolList, ssr.Protocol) && checkInList(ssrObfsList, ssr.Obfs) {
 			return true
 		}
-	case proxy.Vmess:
-		vmess := p.(proxy.Vmess)
+	case *proxy.Vmess:
+		vmess := p.(*proxy.Vmess)
 		if checkInList(vmessCipherList, vmess.Cipher) {
 			return true
 		}
