@@ -1,6 +1,18 @@
 sources:
   - type: subscribe
     options:
+      url: https://aero.moe/link/kxdbKdopH3paUqUf?sub=3
+  - type: subscribe
+    options:
+      url: http://dy.tntv2.xyz/link/pTL0RgiVblXLIQjS?sub=3&extend=1
+  - type: subscribe
+    options:
+      url: https://719401146.online//link/oHPA3bXVc2zeqGGq?mu=2
+  - type: subscribe
+    options:
+      url: https://www.v2ray.pw/link/b5e255KbnnATXc60?mu=2+&extend=1
+  - type: subscribe
+    options:
       url: http://ssrdingyue.ueuo.com/v2/8y12r
   - type: subscribe
     options:
