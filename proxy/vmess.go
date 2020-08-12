@@ -64,6 +64,10 @@ func (v Vmess) ToClash() string {
 	return "- " + string(data)
 }
 
+func (v Vmess) SetName(name string) {
+	v.Name = name
+}
+
 type vmessLinkJson struct {
 	Add  string      `json:"add"`
 	V    string      `json:"v"`

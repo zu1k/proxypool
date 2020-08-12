@@ -53,6 +53,10 @@ func (ssr ShadowsocksR) ToClash() string {
 	return "- " + string(data)
 }
 
+func (ssr ShadowsocksR) SetName(name string) {
+	ssr.Name = name
+}
+
 func ParseSSRLink(link string) (ShadowsocksR, error) {
 	if !strings.HasPrefix(link, "ssr") {
 		return ShadowsocksR{}, ErrorNotSSRLink
