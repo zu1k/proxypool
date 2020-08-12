@@ -5,7 +5,6 @@ import (
 )
 
 func Cron() {
-	gocron.Every(10).Minutes().Do(CrawlTGChannel)
-
+	_ = gocron.Every(10).Minutes().Do(CrawlTGChannel)
 	<-gocron.Start()
 }

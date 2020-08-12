@@ -41,7 +41,7 @@ func CrawlTGChannel() {
 
 	num := len(proxies)
 	for i := 0; i < num; i++ {
-		proxies[i].SetName("@tgbotlist_" + strconv.Itoa(rand.Int()))
+		proxies[i].SetName(strconv.Itoa(rand.Int()))
 	}
 	cache.SetProxies(proxies)
 	cache.SetString("clashproxies", provider.Clash{Proxies: proxies}.Provide())
