@@ -36,6 +36,11 @@ func CrawlTGChannel() {
 	proxies = append(proxies, getter.NewWebFuzz("https://www.freefq.com/d/file/free-ssr/20200811/1f3e9d0d0064f662457062712dcf1b66.txt").Get()...)
 	proxies = append(proxies, getter.NewWebFuzz("https://merlinblog.xyz/wiki/freess.html").Get()...)
 
+	// 订阅链接
+	proxies = append(proxies, getter.NewSubscribe("https://raw.githubusercontent.com/ssrsub/ssr/master/v2ray").Get()...)
+	proxies = append(proxies, getter.NewSubscribe("https://raw.githubusercontent.com/ssrsub/ssr/master/ssrsub").Get()...)
+	proxies = append(proxies, getter.NewSubscribe("https://raw.githubusercontent.com/ssrsub/ssr/master/ss-sub").Get()...)
+
 	proxies = append(proxies, cache.GetProxies()...)
 	proxies = proxy.Deduplication(proxies)
 

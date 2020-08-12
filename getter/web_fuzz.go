@@ -21,12 +21,7 @@ func (w WebFuzz) Get() []proxy.Proxy {
 	if err != nil {
 		return nil
 	}
-	text := string(body)
-
-	results := proxy.GrepSSRLinkFromString(text)
-	results = append(results, proxy.GrepVmessLinkFromString(text)...)
-
-	return StringArray2ProxyArray(results)
+	return FuzzParseProxyFromString(string(body))
 }
 
 func NewWebFuzz(url string) *WebFuzz {
