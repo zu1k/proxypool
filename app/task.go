@@ -34,6 +34,7 @@ func CrawlGo() {
 	wg := &sync.WaitGroup{}
 	var pc = make(chan proxy.Proxy)
 	for _, g := range Getters {
+		wg.Add(1)
 		go g.Get2Chan(pc, wg)
 	}
 	proxies := cache.GetProxies()

@@ -34,12 +34,11 @@ func (w *WebFreessrXyz) Get() []proxy.Proxy {
 }
 
 func (w *WebFreessrXyz) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
-	wg.Add(1)
+	defer wg.Done()
 	nodes := w.Get()
 	for _, node := range nodes {
 		pc <- node
 	}
-	wg.Done()
 }
 
 func freessrxyzFetch(link string) []proxy.Proxy {

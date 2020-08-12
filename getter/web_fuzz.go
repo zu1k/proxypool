@@ -32,12 +32,11 @@ func (w *WebFuzz) Get() []proxy.Proxy {
 }
 
 func (w *WebFuzz) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
-	wg.Add(1)
+	defer wg.Done()
 	nodes := w.Get()
 	for _, node := range nodes {
 		pc <- node
 	}
-	wg.Done()
 }
 
 func NewWebFuzzGetter(options tool.Options) Getter {

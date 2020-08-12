@@ -40,12 +40,11 @@ func (s *Subscribe) Get() []proxy.Proxy {
 }
 
 func (s *Subscribe) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
-	wg.Add(1)
+	defer wg.Done()
 	nodes := s.Get()
 	for _, node := range nodes {
 		pc <- node
 	}
-	wg.Done()
 }
 
 func NewSubscribe(options tool.Options) Getter {
