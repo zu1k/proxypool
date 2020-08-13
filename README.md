@@ -47,7 +47,9 @@ $ go get -u -v github.com/zu1k/proxypool
 docker pull docker.pkg.github.com/zu1k/proxypool/proxypool:latest
 ```
 
-## 使用共享抓取配置文件
+## 使用
+
+### 共享抓取配置文件
 
 每一次抓取前会自动从github下载最新的抓取配置文件
 
@@ -58,6 +60,10 @@ docker pull docker.pkg.github.com/zu1k/proxypool/proxypool:latest
 ```shell
 proxypool -c source.yaml
 ```
+
+### 帮助更新配置文件
+
+可以在 https://github.com/zu1k/proxypool/issues/3 进行留言
 
 ## 截图
 
