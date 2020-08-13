@@ -1,5 +1,56 @@
 sources:
   - type: subscribe
+      options:
+        url: https://suda.sub.koicloud.pw/link/K9vz0uFPe9ULfdqX?sub=3
+  - type: subscribe
+    options:
+      url: https://raw.githubusercontent.com/Pcrab/Dotfiles/912c1104b3f8121f72f7ee11590f52bc9c44dde7/.config/electron-ssr/gui-config.json
+  - type: subscribe
+      options:
+        url: https://v2.fit/modules/servers/V2raySocks/osubscribe.php?sid=7063&token=lKJwbO2onxIr
+  - type: subscribe
+    options:
+      url: https://www.liesauer.net/yogurt/subscribe?ACCESS_TOKEN=d309c6921bbd7d0d
+  - type: subscribe
+      options:
+        url: https://neurotoxinw.coding.net/p/qifei/d/qifei/git/raw/master/README.md
+  - type: subscribe
+    options:
+      url: https://sbnmsl.co/link/2cpTGUGJtHBXUK7d?sub=3
+  - type: subscribe
+      options:
+        url: https://extrm.info/link/uirPjznB7esOezjr?sub=1
+  - type: subscribe
+    options:
+      url: http://www.sksla.pro/api/v1/client/subscribe?token=99c3fa86424539bd3bd34a893bc6dee8
+  - type: subscribe
+      options:
+        url: https://vvsub.xyz/api/al/19786-xDX1SCq61Ymi
+  - type: subscribe
+    options:
+      url: https://rss-node.com/link/vqOaWFJRfbYxpAhY?mu=1
+  - type: subscribe
+      options:
+        url: https://tm2w.live/link/EqICUlKXmn1EJwaw?sub=3
+  - type: subscribe
+    options:
+      url: https://dingyue.suying666.info/link/o7j43Aykx8CWBehE?sub=3
+  - type: subscribe
+      options:
+        url: https://dingyue.suying666.info/link/o7j43Aykx8CWBehE?sub=1
+  - type: subscribe
+    options:
+      url: https://www.haidaobot.xyz/link/QwdUmWolPN0LkThW?mu=2
+  - type: subscribe
+      options:
+        url: https://pptp.cloud/sub/cXHG9wqUpQbhHr7b.html
+  - type: subscribe
+    options:
+      url: https://suda.sub.koicloud.pw/link/JgULLCNkImsJ6Ibh?sub=3
+  - type: subscribe
+    options:
+      url: https://jiyou.world/modules/servers/V2raySocks/osubscribetest.php?sid=57394&token=V3GM60lgqZL9
+  - type: subscribe
     options:
       url: https://aero.moe/link/kxdbKdopH3paUqUf?sub=3
   - type: subscribe
