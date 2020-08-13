@@ -65,6 +65,12 @@ proxypool -c source.yaml
 
 可以在 https://github.com/zu1k/proxypool/issues/3 进行留言
 
+### 用户使用
+
+目前公开版本： https://proxy.tgbot.co/clash
+
+直接在clash添加配置文件即可使用： https://proxy.tgbot.co/clash/config
+
 ## 截图
 
 ![测速](docs/run.png)
