@@ -248,6 +248,11 @@ sources:
       channel: fanqiang666
       num: 200
 
+  - type: tgchannel
+    options:
+      channel: jiedianfenxiang
+      num: 200
+
   - type: web-fanqiangdang
     options:
       url: https://fanqiangdang.com/forum.php?mod=rss&fid=50&auth=0
