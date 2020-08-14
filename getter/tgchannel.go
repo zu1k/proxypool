@@ -22,14 +22,14 @@ type TGChannelGetter struct {
 
 func NewTGChannelGetter(options tool.Options) Getter {
 	num, found := options["num"]
-	if !found || int(num.(float64)) <= 0 {
+	if !found || num.(int) <= 0 {
 		num = 200
 	}
 	url, found := options["channel"]
 	if found {
 		return &TGChannelGetter{
 			c:         colly.NewCollector(),
-			NumNeeded: int(num.(float64)),
+			NumNeeded: num.(int),
 			Url:       "https://t.me/s/" + url.(string),
 		}
 	}
