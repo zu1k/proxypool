@@ -54,6 +54,7 @@ func (ss Shadowsocks) ToSurge() string {
 		if ss.PluginOpts["host"].(string) != "" {
 			text += ", obfs-host=" + ss.PluginOpts["host"].(string)
 		}
+		return text
 	} else {
 		return fmt.Sprintf("%s = ss, %s, %d, encrypt-method=%s, password=%s, udp-relay=false",
 			ss.Name, ss.Server, ss.Port, ss.Cipher, ss.Password)
