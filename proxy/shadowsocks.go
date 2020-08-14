@@ -59,19 +59,34 @@ func ParseSSLink(link string) (*Shadowsocks, error) {
 		return nil, ErrorNotSSLink
 	}
 
+	cipher := ""
+	password := ""
+	if uri.User.String() == "" {
+		// base64的情况
+		infos, err := tool.Base64DecodeString(uri.Hostname())
+		if err != nil {
+			return nil, err
+		}
+		uri, err = url.Parse("ss://" + infos)
+		if err != nil {
+			return nil, err
+		}
+		cipher = uri.User.Username()
+		password, _ = uri.User.Password()
+	} else {
+		cipherInfoString, err := tool.Base64DecodeString(uri.User.Username())
+		if err != nil {
+			return nil, ErrorPasswordParseFail
+		}
+		cipherInfo := strings.SplitN(cipherInfoString, ":", 2)
+		if len(cipherInfo) < 2 {
+			return nil, ErrorPasswordParseFail
+		}
+		cipher = strings.ToLower(cipherInfo[0])
+		password = cipherInfo[1]
+	}
 	server := uri.Hostname()
 	port, _ := strconv.Atoi(uri.Port())
-
-	cipherInfoString, err := tool.Base64DecodeString(uri.User.Username())
-	if err != nil {
-		return nil, ErrorPasswordParseFail
-	}
-	cipherInfo := strings.SplitN(cipherInfoString, ":", 2)
-	if len(cipherInfo) < 2 {
-		return nil, ErrorPasswordParseFail
-	}
-	cipher := strings.ToLower(cipherInfo[0])
-	password := cipherInfo[1]
 
 	moreInfos := uri.Query()
 	pluginString := moreInfos.Get("plugin")
