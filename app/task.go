@@ -37,6 +37,7 @@ func Crawl() {
 	log.Println("Crawl node count:", num)
 	cache.SetProxies(proxies)
 	cache.SetString("clashproxies", provider.Clash{Proxies: proxies}.Provide())
+	cache.SetString("surgeproxies", provider.Surge{Proxies: proxies}.Provide())
 }
 
 func CrawlGo() {
@@ -68,6 +69,7 @@ func CrawlGo() {
 	log.Println("CrawlGo node count:", num)
 	cache.SetProxies(proxies)
 	cache.SetString("clashproxies", provider.Clash{Proxies: proxies}.Provide())
+	cache.SetString("surgeproxies", provider.Surge{Proxies: proxies}.Provide())
 }
 
 func FetchNewConfigFileThenInit() {

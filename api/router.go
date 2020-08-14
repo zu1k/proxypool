@@ -13,6 +13,7 @@ var router *gin.Engine
 func setupRouter() {
 	router = gin.Default()
 
+	router.StaticFile("/", "example/clash.html")
 	router.StaticFile("/clash", "example/clash.html")
 	router.StaticFile("/clash/config", "example/clash-config.yaml")
 	router.GET("/clash/proxies", func(c *gin.Context) {
@@ -22,6 +23,16 @@ func setupRouter() {
 			clash := provider.Clash{Proxies: proxies}
 			text = clash.Provide()
 			cache.SetString("clashproxies", text)
+		}
+		c.String(200, text)
+	})
+	router.GET("/surge/proxies", func(c *gin.Context) {
+		text := cache.GetString("surgeproxies")
+		if text == "" {
+			proxies := cache.GetProxies()
+			surge := provider.Surge{Proxies: proxies}
+			text = surge.Provide()
+			cache.SetString("surgeproxies", text)
 		}
 		c.String(200, text)
 	})

@@ -11,6 +11,7 @@ type Base struct {
 type Proxy interface {
 	String() string
 	ToClash() string
+	ToSurge() string
 	Identifier() string
 	SetName(name string)
 }

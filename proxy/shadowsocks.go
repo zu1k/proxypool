@@ -3,6 +3,7 @@ package proxy
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"math/rand"
 	"net"
 	"net/url"
@@ -43,6 +44,17 @@ func (ss Shadowsocks) ToClash() string {
 		return ""
 	}
 	return "- " + string(data)
+}
+
+func (ss Shadowsocks) ToSurge() string {
+	// node1 = ss, server, port, encrypt-method=, password=, obfs=, obfs-host=, udp-relay=false
+	if ss.Plugin == "obfs" {
+		return fmt.Sprintf("%s = ss, %s, %d, encrypt-method=%s, password=%s, obfs=%s, obfs-host=%s, udp-relay=false",
+			ss.Name, ss.Server, ss.Port, ss.Cipher, ss.Password, ss.PluginOpts["mode"], ss.PluginOpts["host"])
+	} else {
+		return fmt.Sprintf("%s = ss, %s, %d, encrypt-method=%s, password=%s, udp-relay=false",
+			ss.Name, ss.Server, ss.Port, ss.Cipher, ss.Password)
+	}
 }
 
 func (ss *Shadowsocks) SetName(name string) {

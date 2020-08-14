@@ -46,15 +46,6 @@ func checkClashSupport(p proxy.Proxy) bool {
 	return false
 }
 
-func checkInList(list []string, item string) bool {
-	for _, i := range list {
-		if item == i {
-			return true
-		}
-	}
-	return false
-}
-
 var ssrCipherList = []string{
 	"aes-128-cfb",
 	"aes-192-cfb",
