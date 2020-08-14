@@ -22,14 +22,14 @@ type WebFanqiangdang struct {
 
 func NewWebFanqiangdangGetter(options tool.Options) Getter {
 	num, found := options["num"]
-	if !found || int(num.(float64)) <= 0 {
+	if !found || num.(int) <= 0 {
 		num = 200
 	}
 	url, found := options["url"]
 	if found {
 		return &WebFanqiangdang{
 			c:         colly.NewCollector(),
-			NumNeeded: int(num.(float64)),
+			NumNeeded: num.(int),
 			Url:       url.(string),
 		}
 	}
