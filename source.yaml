@@ -202,6 +202,10 @@ sources:
     options:
       channel: ssrList
       num: 200
+  - type: tgchannel
+    options:
+      channel: ssList
+      num: 200
 
   - type: tgchannel
     options:
