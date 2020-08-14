@@ -207,6 +207,9 @@ func ParseVmessLink(link string) (*Vmess, error) {
 			wsHeaders["HOST"] = vmessJson.Host
 		}
 
+		if vmessJson.Path == "" {
+			vmessJson.Path = "/"
+		}
 		return &Vmess{
 			Base: Base{
 				Name:   vmessJson.Ps + "_" + strconv.Itoa(rand.Int()),
