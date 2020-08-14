@@ -29,7 +29,10 @@ func checkSurgeSupport(p proxy.Proxy) bool {
 	case *proxy.Vmess:
 		return true
 	case *proxy.Shadowsocks:
-		return true
+		ss := p.(*proxy.Shadowsocks)
+		if checkInList(ssCipherList, ss.Cipher) {
+			return true
+		}
 	default:
 		return false
 	}
