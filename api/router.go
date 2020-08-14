@@ -17,6 +17,7 @@ func setupRouter() {
 	router.StaticFile("/clash", "assets/clash.html")
 	router.StaticFile("/surge", "assets/surge.html")
 	router.StaticFile("/clash/config", "assets/clash-config.yaml")
+	router.StaticFile("/surge/config", "assets/surge.conf")
 	router.GET("/clash/proxies", func(c *gin.Context) {
 		text := cache.GetString("clashproxies")
 		if text == "" {
