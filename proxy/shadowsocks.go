@@ -49,8 +49,11 @@ func (ss Shadowsocks) ToClash() string {
 func (ss Shadowsocks) ToSurge() string {
 	// node1 = ss, server, port, encrypt-method=, password=, obfs=, obfs-host=, udp-relay=false
 	if ss.Plugin == "obfs" {
-		return fmt.Sprintf("%s = ss, %s, %d, encrypt-method=%s, password=%s, obfs=%s, obfs-host=%s, udp-relay=false",
-			ss.Name, ss.Server, ss.Port, ss.Cipher, ss.Password, ss.PluginOpts["mode"], ss.PluginOpts["host"])
+		text := fmt.Sprintf("%s = ss, %s, %d, encrypt-method=%s, password=%s, obfs=%s, udp-relay=false",
+			ss.Name, ss.Server, ss.Port, ss.Cipher, ss.Password, ss.PluginOpts["mode"])
+		if ss.PluginOpts["host"].(string) != "" {
+			text += ", obfs-host=" + ss.PluginOpts["host"].(string)
+		}
 	} else {
 		return fmt.Sprintf("%s = ss, %s, %d, encrypt-method=%s, password=%s, udp-relay=false",
 			ss.Name, ss.Server, ss.Port, ss.Cipher, ss.Password)
