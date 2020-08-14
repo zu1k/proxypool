@@ -65,6 +65,10 @@ func (ss *Shadowsocks) SetName(name string) {
 	ss.Name = name
 }
 
+func (ss *Shadowsocks) Type() string {
+	return "ss"
+}
+
 func ParseSSLink(link string) (*Shadowsocks, error) {
 	if !strings.HasPrefix(link, "ss://") {
 		return nil, ErrorNotSSRLink

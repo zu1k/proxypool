@@ -14,6 +14,7 @@ type Proxy interface {
 	ToSurge() string
 	Identifier() string
 	SetName(name string)
+	Type() string
 }
 
 func Deduplication(src []Proxy) []Proxy {
