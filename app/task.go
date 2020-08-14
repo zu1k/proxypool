@@ -5,9 +5,11 @@ import (
 	"io/ioutil"
 	"log"
 	"math/rand"
-	"os"
 	"strconv"
 	"sync"
+
+	"github.com/zu1k/proxypool/config"
+	"gopkg.in/yaml.v2"
 
 	"github.com/zu1k/proxypool/app/cache"
 	"github.com/zu1k/proxypool/provider"
@@ -76,12 +78,10 @@ func FetchNewConfigFileThenInit() {
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
+
+	err = yaml.Unmarshal(body, &config.SourceConfig)
 	if err != nil {
 		return
 	}
-	err = ioutil.WriteFile("source.yaml", body, os.ModePerm)
-	if err != nil {
-		return
-	}
-	InitConfigAndGetters("source.yaml")
+	InitGetters(config.SourceConfig.Sources)
 }
