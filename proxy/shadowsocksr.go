@@ -53,6 +53,10 @@ func (ssr ShadowsocksR) ToClash() string {
 	return "- " + string(data)
 }
 
+func (ssr ShadowsocksR) ToSurge() string {
+	return ""
+}
+
 func (ssr *ShadowsocksR) SetName(name string) {
 	ssr.Name = name
 }

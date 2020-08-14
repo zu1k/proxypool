@@ -3,6 +3,7 @@ package proxy
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"math/rand"
 	"net"
 	"net/url"
@@ -56,6 +57,25 @@ func (v Vmess) ToClash() string {
 		return ""
 	}
 	return "- " + string(data)
+}
+
+func (v Vmess) ToSurge() string {
+	// node2 = vmess, server, port, username=, ws=true, ws-path=, ws-headers=
+	if v.Network == "ws" {
+		wsHeasers := ""
+		for k, v := range v.WSHeaders {
+			if wsHeasers == "" {
+				wsHeasers = k + ":" + v
+			} else {
+				wsHeasers += "|" + k + ":" + v
+			}
+		}
+		return fmt.Sprintf("%s = vmess, %s, %d, username=%s, ws=true, tls=%t, ws-path=%s, ws-headers=%s",
+			v.Name, v.Server, v.Port, v.UUID, v.TLS, v.WSPath, wsHeasers)
+	} else {
+		return fmt.Sprintf("%s = vmess, %s, %d, username=%s, tls=%t",
+			v.Name, v.Server, v.Port, v.UUID, v.TLS)
+	}
 }
 
 func (v *Vmess) SetName(name string) {
