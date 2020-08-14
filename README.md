@@ -2,7 +2,7 @@
   <br>proxypool<br>
 </h1>
 
-<h5 align="center">自动抓取tg频道、订阅地址、公开互联网上的ss、ssr、vmess节点信息，聚合去重后提供clash配置</h5>
+<h5 align="center">自动抓取tg频道、订阅地址、公开互联网上的ss、ssr、vmess节点信息，聚合去重后提供节点列表</h5>
 
 <p align="center">
   <a href="https://github.com/zu1k/proxypool/actions">
@@ -67,7 +67,7 @@ proxypool -c source.yaml
 
 ### 用户使用
 
-目前公开版本： https://proxy.tgbot.co/clash
+目前公开版本： https://proxy.tgbot.co
 
 直接在clash添加配置文件即可使用： https://proxy.tgbot.co/clash/config
 
