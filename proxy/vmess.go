@@ -86,6 +86,10 @@ func (v *Vmess) SetName(name string) {
 	v.Name = name
 }
 
+func (v *Vmess) Type() string {
+	return "vmess"
+}
+
 type vmessLinkJson struct {
 	Add  string      `json:"add"`
 	V    string      `json:"v"`

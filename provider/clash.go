@@ -8,15 +8,29 @@ import (
 
 type Clash struct {
 	Proxies []proxy.Proxy `yaml:"proxies"`
+	Types   string        `yaml:"type"`
 }
 
 func (c Clash) Provide() string {
 	var resultBuilder strings.Builder
-
 	resultBuilder.WriteString("proxies:\n")
-	for _, p := range c.Proxies {
-		if checkClashSupport(p) {
-			resultBuilder.WriteString(p.ToClash() + "\n")
+
+	if c.Types == "" || c.Types == "all" {
+		for _, p := range c.Proxies {
+			if checkClashSupport(p) {
+				resultBuilder.WriteString(p.ToClash() + "\n")
+			}
+		}
+	} else {
+		types := strings.Split(c.Types, ",")
+		for _, p := range c.Proxies {
+			if checkClashSupport(p) {
+				for _, t := range types {
+					if p.Type() == t {
+						resultBuilder.WriteString(p.ToClash() + "\n")
+					}
+				}
+			}
 		}
 	}
 
@@ -24,18 +38,18 @@ func (c Clash) Provide() string {
 }
 
 func checkClashSupport(p proxy.Proxy) bool {
-	switch p.(type) {
-	case *proxy.ShadowsocksR:
+	switch p.Type() {
+	case "ssr":
 		ssr := p.(*proxy.ShadowsocksR)
 		if checkInList(ssrCipherList, ssr.Cipher) && checkInList(ssrProtocolList, ssr.Protocol) && checkInList(ssrObfsList, ssr.Obfs) {
 			return true
 		}
-	case *proxy.Vmess:
+	case "vmess":
 		vmess := p.(*proxy.Vmess)
 		if checkInList(vmessCipherList, vmess.Cipher) {
 			return true
 		}
-	case *proxy.Shadowsocks:
+	case "ss":
 		ss := p.(*proxy.Shadowsocks)
 		if checkInList(ssCipherList, ss.Cipher) {
 			return true
