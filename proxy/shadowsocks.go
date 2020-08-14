@@ -119,6 +119,9 @@ func ParseSSLink(link string) (*Shadowsocks, error) {
 			}
 		}
 	}
+	if port == 0 || cipher == "" {
+		return nil, ErrorNotSSLink
+	}
 
 	return &Shadowsocks{
 		Base: Base{
