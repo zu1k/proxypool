@@ -153,6 +153,9 @@ func ParseVmessLink(link string) (*Vmess, error) {
 		}
 		//obfsParam := moreInfo.Get("obfsParam")
 		path := moreInfo.Get("path")
+		if path == "" {
+			path = "/"
+		}
 		tls := moreInfo.Get("tls") == "1"
 
 		wsHeaders := make(map[string]string)
