@@ -13,9 +13,10 @@ var router *gin.Engine
 func setupRouter() {
 	router = gin.Default()
 
-	router.StaticFile("/", "example/clash.html")
-	router.StaticFile("/clash", "example/clash.html")
-	router.StaticFile("/clash/config", "example/clash-config.yaml")
+	router.StaticFile("/", "assets/index.html")
+	router.StaticFile("/clash", "assets/clash.html")
+	router.StaticFile("/surge", "assets/surge.html")
+	router.StaticFile("/clash/config", "assets/clash-config.yaml")
 	router.GET("/clash/proxies", func(c *gin.Context) {
 		text := cache.GetString("clashproxies")
 		if text == "" {
