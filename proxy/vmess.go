@@ -196,7 +196,9 @@ func ParseVmessLink(link string) (*Vmess, error) {
 		tls := vmessJson.Tls == "tls"
 
 		wsHeaders := make(map[string]string)
-		wsHeaders["HOST"] = vmessJson.Host
+		if vmessJson.Host != "" {
+			wsHeaders["HOST"] = vmessJson.Host
+		}
 
 		return &Vmess{
 			Base: Base{
