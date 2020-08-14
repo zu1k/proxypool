@@ -14,7 +14,7 @@ func (s Surge) Provide() string {
 	var resultBuilder strings.Builder
 
 	for _, p := range s.Proxies {
-		if checkClashSupport(p) {
+		if checkSurgeSupport(p) {
 			resultBuilder.WriteString(p.ToSurge() + "\n")
 		}
 	}
