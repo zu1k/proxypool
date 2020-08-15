@@ -21,8 +21,8 @@ const (
 type WebFreessrXyz struct {
 }
 
-func NewWebFreessrxyzGetter(options tool.Options) Getter {
-	return &WebFreessrXyz{}
+func NewWebFreessrxyzGetter(options tool.Options) (getter Getter, err error) {
+	return &WebFreessrXyz{}, nil
 }
 
 func (w *WebFreessrXyz) Get() []proxy.Proxy {

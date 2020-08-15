@@ -20,7 +20,7 @@ type TGChannelGetter struct {
 	Url       string
 }
 
-func NewTGChannelGetter(options tool.Options) Getter {
+func NewTGChannelGetter(options tool.Options) (getter Getter, err error) {
 	num, found := options["num"]
 	t := 200
 	switch num.(type) {
@@ -33,15 +33,19 @@ func NewTGChannelGetter(options tool.Options) Getter {
 	if !found || t <= 0 {
 		t = 200
 	}
-	url, found := options["channel"]
+	urlInterface, found := options["channel"]
 	if found {
+		url, err := AssertTypeStringNotNull(urlInterface)
+		if err != nil {
+			return nil, err
+		}
 		return &TGChannelGetter{
 			c:         colly.NewCollector(),
 			NumNeeded: t,
-			Url:       "https://t.me/s/" + url.(string),
-		}
+			Url:       "https://t.me/s/" + url,
+		}, nil
 	}
-	return nil
+	return nil, ErrorUrlNotFound
 }
 
 func (g *TGChannelGetter) Get() []proxy.Proxy {

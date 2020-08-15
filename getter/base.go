@@ -1,6 +1,7 @@
 package getter
 
 import (
+	"errors"
 	"strings"
 	"sync"
 
@@ -13,7 +14,7 @@ type Getter interface {
 	Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup)
 }
 
-type creator func(options tool.Options) Getter
+type creator func(options tool.Options) (getter Getter, err error)
 
 var creatorMap = make(map[string]creator)
 
@@ -21,12 +22,12 @@ func Register(sourceType string, c creator) {
 	creatorMap[sourceType] = c
 }
 
-func NewGetter(sourceType string, options tool.Options) Getter {
+func NewGetter(sourceType string, options tool.Options) (getter Getter, err error) {
 	c, ok := creatorMap[sourceType]
 	if ok {
 		return c(options)
 	}
-	return nil
+	return nil, ErrorCreaterNotSupported
 }
 
 func String2Proxy(link string) proxy.Proxy {
@@ -62,4 +63,22 @@ func GrepLinksFromString(text string) []string {
 
 func FuzzParseProxyFromString(text string) []proxy.Proxy {
 	return StringArray2ProxyArray(GrepLinksFromString(text))
+}
+
+var (
+	ErrorUrlNotFound         = errors.New("url should be specified")
+	ErrorCreaterNotSupported = errors.New("type not supported")
+)
+
+func AssertTypeStringNotNull(i interface{}) (str string, err error) {
+	switch i.(type) {
+	case string:
+		str = i.(string)
+		if str == "" {
+			return "", errors.New("string is null")
+		}
+	default:
+		return "", errors.New("type is not string")
+	}
+	return "", nil
 }

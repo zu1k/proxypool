@@ -1,8 +1,8 @@
 package app
 
 import (
+	"errors"
 	"fmt"
-	"os"
 
 	"github.com/zu1k/proxypool/config"
 	"github.com/zu1k/proxypool/getter"
@@ -10,24 +10,23 @@ import (
 
 var Getters = make([]getter.Getter, 0)
 
-func InitConfigAndGetters(path string) {
+func InitConfigAndGetters(path string) (err error) {
 	c, err := config.Parse(path)
 	if err != nil {
-		fmt.Println("Error: ", err.Error())
-		os.Exit(1)
+		return err
 	}
 	if c == nil {
-		fmt.Println("Error: no sources")
-		os.Exit(2)
+		return errors.New("no sources")
 	}
 	InitGetters(c.Sources)
+	return nil
 }
 
 func InitGetters(sources []config.Source) {
 	Getters = make([]getter.Getter, 0)
 	for _, source := range sources {
-		g := getter.NewGetter(source.Type, source.Options)
-		if g != nil {
+		g, err := getter.NewGetter(source.Type, source.Options)
+		if err == nil && g != nil {
 			Getters = append(Getters, g)
 			fmt.Println("init getter:", source.Type, source.Options)
 		}

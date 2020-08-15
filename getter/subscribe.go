@@ -46,12 +46,16 @@ func (s *Subscribe) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
 	}
 }
 
-func NewSubscribe(options tool.Options) Getter {
-	url, found := options["url"]
+func NewSubscribe(options tool.Options) (getter Getter, err error) {
+	urlInterface, found := options["url"]
 	if found {
-		return &Subscribe{
-			Url: url.(string),
+		url, err := AssertTypeStringNotNull(urlInterface)
+		if err != nil {
+			return nil, err
 		}
+		return &Subscribe{
+			Url: url,
+		}, nil
 	}
-	return nil
+	return nil, ErrorUrlNotFound
 }
