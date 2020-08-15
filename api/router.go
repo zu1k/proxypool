@@ -19,9 +19,9 @@ func setupRouter() {
 	router.StaticFile("/clash/config", "assets/clash-config.yaml")
 	router.StaticFile("/surge/config", "assets/surge.conf")
 	router.GET("/clash/proxies", func(c *gin.Context) {
-		proxyTypes := c.DefaultQuery("type", "all")
+		proxyTypes := c.DefaultQuery("type", "")
 		text := ""
-		if proxyTypes == "all" {
+		if proxyTypes == "all" || proxyTypes == "" {
 			text = cache.GetString("clashproxies")
 			if text == "" {
 				proxies := cache.GetProxies()

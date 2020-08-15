@@ -68,13 +68,14 @@ func CrawlGo() {
 	for i := 0; i < num; i++ {
 		proxies[i].SetName(strconv.Itoa(rand.Int()))
 	}
+
 	log.Println("CrawlGo node count:", num)
 	cache.SetProxies(proxies)
-	cache.SetString("surgeproxies", provider.Surge{Proxies: proxies}.Provide())
 
 	proxies = checker.CleanProxies(provider.Clash{Proxies: proxies}.CleanProxies())
 	log.Println("CrawlGo clash useable node count:", len(proxies))
 	cache.SetString("clashproxies", provider.Clash{Proxies: proxies}.Provide())
+	cache.SetString("surgeproxies", provider.Surge{Proxies: proxies}.Provide())
 }
 
 func FetchNewConfigFileThenInit() {
