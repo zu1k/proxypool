@@ -2,7 +2,7 @@
   <br>proxypool<br>
 </h1>
 
-<h5 align="center">自动抓取tg频道、订阅地址、公开互联网上的ss、ssr、vmess节点信息，聚合去重后提供节点列表</h5>
+<h5 align="center">自动抓取tg频道、订阅地址、公开互联网上的ss、ssr、vmess节点信息，聚合去重测试可用性后提供节点列表</h5>
 
 <p align="center">
   <a href="https://github.com/zu1k/proxypool/actions">
@@ -16,6 +16,8 @@
   </a>
 </p>
 
+![Star](https://img.shields.io/github/stars/zu1k/proxypool.svg?style=social&label=Star) 来都来了，不点个Star再走？ 
+
 ## 支持
 
 - 支持ss、ssr、vmess节点链接与订阅
@@ -26,6 +28,7 @@
 - 其他节点分享网站
 - 定时抓取更新
 - 使用配置文件提供抓取源
+- 自动检测节点可用性
 
 ## 安装
 
@@ -73,4 +76,6 @@ proxypool -c source.yaml
 
 ## 截图
 
-![测速](docs/run.png)
+![Speedtest](docs/speedtest.png)
+
+![Fast](docs/fast.png)
