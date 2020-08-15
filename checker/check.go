@@ -10,7 +10,7 @@ import (
 	"github.com/zu1k/proxypool/proxy"
 )
 
-const defaultURLTestTimeout = time.Second * 5
+const defaultURLTestTimeout = time.Second * 15
 
 func Check(p proxy.Proxy) (delay uint16, err error) {
 	pmap := make(map[string]interface{})
@@ -44,7 +44,6 @@ func CleanProxies(proxies []proxy.Proxy) (cproxies []proxy.Proxy) {
 	size := len(proxies)
 	for i := 0; i < size; i++ {
 		r := <-c
-		fmt.Println(r.delay)
 		if r.delay > 0 {
 			okMap[r.name] = struct{}{}
 		}
@@ -55,7 +54,6 @@ func CleanProxies(proxies []proxy.Proxy) (cproxies []proxy.Proxy) {
 			cproxies = append(cproxies, p)
 		}
 	}
-	fmt.Println("len", len(cproxies))
 	return
 }
 
