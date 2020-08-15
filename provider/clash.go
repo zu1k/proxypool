@@ -11,6 +11,16 @@ type Clash struct {
 	Types   string        `yaml:"type"`
 }
 
+func (c Clash) CleanProxies() (proxies []proxy.Proxy) {
+	proxies = make([]proxy.Proxy, 0)
+	for _, p := range c.Proxies {
+		if checkClashSupport(p) {
+			proxies = append(proxies, p)
+		}
+	}
+	return
+}
+
 func (c Clash) Provide() string {
 	var resultBuilder strings.Builder
 	resultBuilder.WriteString("proxies:\n")

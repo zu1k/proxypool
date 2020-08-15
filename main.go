@@ -19,5 +19,6 @@ func main() {
 	go app.Cron()
 	fmt.Println("Do the first crawl...")
 	app.CrawlGo()
+
 	api.Run()
 }

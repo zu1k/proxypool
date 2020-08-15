@@ -3,6 +3,7 @@ module github.com/zu1k/proxypool
 go 1.14
 
 require (
+	github.com/Dreamacro/clash v1.0.1-0.20200812125056-8b7c731fd629
 	github.com/PuerkitoBio/goquery v1.5.1 // indirect
 	github.com/andybalholm/cascadia v1.2.0 // indirect
 	github.com/antchfx/htmlquery v1.2.3 // indirect
@@ -18,16 +19,19 @@ require (
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/kr/pretty v0.1.0 // indirect
+	github.com/miekg/dns v1.1.31 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/oschwald/maxminddb-golang v1.7.0 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
 	github.com/spf13/cobra v1.0.0 // indirect
 	github.com/spf13/viper v1.7.1 // indirect
-	github.com/stretchr/testify v1.5.1 // indirect
 	github.com/temoto/robotstxt v1.1.1 // indirect
-	golang.org/x/net v0.0.0-20200625001655-4c5254603344 // indirect
-	golang.org/x/sys v0.0.0-20200810151505-1b9f1253b3ed // indirect
+	golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de // indirect
+	golang.org/x/net v0.0.0-20200813134508-3edf25e44fcc // indirect
+	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208 // indirect
+	golang.org/x/sys v0.0.0-20200814200057-3d37ad5750ed // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
