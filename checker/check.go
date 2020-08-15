@@ -30,8 +30,8 @@ func Check(p proxy.Proxy) (delay uint16, err error) {
 		return
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), defaultURLTestTimeout)
+	defer cancel()
 	delay, err = clashProxy.URLTest(ctx, "http://www.gstatic.com/generate_204")
-	cancel()
 	return delay, err
 }
 
