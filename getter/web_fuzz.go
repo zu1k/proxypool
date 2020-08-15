@@ -37,10 +37,14 @@ func (w *WebFuzz) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
 	}
 }
 
-func NewWebFuzzGetter(options tool.Options) Getter {
-	url, found := options["url"]
+func NewWebFuzzGetter(options tool.Options) (getter Getter, err error) {
+	urlInterface, found := options["url"]
 	if found {
-		return &WebFuzz{Url: url.(string)}
+		url, err := AssertTypeStringNotNull(urlInterface)
+		if err != nil {
+			return nil, err
+		}
+		return &WebFuzz{Url: url}, nil
 	}
-	return nil
+	return nil, ErrorUrlNotFound
 }

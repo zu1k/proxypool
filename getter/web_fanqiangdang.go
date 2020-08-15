@@ -20,7 +20,7 @@ type WebFanqiangdang struct {
 	results   []string
 }
 
-func NewWebFanqiangdangGetter(options tool.Options) Getter {
+func NewWebFanqiangdangGetter(options tool.Options) (getter Getter, err error) {
 	num, found := options["num"]
 
 	t := 200
@@ -34,15 +34,19 @@ func NewWebFanqiangdangGetter(options tool.Options) Getter {
 	if !found || t <= 0 {
 		t = 200
 	}
-	url, found := options["url"]
+	urlInterface, found := options["url"]
 	if found {
+		url, err := AssertTypeStringNotNull(urlInterface)
+		if err != nil {
+			return nil, err
+		}
 		return &WebFanqiangdang{
 			c:         colly.NewCollector(),
 			NumNeeded: t,
-			Url:       url.(string),
-		}
+			Url:       url,
+		}, nil
 	}
-	return nil
+	return nil, ErrorUrlNotFound
 }
 
 func (w *WebFanqiangdang) Get() []proxy.Proxy {

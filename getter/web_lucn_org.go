@@ -19,8 +19,8 @@ const lucnorgSsrLink = "https://lncn.org/api/ssrList"
 type WebLucnOrg struct {
 }
 
-func NewWebLucnorg(options tool.Options) Getter {
-	return &WebLucnOrg{}
+func NewWebLucnorg(options tool.Options) (getter Getter, err error) {
+	return &WebLucnOrg{}, nil
 }
 
 func (w *WebLucnOrg) Get() []proxy.Proxy {

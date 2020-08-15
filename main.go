@@ -18,7 +18,10 @@ func main() {
 	if *filePath == "" {
 		app.NeedFetchNewConfigFile = true
 	} else {
-		app.InitConfigAndGetters(*filePath)
+		err := app.InitConfigAndGetters(*filePath)
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 	go app.Cron()
 	fmt.Println("Do the first crawl...")
