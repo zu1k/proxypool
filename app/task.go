@@ -63,17 +63,15 @@ func CrawlGo() {
 		}
 	}
 	proxies = proxy.Deduplication(proxies)
-
-	num := len(proxies)
-	for i := 0; i < num; i++ {
-		proxies[i].SetName(strconv.Itoa(rand.Int()))
-	}
-
-	log.Println("CrawlGo node count:", num)
-	cache.SetProxies(proxies)
-
+	log.Println("CrawlGo node count:", len(proxies))
 	proxies = checker.CleanProxies(provider.Clash{Proxies: proxies}.CleanProxies())
 	log.Println("CrawlGo clash useable node count:", len(proxies))
+
+	num := len(proxies)
+	for i := 1; i <= num; i++ {
+		proxies[i].SetName("tgbot.co_" + strconv.Itoa(i))
+	}
+	cache.SetProxies(proxies)
 	cache.SetString("clashproxies", provider.Clash{Proxies: proxies}.Provide())
 	cache.SetString("surgeproxies", provider.Surge{Proxies: proxies}.Provide())
 }
