@@ -8,6 +8,8 @@ import (
 	"strconv"
 	"sync"
 
+	"github.com/zu1k/proxypool/checker"
+
 	"github.com/zu1k/proxypool/config"
 	"gopkg.in/yaml.v2"
 
@@ -68,8 +70,11 @@ func CrawlGo() {
 	}
 	log.Println("CrawlGo node count:", num)
 	cache.SetProxies(proxies)
-	cache.SetString("clashproxies", provider.Clash{Proxies: proxies}.Provide())
 	cache.SetString("surgeproxies", provider.Surge{Proxies: proxies}.Provide())
+
+	proxies = checker.CleanProxies(provider.Clash{Proxies: proxies}.CleanProxies())
+	log.Println("CrawlGo clash useable node count:", len(proxies))
+	cache.SetString("clashproxies", provider.Clash{Proxies: proxies}.Provide())
 }
 
 func FetchNewConfigFileThenInit() {
