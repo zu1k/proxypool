@@ -173,30 +173,35 @@ sources:
   - type: subscribe
     options:
       url: https://jiang.netlify.com/
-
   - type: subscribe
     options:
       url: https://raw.githubusercontent.com/ssrsub/ssr/master/v2ray
-
   - type: subscribe
     options:
       url: https://raw.githubusercontent.com/ssrsub/ssr/master/ssrsub
-
   - type: subscribe
     options:
       url: https://raw.githubusercontent.com/ssrsub/ssr/master/ss-sub
+  - type: subscribe
+    options:
+      url: https://heikejilaila.xyz/keji.php?id=22c7b9fdda20bb7405b270cd75971f66
+  - type: subscribe
+    options:
+      url: https://youlianboshi.netlify.app/
 
   - type: webfuzz
     options:
       url: https://zfjvpn.gitbook.io/
-
   - type: webfuzz
     options:
       url: https://www.freefq.com/d/file/free-ssr/20200811/1f3e9d0d0064f662457062712dcf1b66.txt
-
   - type: webfuzz
     options:
       url: https://merlinblog.xyz/wiki/freess.html
+  - type: webfuzz
+    options:
+      url: https://zfjvpn.gitbook.io/123/
+
 
   - type: tgchannel
     options:

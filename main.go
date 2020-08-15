@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	_ "net/http/pprof"
 
 	"github.com/zu1k/proxypool/api"
 	"github.com/zu1k/proxypool/app"
