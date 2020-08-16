@@ -9,9 +9,9 @@ import (
 	"github.com/Dreamacro/clash/adapters/outbound"
 )
 
-const defaultURLTestTimeout = time.Second * 15
+const defaultURLTestTimeout = time.Second * 5
 
-func Check(p Proxy) (delay uint16, err error) {
+func testDelay(p Proxy) (delay uint16, err error) {
 	pmap := make(map[string]interface{})
 	err = json.Unmarshal([]byte(p.String()), &pmap)
 	if err != nil {
@@ -28,16 +28,18 @@ func Check(p Proxy) (delay uint16, err error) {
 		fmt.Println(err.Error())
 		return
 	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), defaultURLTestTimeout)
-	defer cancel()
 	delay, err = clashProxy.URLTest(ctx, "http://www.gstatic.com/generate_204")
+	cancel()
 	return delay, err
 }
 
 func CleanProxies(proxies []Proxy) (cproxies []Proxy) {
 	c := make(chan checkResult, 40)
+	defer close(c)
 	for _, p := range proxies {
-		go checkProxyWithChan(p, c)
+		go testProxyDelayToChan(p, c)
 	}
 	okMap := make(map[string]struct{})
 	size := len(proxies)
@@ -61,8 +63,8 @@ type checkResult struct {
 	delay uint16
 }
 
-func checkProxyWithChan(p Proxy, c chan checkResult) {
-	delay, err := Check(p)
+func testProxyDelayToChan(p Proxy, c chan checkResult) {
+	delay, err := testDelay(p)
 	if err != nil {
 		c <- checkResult{
 			name:  p.Identifier(),
