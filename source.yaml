@@ -1,4 +1,5 @@
 sources:
+  # 订阅链接
   - type: subscribe
     options:
       url: https://suda.sub.koicloud.pw/link/K9vz0uFPe9ULfdqX?sub=3
@@ -189,6 +190,7 @@ sources:
     options:
       url: https://youlianboshi.netlify.app/
 
+  # 网页模糊抓取
   - type: webfuzz
     options:
       url: https://zfjvpn.gitbook.io/
@@ -202,7 +204,7 @@ sources:
     options:
       url: https://zfjvpn.gitbook.io/123/
 
-
+  # tg频道
   - type: tgchannel
     options:
       channel: ssrList
@@ -211,67 +213,60 @@ sources:
     options:
       channel: ssList
       num: 200
-
   - type: tgchannel
     options:
       channel: SSRSUB
       num: 200
-
   - type: tgchannel
     options:
       channel: FreeSSRNode
       num: 200
-
   - type: tgchannel
     options:
       channel: ssrlists
       num: 200
-
   - type: tgchannel
     options:
       channel: ssrshares
       num: 200
-
   - type: tgchannel
     options:
       channel: V2List
       num: 200
-
   - type: tgchannel
     options:
       channel: ssrtool
       num: 200
-
   - type: tgchannel
     options:
       channel: vmessr
       num: 200
-
   - type: tgchannel
     options:
       channel: FreeSSR666
       num: 200
-
   - type: tgchannel
     options:
       channel: fanqiang666
       num: 200
-
   - type: tgchannel
     options:
       channel: jiedianfenxiang
       num: 200
-
+  - type: tgchannel
+    options:
+      channel: freeshadowsock
+      num: 200
+  
+  # 翻墙党，后面的东西都无需修改
   - type: web-fanqiangdang
     options:
       url: https://fanqiangdang.com/forum.php?mod=rss&fid=50&auth=0
       num: 200
-
   - type: web-fanqiangdang
     options:
       url: https://fanqiangdang.com/forum.php?mod=rss&fid=2&auth=0
       num: 200
-
   - type: web-fanqiangdang
     options:
       url: https://fanqiangdang.com/forum.php?mod=rss&fid=36&auth=0
