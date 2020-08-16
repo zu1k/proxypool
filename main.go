@@ -23,6 +23,8 @@ func main() {
 			fmt.Println(err)
 		}
 	}
+	app.InitGeoIpDB()
+
 	go app.Cron()
 	fmt.Println("Do the first crawl...")
 	app.CrawlGo()

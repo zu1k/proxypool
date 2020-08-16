@@ -7,6 +7,6 @@ var (
 	ProjectName = "proxypool"
 )
 
-func init() {
+func InitGeoIpDB() {
 	GeoIp = proxy.NewGeoIP("assets/GeoLite2-City.mmdb")
 }
