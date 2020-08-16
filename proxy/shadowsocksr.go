@@ -65,6 +65,10 @@ func (ssr *ShadowsocksR) Type() string {
 	return "ssr"
 }
 
+func (ssr *ShadowsocksR) BaseInfo() *Base {
+	return &ssr.Base
+}
+
 func ParseSSRLink(link string) (*ShadowsocksR, error) {
 	if !strings.HasPrefix(link, "ssr") {
 		return nil, ErrorNotSSRLink
