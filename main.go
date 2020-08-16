@@ -6,19 +6,29 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 
+	_ "github.com/mkevac/debugcharts"
 	"github.com/zu1k/proxypool/api"
 	"github.com/zu1k/proxypool/app"
 )
 
-func main() {
-	go pprof()
+var (
+	debugMode      = false
+	configFilePath = ""
+)
 
-	filePath := flag.String("c", "", "path to config file: source.yaml")
+func main() {
+	flag.StringVar(&configFilePath, "c", "", "path to config file: source.yaml")
+	flag.BoolVar(&debugMode, "d", false, "debug mode")
 	flag.Parse()
-	if *filePath == "" {
+
+	if debugMode {
+		go pprof()
+	}
+
+	if configFilePath == "" {
 		app.NeedFetchNewConfigFile = true
 	} else {
-		err := app.InitConfigAndGetters(*filePath)
+		err := app.InitConfigAndGetters(configFilePath)
 		if err != nil {
 			fmt.Println(err)
 		}
