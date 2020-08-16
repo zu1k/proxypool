@@ -1,4 +1,4 @@
-package checker
+package proxy
 
 import (
 	"context"
@@ -7,12 +7,11 @@ import (
 	"time"
 
 	"github.com/Dreamacro/clash/adapters/outbound"
-	"github.com/zu1k/proxypool/proxy"
 )
 
 const defaultURLTestTimeout = time.Second * 15
 
-func Check(p proxy.Proxy) (delay uint16, err error) {
+func Check(p Proxy) (delay uint16, err error) {
 	pmap := make(map[string]interface{})
 	err = json.Unmarshal([]byte(p.String()), &pmap)
 	if err != nil {
@@ -35,7 +34,7 @@ func Check(p proxy.Proxy) (delay uint16, err error) {
 	return delay, err
 }
 
-func CleanProxies(proxies []proxy.Proxy) (cproxies []proxy.Proxy) {
+func CleanProxies(proxies []Proxy) (cproxies []Proxy) {
 	c := make(chan checkResult, 40)
 	for _, p := range proxies {
 		go checkProxyWithChan(p, c)
@@ -48,7 +47,7 @@ func CleanProxies(proxies []proxy.Proxy) (cproxies []proxy.Proxy) {
 			okMap[r.name] = struct{}{}
 		}
 	}
-	cproxies = make([]proxy.Proxy, 0)
+	cproxies = make([]Proxy, 0)
 	for _, p := range proxies {
 		if _, ok := okMap[p.Identifier()]; ok {
 			cproxies = append(cproxies, p)
@@ -62,7 +61,7 @@ type checkResult struct {
 	delay uint16
 }
 
-func checkProxyWithChan(p proxy.Proxy, c chan checkResult) {
+func checkProxyWithChan(p Proxy, c chan checkResult) {
 	delay, err := Check(p)
 	if err != nil {
 		c <- checkResult{

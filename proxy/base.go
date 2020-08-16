@@ -15,6 +15,7 @@ type Proxy interface {
 	Identifier() string
 	SetName(name string)
 	Type() string
+	BaseInfo() *Base
 }
 
 func Deduplication(src []Proxy) []Proxy {

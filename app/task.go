@@ -8,8 +8,6 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/zu1k/proxypool/checker"
-
 	"github.com/zu1k/proxypool/config"
 	"gopkg.in/yaml.v2"
 
@@ -64,12 +62,16 @@ func CrawlGo() {
 	}
 	proxies = proxy.Deduplication(proxies)
 	log.Println("CrawlGo node count:", len(proxies))
-	proxies = checker.CleanProxies(provider.Clash{Proxies: proxies}.CleanProxies())
+	proxies = proxy.CleanProxies(provider.Clash{Proxies: proxies}.CleanProxies())
 	log.Println("CrawlGo clash useable node count:", len(proxies))
 
 	num := len(proxies)
 	for i := 0; i < num; i++ {
-		proxies[i].SetName("tgbot.co_" + strconv.Itoa(i+1))
+		country, err := GeoIp.Find(proxies[i].BaseInfo().Server)
+		if err != nil {
+			country = "Earth"
+		}
+		proxies[i].SetName(fmt.Sprintf("%s_%d_%s", ProjectName, i+1, country))
 	}
 	cache.SetProxies(proxies)
 	cache.SetString("clashproxies", provider.Clash{Proxies: proxies}.Provide())
