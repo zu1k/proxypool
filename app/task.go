@@ -68,7 +68,7 @@ func CrawlGo() {
 	num := len(proxies)
 	for i := 0; i < num; i++ {
 		country, err := GeoIp.Find(proxies[i].BaseInfo().Server)
-		if err != nil {
+		if err != nil || country == "" {
 			country = "Earth"
 		}
 		proxies[i].SetName(fmt.Sprintf("%s_%d_%s", ProjectName, i+1, country))
