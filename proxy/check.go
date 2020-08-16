@@ -68,6 +68,7 @@ func checkProxyWithChan(p Proxy, c chan checkResult) {
 			name:  p.Identifier(),
 			delay: 0,
 		}
+		return
 	}
 	c <- checkResult{
 		name:  p.Identifier(),
