@@ -82,18 +82,6 @@ func (v Vmess) ToSurge() string {
 	}
 }
 
-func (v *Vmess) SetName(name string) {
-	v.Name = name
-}
-
-func (v *Vmess) Type() string {
-	return "vmess"
-}
-
-func (v *Vmess) BaseInfo() *Base {
-	return &v.Base
-}
-
 type vmessLinkJson struct {
 	Add  string      `json:"add"`
 	V    string      `json:"v"`

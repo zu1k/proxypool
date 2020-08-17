@@ -36,7 +36,7 @@ func (c Clash) Provide() string {
 		for _, p := range c.Proxies {
 			if checkClashSupport(p) {
 				for _, t := range types {
-					if p.Type() == t {
+					if p.TypeName() == t {
 						resultBuilder.WriteString(p.ToClash() + "\n")
 					}
 				}
@@ -48,7 +48,7 @@ func (c Clash) Provide() string {
 }
 
 func checkClashSupport(p proxy.Proxy) bool {
-	switch p.Type() {
+	switch p.TypeName() {
 	case "ssr":
 		ssr := p.(*proxy.ShadowsocksR)
 		if checkInList(ssrCipherList, ssr.Cipher) && checkInList(ssrProtocolList, ssr.Protocol) && checkInList(ssrObfsList, ssr.Obfs) {

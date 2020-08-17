@@ -19,7 +19,7 @@ func testDelay(p Proxy) (delay uint16, err error) {
 	}
 
 	pmap["port"] = int(pmap["port"].(float64))
-	if p.Type() == "vmess" {
+	if p.TypeName() == "vmess" {
 		pmap["alterId"] = int(pmap["alterId"].(float64))
 	}
 
