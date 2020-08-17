@@ -61,18 +61,6 @@ func (ss Shadowsocks) ToSurge() string {
 	}
 }
 
-func (ss *Shadowsocks) SetName(name string) {
-	ss.Name = name
-}
-
-func (ss *Shadowsocks) Type() string {
-	return "ss"
-}
-
-func (ss *Shadowsocks) BaseInfo() *Base {
-	return &ss.Base
-}
-
 func ParseSSLink(link string) (*Shadowsocks, error) {
 	if !strings.HasPrefix(link, "ss://") {
 		return nil, ErrorNotSSRLink
