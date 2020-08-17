@@ -10,17 +10,17 @@ import (
 
 var c = cache.New(cache.NoExpiration, 10*time.Minute)
 
-func GetProxies() []proxy.Proxy {
+func GetProxies() proxy.ProxyList {
 	result, found := c.Get("proxies")
 	if found {
-		log.Println(len(result.([]proxy.Proxy)))
-		return result.([]proxy.Proxy)
+		log.Println(len(result.(proxy.ProxyList)))
+		return result.(proxy.ProxyList)
 	}
 	log.Println("Cache not found")
 	return nil
 }
 
-func SetProxies(proxies []proxy.Proxy) {
+func SetProxies(proxies proxy.ProxyList) {
 	c.Set("proxies", proxies, cache.NoExpiration)
 }
 

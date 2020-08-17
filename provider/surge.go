@@ -7,7 +7,7 @@ import (
 )
 
 type Surge struct {
-	Proxies []proxy.Proxy `yaml:"proxies"`
+	Proxies proxy.ProxyList `yaml:"proxies"`
 }
 
 func (s Surge) Provide() string {

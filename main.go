@@ -9,6 +9,7 @@ import (
 	_ "github.com/mkevac/debugcharts"
 	"github.com/zu1k/proxypool/api"
 	"github.com/zu1k/proxypool/app"
+	"github.com/zu1k/proxypool/proxy"
 )
 
 var (
@@ -33,7 +34,7 @@ func main() {
 			fmt.Println(err)
 		}
 	}
-	app.InitGeoIpDB()
+	proxy.InitGeoIpDB()
 
 	go app.Cron()
 	fmt.Println("Do the first crawl...")

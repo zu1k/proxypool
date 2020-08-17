@@ -25,7 +25,7 @@ func NewWebFreessrxyzGetter(options tool.Options) (getter Getter, err error) {
 	return &WebFreessrXyz{}, nil
 }
 
-func (w *WebFreessrXyz) Get() []proxy.Proxy {
+func (w *WebFreessrXyz) Get() proxy.ProxyList {
 	results := freessrxyzFetch(freessrxyzSsrLink)
 	results = append(results, freessrxyzFetch(freessrxyzV2rayLink)...)
 	return results
@@ -39,7 +39,7 @@ func (w *WebFreessrXyz) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
 	}
 }
 
-func freessrxyzFetch(link string) []proxy.Proxy {
+func freessrxyzFetch(link string) proxy.ProxyList {
 	resp, err := tool.GetHttpClient().Get(link)
 	if err != nil {
 		return nil

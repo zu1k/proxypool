@@ -16,7 +16,7 @@ type WebFuzz struct {
 	Url string
 }
 
-func (w *WebFuzz) Get() []proxy.Proxy {
+func (w *WebFuzz) Get() proxy.ProxyList {
 	resp, err := tool.GetHttpClient().Get(w.Url)
 	if err != nil {
 		return nil

@@ -49,7 +49,7 @@ func NewWebFanqiangdangGetter(options tool.Options) (getter Getter, err error) {
 	return nil, ErrorUrlNotFound
 }
 
-func (w *WebFanqiangdang) Get() []proxy.Proxy {
+func (w *WebFanqiangdang) Get() proxy.ProxyList {
 	w.results = make([]string, 0)
 	// 找到所有的文字消息
 	w.c.OnHTML("td.t_f", func(e *colly.HTMLElement) {
