@@ -212,6 +212,9 @@ sources:
   - type: webfuzz
     options:
       url: https://raw.githubusercontent.com/ruanfei/ShadowsocksRRShare/master/ssr/ssr.txt
+  - type: webfuzz
+    options:
+      url: https://raw.githubusercontent.com/pojiezhiyuanjun/freev2/master/all.txt
 
   # tg频道
   - type: tgchannel
