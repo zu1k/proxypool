@@ -4,41 +4,17 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"math/rand"
-	"strconv"
 	"sync"
 
-	"github.com/zu1k/proxypool/config"
-	"gopkg.in/yaml.v2"
-
 	"github.com/zu1k/proxypool/app/cache"
+	"github.com/zu1k/proxypool/config"
 	"github.com/zu1k/proxypool/provider"
 	"github.com/zu1k/proxypool/proxy"
 	"github.com/zu1k/proxypool/tool"
+	"gopkg.in/yaml.v2"
 )
 
 var NeedFetchNewConfigFile = false
-
-func Crawl() {
-	if NeedFetchNewConfigFile {
-		FetchNewConfigFileThenInit()
-	}
-	proxies := make([]proxy.Proxy, 0)
-	for _, g := range Getters {
-		proxies = append(proxies, g.Get()...)
-	}
-	proxies = append(proxies, cache.GetProxies()...)
-	proxies = proxy.Deduplication(proxies)
-
-	num := len(proxies)
-	for i := 0; i < num; i++ {
-		proxies[i].SetName(strconv.Itoa(rand.Int()))
-	}
-	log.Println("Crawl node count:", num)
-	cache.SetProxies(proxies)
-	cache.SetString("clashproxies", provider.Clash{Proxies: proxies}.Provide())
-	cache.SetString("surgeproxies", provider.Surge{Proxies: proxies}.Provide())
-}
 
 func CrawlGo() {
 	if NeedFetchNewConfigFile {
@@ -60,19 +36,14 @@ func CrawlGo() {
 			proxies = append(proxies, node)
 		}
 	}
-	proxies = proxy.Deduplication(proxies)
+	proxies = proxies.Deduplication()
 	log.Println("CrawlGo node count:", len(proxies))
 	proxies = proxy.CleanProxies(provider.Clash{Proxies: proxies}.CleanProxies())
 	log.Println("CrawlGo clash useable node count:", len(proxies))
 
-	num := len(proxies)
-	for i := 0; i < num; i++ {
-		country, err := GeoIp.Find(proxies[i].BaseInfo().Server)
-		if err != nil || country == "" {
-			country = "Earth"
-		}
-		proxies[i].SetName(fmt.Sprintf("%s_%d_%s", ProjectName, i+1, country))
-	}
+	// 排序和重命名
+	proxies.NameAddCounrty().Sort().NameAddIndex()
+
 	cache.SetProxies(proxies)
 	cache.SetString("clashproxies", provider.Clash{Proxies: proxies}.Provide())
 	cache.SetString("surgeproxies", provider.Surge{Proxies: proxies}.Provide())

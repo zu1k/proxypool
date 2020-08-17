@@ -7,12 +7,12 @@ import (
 )
 
 type Clash struct {
-	Proxies []proxy.Proxy `yaml:"proxies"`
-	Types   string        `yaml:"type"`
+	Proxies proxy.ProxyList `yaml:"proxies"`
+	Types   string          `yaml:"type"`
 }
 
-func (c Clash) CleanProxies() (proxies []proxy.Proxy) {
-	proxies = make([]proxy.Proxy, 0)
+func (c Clash) CleanProxies() (proxies proxy.ProxyList) {
+	proxies = make(proxy.ProxyList, 0)
 	for _, p := range c.Proxies {
 		if checkClashSupport(p) {
 			proxies = append(proxies, p)

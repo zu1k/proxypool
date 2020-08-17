@@ -23,7 +23,7 @@ func NewWebLucnorg(options tool.Options) (getter Getter, err error) {
 	return &WebLucnOrg{}, nil
 }
 
-func (w *WebLucnOrg) Get() []proxy.Proxy {
+func (w *WebLucnOrg) Get() proxy.ProxyList {
 	resp, err := tool.GetHttpClient().Post(lucnorgSsrLink, nil)
 	if err != nil {
 		return nil

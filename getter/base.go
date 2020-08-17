@@ -10,7 +10,7 @@ import (
 )
 
 type Getter interface {
-	Get() []proxy.Proxy
+	Get() proxy.ProxyList
 	Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup)
 }
 
@@ -46,8 +46,8 @@ func String2Proxy(link string) proxy.Proxy {
 	return data
 }
 
-func StringArray2ProxyArray(origin []string) []proxy.Proxy {
-	results := make([]proxy.Proxy, 0)
+func StringArray2ProxyArray(origin []string) proxy.ProxyList {
+	results := make(proxy.ProxyList, 0)
 	for _, link := range origin {
 		results = append(results, String2Proxy(link))
 	}
@@ -61,7 +61,7 @@ func GrepLinksFromString(text string) []string {
 	return results
 }
 
-func FuzzParseProxyFromString(text string) []proxy.Proxy {
+func FuzzParseProxyFromString(text string) proxy.ProxyList {
 	return StringArray2ProxyArray(GrepLinksFromString(text))
 }
 

@@ -48,7 +48,7 @@ func NewTGChannelGetter(options tool.Options) (getter Getter, err error) {
 	return nil, ErrorUrlNotFound
 }
 
-func (g *TGChannelGetter) Get() []proxy.Proxy {
+func (g *TGChannelGetter) Get() proxy.ProxyList {
 	g.results = make([]string, 0)
 	// 找到所有的文字消息
 	g.c.OnHTML("div.tgme_widget_message_text", func(e *colly.HTMLElement) {

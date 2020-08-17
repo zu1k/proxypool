@@ -8,6 +8,12 @@ import (
 	"github.com/oschwald/geoip2-golang"
 )
 
+var geoIp GeoIP
+
+func InitGeoIpDB() {
+	geoIp = NewGeoIP("assets/GeoLite2-City.mmdb")
+}
+
 // GeoIP2
 type GeoIP struct {
 	db *geoip2.Reader

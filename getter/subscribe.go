@@ -17,7 +17,7 @@ type Subscribe struct {
 	Url string
 }
 
-func (s *Subscribe) Get() []proxy.Proxy {
+func (s *Subscribe) Get() proxy.ProxyList {
 	resp, err := tool.GetHttpClient().Get(s.Url)
 	if err != nil {
 		return nil
