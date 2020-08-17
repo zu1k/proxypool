@@ -206,6 +206,12 @@ sources:
   - type: webfuzz
     options:
       url: https://zfjvpn.gitbook.io/123/
+  - type: webfuzz
+    options:
+      url: https://raw.githubusercontent.com/ruanfei/ShadowsocksRRShare/master/ss/ss.txt
+  - type: webfuzz
+    options:
+      url: https://raw.githubusercontent.com/ruanfei/ShadowsocksRRShare/master/ssr/ssr.txt
 
   # tg频道
   - type: tgchannel
