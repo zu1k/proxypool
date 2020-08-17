@@ -26,6 +26,7 @@ func (w *WebFuzz) Get() proxy.ProxyList {
 	if err != nil {
 		return nil
 	}
+
 	return FuzzParseProxyFromString(string(body))
 }
 
