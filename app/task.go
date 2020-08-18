@@ -39,11 +39,12 @@ func CrawlGo() {
 	// 节点去重
 	proxies = proxies.Deduplication()
 	log.Println("CrawlGo node count:", len(proxies))
+	proxies = provider.Clash{Proxies: proxies}.CleanProxies()
 	proxies.NameAddCounrty().Sort().NameAddIndex()
 	cache.SetProxies("allproxies", proxies)
 
 	// 可用性检测
-	proxies = proxy.CleanProxies(provider.Clash{Proxies: proxies}.CleanProxies())
+	proxies = proxy.CleanProxies(proxies)
 	log.Println("CrawlGo clash useable node count:", len(proxies))
 	proxies.NameAddCounrty().Sort().NameAddIndex()
 	cache.SetProxies("proxies", proxies)
