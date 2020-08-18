@@ -23,6 +23,11 @@ func (b *Base) BaseInfo() *Base {
 	return b
 }
 
+func (b *Base) Clone() Base {
+	c := *b
+	return c
+}
+
 type Proxy interface {
 	String() string
 	ToClash() string
@@ -31,4 +36,5 @@ type Proxy interface {
 	SetName(name string)
 	TypeName() string
 	BaseInfo() *Base
+	Clone() Proxy
 }

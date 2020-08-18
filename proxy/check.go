@@ -52,7 +52,7 @@ func CleanProxies(proxies []Proxy) (cproxies []Proxy) {
 	cproxies = make([]Proxy, 0)
 	for _, p := range proxies {
 		if _, ok := okMap[p.Identifier()]; ok {
-			cproxies = append(cproxies, p)
+			cproxies = append(cproxies, p.Clone())
 		}
 	}
 	return

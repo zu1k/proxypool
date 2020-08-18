@@ -61,6 +61,11 @@ func (ss Shadowsocks) ToSurge() string {
 	}
 }
 
+func (ss Shadowsocks) Clone() Proxy {
+	tmp := ss
+	return &tmp
+}
+
 func ParseSSLink(link string) (*Shadowsocks, error) {
 	if !strings.HasPrefix(link, "ss://") {
 		return nil, ErrorNotSSRLink

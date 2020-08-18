@@ -43,13 +43,8 @@ func CrawlGo() {
 	cache.SetProxies("allproxies", proxies)
 
 	// 可用性检测
-	proxiesUseful := proxy.CleanProxies(provider.Clash{Proxies: proxies}.CleanProxies())
-	proxies = make(proxy.ProxyList, len(proxiesUseful))
-	copy(proxies, proxiesUseful)
-
+	proxies = proxy.CleanProxies(provider.Clash{Proxies: proxies}.CleanProxies())
 	log.Println("CrawlGo clash useable node count:", len(proxies))
-
-	// 排序和重命名
 	proxies.NameAddCounrty().Sort().NameAddIndex()
 	cache.SetProxies("proxies", proxies)
 

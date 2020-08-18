@@ -71,3 +71,13 @@ func Deduplication(src ProxyList) ProxyList {
 	}
 	return result
 }
+
+func (ps ProxyList) Clone() ProxyList {
+	result := make(ProxyList, 0, len(ps))
+	for _, pp := range ps {
+		if pp != nil {
+			result = append(result, pp.Clone())
+		}
+	}
+	return result
+}
