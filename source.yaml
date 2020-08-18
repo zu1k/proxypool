@@ -201,6 +201,9 @@ sources:
   - type: subscribe
     options:
       url: https://raw.githubusercontent.com/umelabs/node.umelabs.dev/master/Subscribe/v2ray.md
+  - type: subscribe
+    options:
+      url: https://www.3kla.cn/subscribe/txt/Anranray.txt
 
   # 网页模糊抓取
   - type: webfuzz
@@ -230,6 +233,9 @@ sources:
   - type: webfuzz
     options:
       url: https://raw.githubusercontent.com/freefq/free/master/README.md
+  - type: webfuzz
+    options:
+      url: https://raw.githubusercontent.com/52bp/52bp.github.io/master/freesite.html
 
   # tg频道
   - type: tgchannel
