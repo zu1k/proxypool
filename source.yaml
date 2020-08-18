@@ -269,7 +269,11 @@ sources:
   - type: tgchannel
     options:
       channel: ssrtool
-      num: 200
+      num: 100
+  - type: tgchannel
+    options:
+      channel: ssrtool_crack
+      num: 100
   - type: tgchannel
     options:
       channel: vmessr
