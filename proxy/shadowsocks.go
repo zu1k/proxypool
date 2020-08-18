@@ -62,8 +62,7 @@ func (ss Shadowsocks) ToSurge() string {
 }
 
 func (ss Shadowsocks) Clone() Proxy {
-	tmp := ss
-	return &tmp
+	return &ss
 }
 
 func ParseSSLink(link string) (*Shadowsocks, error) {

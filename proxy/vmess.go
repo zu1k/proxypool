@@ -83,8 +83,7 @@ func (v Vmess) ToSurge() string {
 }
 
 func (v Vmess) Clone() Proxy {
-	tmp := v
-	return &tmp
+	return &v
 }
 
 type vmessLinkJson struct {

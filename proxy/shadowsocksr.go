@@ -58,8 +58,7 @@ func (ssr ShadowsocksR) ToSurge() string {
 }
 
 func (ssr ShadowsocksR) Clone() Proxy {
-	tmp := ssr
-	return &tmp
+	return &ssr
 }
 
 func ParseSSRLink(link string) (*ShadowsocksR, error) {
