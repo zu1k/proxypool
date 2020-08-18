@@ -1,4 +1,8 @@
 sources:
+  - type: webfuzzsub
+    options:
+      url: https://raw.githubusercontent.com/du5/free/master/sub.list
+
   - type: subscribe
     options:
       url: https://raw.githubusercontent.com/ssrsub/ssr/master/v2ray
@@ -18,7 +22,4 @@ sources:
       num: 200
 
   - type: web-freessrxyz
-    options:
-
-  - type: web-lucnorg
     options:
