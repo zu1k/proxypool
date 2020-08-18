@@ -44,7 +44,7 @@ func CrawlGo() {
 	cache.SetProxies("allproxies", proxies)
 
 	// 可用性检测
-	proxies = proxy.CleanProxies(proxies)
+	proxies = proxy.CleanBadProxies(proxies)
 	log.Println("CrawlGo clash useable node count:", len(proxies))
 	proxies.NameAddCounrty().Sort().NameAddIndex()
 	cache.SetProxies("proxies", proxies)

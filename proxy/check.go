@@ -35,7 +35,7 @@ func testDelay(p Proxy) (delay uint16, err error) {
 	return delay, err
 }
 
-func CleanProxies(proxies []Proxy) (cproxies []Proxy) {
+func CleanBadProxies(proxies []Proxy) (cproxies []Proxy) {
 	c := make(chan checkResult, 40)
 	defer close(c)
 	for _, p := range proxies {
