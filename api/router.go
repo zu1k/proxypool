@@ -22,16 +22,20 @@ func setupRouter() {
 	router.GET("/clash/proxies", func(c *gin.Context) {
 		proxyTypes := c.DefaultQuery("type", "")
 		text := ""
-		if proxyTypes == "all" || proxyTypes == "" {
+		if proxyTypes == "" {
 			text = cache.GetString("clashproxies")
 			if text == "" {
-				proxies := cache.GetProxies()
+				proxies := cache.GetProxies("proxies")
 				clash := provider.Clash{Proxies: proxies}
 				text = clash.Provide()
 				cache.SetString("clashproxies", text)
 			}
+		} else if proxyTypes == "all" {
+			proxies := cache.GetProxies("allproxies")
+			clash := provider.Clash{Proxies: proxies, Types: proxyTypes}
+			text = clash.Provide()
 		} else {
-			proxies := cache.GetProxies()
+			proxies := cache.GetProxies("proxies")
 			clash := provider.Clash{Proxies: proxies, Types: proxyTypes}
 			text = clash.Provide()
 		}
@@ -40,7 +44,7 @@ func setupRouter() {
 	router.GET("/surge/proxies", func(c *gin.Context) {
 		text := cache.GetString("surgeproxies")
 		if text == "" {
-			proxies := cache.GetProxies()
+			proxies := cache.GetProxies("proxies")
 			surge := provider.Surge{Proxies: proxies}
 			text = surge.Provide()
 			cache.SetString("surgeproxies", text)

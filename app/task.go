@@ -26,7 +26,7 @@ func CrawlGo() {
 		wg.Add(1)
 		go g.Get2Chan(pc, wg)
 	}
-	proxies := cache.GetProxies()
+	proxies := cache.GetProxies("proxies")
 	go func() {
 		wg.Wait()
 		close(pc)
@@ -36,15 +36,20 @@ func CrawlGo() {
 			proxies = append(proxies, node)
 		}
 	}
+	// 节点去重
 	proxies = proxies.Deduplication()
 	log.Println("CrawlGo node count:", len(proxies))
+	proxies.NameAddCounrty().Sort().NameAddIndex()
+	cache.SetProxies("allproxies", proxies)
+
+	// 可用性检测
 	proxies = proxy.CleanProxies(provider.Clash{Proxies: proxies}.CleanProxies())
 	log.Println("CrawlGo clash useable node count:", len(proxies))
 
 	// 排序和重命名
 	proxies.NameAddCounrty().Sort().NameAddIndex()
+	cache.SetProxies("proxies", proxies)
 
-	cache.SetProxies(proxies)
 	cache.SetString("clashproxies", provider.Clash{Proxies: proxies}.Provide())
 	cache.SetString("surgeproxies", provider.Surge{Proxies: proxies}.Provide())
 }

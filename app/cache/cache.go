@@ -10,8 +10,8 @@ import (
 
 var c = cache.New(cache.NoExpiration, 10*time.Minute)
 
-func GetProxies() proxy.ProxyList {
-	result, found := c.Get("proxies")
+func GetProxies(key string) proxy.ProxyList {
+	result, found := c.Get(key)
 	if found {
 		log.Println(len(result.(proxy.ProxyList)))
 		return result.(proxy.ProxyList)
@@ -20,8 +20,8 @@ func GetProxies() proxy.ProxyList {
 	return nil
 }
 
-func SetProxies(proxies proxy.ProxyList) {
-	c.Set("proxies", proxies, cache.NoExpiration)
+func SetProxies(key string, proxies proxy.ProxyList) {
+	c.Set(key, proxies, cache.NoExpiration)
 }
 
 func SetString(key, value string) {
