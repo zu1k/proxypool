@@ -192,6 +192,15 @@ sources:
   - type: subscribe
     options:
       url: https://youlianboshi.netlify.app/
+  - type: subscribe
+    options:
+      url: https://raw.githubusercontent.com/umelabs/node.umelabs.dev/master/Subscribe/SS.md
+  - type: subscribe
+    options:
+      url: https://raw.githubusercontent.com/umelabs/node.umelabs.dev/master/Subscribe/SSR.md
+  - type: subscribe
+    options:
+      url: https://raw.githubusercontent.com/umelabs/node.umelabs.dev/master/Subscribe/v2ray.md
 
   # 网页模糊抓取
   - type: webfuzz
@@ -218,6 +227,9 @@ sources:
   - type: webfuzz
     options:
       url: https://raw.githubusercontent.com/zu1k/ssrtool-crawler/master/data/ssr.txt
+  - type: webfuzz
+    options:
+      url: https://raw.githubusercontent.com/freefq/free/master/README.md
 
   # tg频道
   - type: tgchannel
