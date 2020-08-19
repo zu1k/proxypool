@@ -294,6 +294,10 @@ sources:
     options:
       channel: freeshadowsock
       num: 200
+  - type: tgchannel
+    options:
+      channel: mianfeifenxiang
+      num: 400
 
   # 翻墙党，后面的东西都无需修改
   - type: web-fanqiangdang
