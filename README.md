@@ -36,7 +36,7 @@
 
 首先 Fork 仓库到你的用户名下，然后修改 assets 文件夹下的html文件，将里面的域名修改为你自己的，最后点击按钮进行部署
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https%3A%2F%2Fgithub.com%2Fzu1k%2Fproxypool%2Ftree%2Fmaster)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 ### 从源码编译
 
