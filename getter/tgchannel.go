@@ -50,7 +50,6 @@ func NewTGChannelGetter(options tool.Options) (getter Getter, err error) {
 
 func (g *TGChannelGetter) Get() proxy.ProxyList {
 	result := make(proxy.ProxyList, 0)
-
 	g.results = make([]string, 0)
 	// 找到所有的文字消息
 	g.c.OnHTML("div.tgme_widget_message_text", func(e *colly.HTMLElement) {
@@ -74,7 +73,6 @@ func (g *TGChannelGetter) Get() proxy.ProxyList {
 	if err != nil {
 		_ = fmt.Errorf("%s", err.Error())
 	}
-
 	return append(result, StringArray2ProxyArray(g.results)...)
 }
 
