@@ -49,10 +49,17 @@ func NewTGChannelGetter(options tool.Options) (getter Getter, err error) {
 }
 
 func (g *TGChannelGetter) Get() proxy.ProxyList {
+	result := make(proxy.ProxyList, 0)
+
 	g.results = make([]string, 0)
 	// 找到所有的文字消息
 	g.c.OnHTML("div.tgme_widget_message_text", func(e *colly.HTMLElement) {
 		g.results = append(g.results, GrepLinksFromString(e.Text)...)
+		// 抓取到http链接，有可能是订阅链接或其他链接，无论如何试一下
+		subUrls := urlRe.FindAllString(e.Text, -1)
+		for _, url := range subUrls {
+			result = append(result, (&Subscribe{Url: url}).Get()...)
+		}
 	})
 
 	// 找到之前消息页面的链接，加入访问队列
@@ -68,7 +75,7 @@ func (g *TGChannelGetter) Get() proxy.ProxyList {
 		_ = fmt.Errorf("%s", err.Error())
 	}
 
-	return StringArray2ProxyArray(g.results)
+	return append(result, StringArray2ProxyArray(g.results)...)
 }
 
 func (g *TGChannelGetter) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
