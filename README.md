@@ -34,7 +34,7 @@
 
 ### 使用Heroku
 
-首先 Fork 仓库到你的用户名下，然后修改 assets 文件夹下的html文件，将里面的域名修改为你自己的，最后点击按钮进行部署
+点击按钮进入部署页面，填写基本信息然后运行
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
@@ -61,27 +61,21 @@ docker pull docker.pkg.github.com/zu1k/proxypool/proxypool:latest
 
 ## 使用
 
-### 共享抓取配置文件
+### 修改配置文件
 
-每一次抓取前会自动从github下载最新的抓取配置文件
+首先修改 source.yaml 中的必要配置信息，其中域名修改为你自己的域名，cf开头的配置信息可以留空
 
-直接运行 `proxypool` 程序即可
-
-### 自定义抓取配置文件
+### 启动程序
 
 ```shell
 proxypool -c source.yaml
 ```
 
-### 帮助更新配置文件
-
-可以在 https://github.com/zu1k/proxypool/issues/3 进行留言
-
 ### 用户使用
 
 目前公开版本： https://proxy.tgbot.co
 
-直接在clash添加配置文件即可使用： https://proxy.tgbot.co/clash/config
+访问页面，按照相关指导进行使用
 
 ## 截图
 

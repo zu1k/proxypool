@@ -1,7 +1,20 @@
 {
   "name": "proxypool",
   "description": "自动抓取tg频道、订阅地址、公开互联网上的ss、ssr、vmess节点信息，聚合去重测试可用性后提供节点列表",
+  "website": "https://proxy.tgbot.co/",
   "repository": "https://github.com/zu1k/proxypool",
+  "success_url": "/",
   "logo": "https://raw.githubusercontent.com/zu1k/proxypool/master/assets/proxy.jpg",
-  "keywords": ["golang", "ss", "ssr", "vmess", "shadowsocks", "shadowsocksr"]
+  "keywords": ["golang", "ss", "ssr", "vmess", "shadowsocks", "shadowsocksr"],
+  "env": {
+    "DOMAIN": {
+      "description": "Domain to use."
+    },
+    "CF_API_EMAIL": {
+      "description": "Cloudflare Email."
+    },
+    "CF_API_KEY": {
+      "description": "Cloudflare API key."
+    }
+  }
 }

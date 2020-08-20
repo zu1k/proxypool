@@ -3,7 +3,7 @@ package provider
 import (
 	"strings"
 
-	"github.com/zu1k/proxypool/proxy"
+	"github.com/zu1k/proxypool/pkg/proxy"
 )
 
 type Surge struct {

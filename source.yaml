@@ -1,3 +1,6 @@
+domain: proxy.tgbot.co
+cf_email: ""
+cf_key: ""
 sources:
   - type: webfuzzsub
     options:

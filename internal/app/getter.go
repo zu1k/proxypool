@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/zu1k/proxypool/config"
-	"github.com/zu1k/proxypool/getter"
+	"github.com/zu1k/proxypool/pkg/getter"
 )
 
 var Getters = make([]getter.Getter, 0)

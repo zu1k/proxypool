@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/ghodss/yaml"
-	"github.com/zu1k/proxypool/tool"
+	"github.com/zu1k/proxypool/pkg/tool"
 )
 
 type Source struct {
@@ -15,6 +15,9 @@ type Source struct {
 }
 
 type Config struct {
+	Domain  string   `json:"domain" yaml:"domain"`
+	CFEmail string   `json:"cf_email" yaml:"cf_email"`
+	CFKey   string   `json:"cf_key" yaml:"cf_key"`
 	Sources []Source `json:"sources" yaml:"sources"`
 }
 
@@ -29,6 +32,15 @@ func Parse(path string) (*Config, error) {
 	err = yaml.Unmarshal(fileData, &SourceConfig)
 	if err != nil {
 		return nil, err
+	}
+	if domain := os.Getenv("DOMAIN"); domain != "" {
+		SourceConfig.Domain = domain
+	}
+	if cfEmail := os.Getenv("CF_API_EMAIL"); cfEmail != "" {
+		SourceConfig.CFEmail = cfEmail
+	}
+	if cfKey := os.Getenv("CF_API_KEY"); cfKey != "" {
+		SourceConfig.CFKey = cfKey
 	}
 	return &SourceConfig, nil
 }
