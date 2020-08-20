@@ -107,6 +107,8 @@
         <h1><strong>免费节点</strong></h1>
         <div class='article'>
             <p>自动抓取tg频道、订阅地址、公开互联网上的ss、ssr、vmess节点信息，聚合去重后提供节点列表，每15分钟更新</p>
+            <p>汇总节点数量：{{ .all_proxies_count }}</p>
+            <p>可用节点数量：{{ .useful_proxies_count }}</p>
             <br>
             <h5><a href="/clash">Clash</a></h5>
             <p>Clash配置文件：<a href="https://{{ .domain }}/clash/config">https://{{ .domain }}/clash/config</a> <a
