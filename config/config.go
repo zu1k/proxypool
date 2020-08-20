@@ -9,6 +9,11 @@ import (
 	"github.com/zu1k/proxypool/pkg/tool"
 )
 
+var (
+	NeedFetch = true
+	Url       = "https://raw.githubusercontent.com/zu1k/proxypool/master/source.yaml"
+)
+
 type Source struct {
 	Type    string       `json:"type" yaml:"type"`
 	Options tool.Options `json:"options" yaml:"options"`

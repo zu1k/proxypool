@@ -14,10 +14,8 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-var NeedFetchNewConfigFile = false
-
 func CrawlGo() {
-	if NeedFetchNewConfigFile {
+	if config.NeedFetch {
 		FetchNewConfigFileThenInit()
 	}
 	wg := &sync.WaitGroup{}
@@ -57,7 +55,7 @@ func CrawlGo() {
 
 func FetchNewConfigFileThenInit() {
 	fmt.Println("fetch new config file...")
-	resp, err := tool.GetHttpClient().Get("https://raw.githubusercontent.com/zu1k/proxypool/master/source.yaml")
+	resp, err := tool.GetHttpClient().Get(config.Url)
 	if err != nil {
 		return
 	}

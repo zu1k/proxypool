@@ -5,6 +5,10 @@ import (
 	"fmt"
 	"net/http"
 	_ "net/http/pprof"
+	"os"
+	"strings"
+
+	"github.com/zu1k/proxypool/config"
 
 	"github.com/zu1k/proxypool/internal/cron"
 
@@ -28,21 +32,36 @@ func main() {
 		go pprof()
 	}
 
-	if configFilePath == "" {
-		app.NeedFetchNewConfigFile = true
-		app.FetchNewConfigFileThenInit()
-	} else {
-		err := app.InitConfigAndGetters(configFilePath)
-		if err != nil {
-			fmt.Println(err)
-		}
+	envConfigFilePath := os.Getenv("CONFIG_FILE")
+	if envConfigFilePath == "" {
+		envConfigFilePath = "https://raw.githubusercontent.com/zu1k/proxypool/master/source.yaml"
 	}
+
+	if configFilePath != "" {
+		initConfigFile(configFilePath)
+	} else {
+		initConfigFile(envConfigFilePath)
+	}
+
 	proxy.InitGeoIpDB()
 
 	go cron.Cron()
 	fmt.Println("Do the first crawl...")
 	go app.CrawlGo()
 	api.Run()
+}
+
+func initConfigFile(path string) {
+	if strings.HasPrefix(path, "http") {
+		config.Url = path
+		config.NeedFetch = true
+		app.FetchNewConfigFileThenInit()
+	} else {
+		err := app.InitConfigAndGetters(configFilePath)
+		if err != nil {
+			panic(err)
+		}
+	}
 }
 
 func pprof() {
