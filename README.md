@@ -38,6 +38,9 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+> 因为爬虫程序需要持续运行，所以至少选择 $7/月 的配置
+> 免费配置长时间无人访问会被heroku强制停止
+
 ### 从源码编译
 
 需要安装Golang
