@@ -7,14 +7,19 @@
   "logo": "https://raw.githubusercontent.com/zu1k/proxypool/master/assets/proxy.jpg",
   "keywords": ["golang", "ss", "ssr", "vmess", "shadowsocks", "shadowsocksr"],
   "env": {
+    "CONFIG_FILE": {
+      "description": "Path to config file, could be a url."
+    },
     "DOMAIN": {
       "description": "Domain to use."
     },
     "CF_API_EMAIL": {
-      "description": "Cloudflare Email."
+      "description": "Cloudflare Email.",
+      "required": false
     },
     "CF_API_KEY": {
-      "description": "Cloudflare API key."
+      "description": "Cloudflare API key.",
+      "required": false
     }
   }
 }
