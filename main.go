@@ -59,7 +59,8 @@ func initConfigFile(path string) {
 	} else {
 		err := app.InitConfigAndGetters(configFilePath)
 		if err != nil {
-			panic(err)
+			fmt.Errorf("Config file not found")
+			os.Exit(2)
 		}
 	}
 }

@@ -12,6 +12,5 @@ FROM alpine:latest
 RUN apk add --no-cache ca-certificates
 WORKDIR /proxypool-src
 COPY ./assets /proxypool-src/assets
-COPY ./source.yaml /proxypool-src
 COPY --from=builder /proxypool /proxypool-src/
 ENTRYPOINT ["/proxypool-src/proxypool"]
