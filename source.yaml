@@ -229,7 +229,7 @@ sources:
       url: https://raw.githubusercontent.com/pojiezhiyuanjun/freev2/master/all.txt
   - type: webfuzz
     options:
-      url: https://raw.githubusercontent.com/zu1k/ssrtool-crawler/master/data/ssr.txt
+      url: https://ssrtoolcrawler.tgbot.co/data/ssr.txt
   - type: webfuzz
     options:
       url: https://raw.githubusercontent.com/freefq/free/master/README.md
