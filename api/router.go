@@ -25,7 +25,9 @@ func setupRouter() {
 
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
-			"domain": domain,
+			"domain":               domain,
+			"all_proxies_count":    cache.AllProxiesCount,
+			"useful_proxies_count": cache.UsefullProxiesCount,
 		})
 	})
 
