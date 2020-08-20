@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/zu1k/proxypool/config"
-	"github.com/zu1k/proxypool/getter"
+	"github.com/zu1k/proxypool/pkg/getter"
 )
 
 func TestConfigFile(t *testing.T) {

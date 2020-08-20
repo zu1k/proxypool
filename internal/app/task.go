@@ -6,11 +6,11 @@ import (
 	"log"
 	"sync"
 
-	"github.com/zu1k/proxypool/app/cache"
 	"github.com/zu1k/proxypool/config"
-	"github.com/zu1k/proxypool/provider"
-	"github.com/zu1k/proxypool/proxy"
-	"github.com/zu1k/proxypool/tool"
+	"github.com/zu1k/proxypool/internal/cache"
+	"github.com/zu1k/proxypool/pkg/provider"
+	"github.com/zu1k/proxypool/pkg/proxy"
+	"github.com/zu1k/proxypool/pkg/tool"
 	"gopkg.in/yaml.v2"
 )
 

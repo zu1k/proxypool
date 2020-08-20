@@ -54,7 +54,7 @@ proxy-groups:
 proxy-providers:
   provider:
     type: http
-    url: "https://proxy.tgbot.co/clash/proxies"
+    url: "https://{{ .domain }}/clash/proxies"
     interval: 3600
     path: ./provider.yaml
     health-check:

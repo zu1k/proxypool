@@ -6,10 +6,12 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 
+	"github.com/zu1k/proxypool/internal/cron"
+
 	_ "github.com/mkevac/debugcharts"
 	"github.com/zu1k/proxypool/api"
-	"github.com/zu1k/proxypool/app"
-	"github.com/zu1k/proxypool/proxy"
+	"github.com/zu1k/proxypool/internal/app"
+	"github.com/zu1k/proxypool/pkg/proxy"
 )
 
 var (
@@ -28,6 +30,7 @@ func main() {
 
 	if configFilePath == "" {
 		app.NeedFetchNewConfigFile = true
+		app.FetchNewConfigFileThenInit()
 	} else {
 		err := app.InitConfigAndGetters(configFilePath)
 		if err != nil {
@@ -36,7 +39,7 @@ func main() {
 	}
 	proxy.InitGeoIpDB()
 
-	go app.Cron()
+	go cron.Cron()
 	fmt.Println("Do the first crawl...")
 	go app.CrawlGo()
 	api.Run()
