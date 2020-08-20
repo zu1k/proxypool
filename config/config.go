@@ -11,7 +11,7 @@ import (
 
 var (
 	NeedFetch = true
-	Url       = "https://raw.githubusercontent.com/zu1k/proxypool/master/source.yaml"
+	Url       = "source.yaml"
 )
 
 type Source struct {

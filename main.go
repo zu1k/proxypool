@@ -34,7 +34,7 @@ func main() {
 
 	envConfigFilePath := os.Getenv("CONFIG_FILE")
 	if envConfigFilePath == "" {
-		envConfigFilePath = "https://raw.githubusercontent.com/zu1k/proxypool/master/source.yaml"
+		envConfigFilePath = "source.yaml"
 	}
 
 	if configFilePath != "" {
