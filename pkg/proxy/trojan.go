@@ -141,7 +141,7 @@ func GrepTrojanLinkFromString(text string) []string {
 	results := make([]string, 0)
 	texts := strings.Split(text, "trojan://")
 	for _, text := range texts {
-		results = append(results, ssPlainRe.FindAllString("trojan://"+text, -1)...)
+		results = append(results, trojanPlainRe.FindAllString("trojan://"+text, -1)...)
 	}
 	return results
 }
