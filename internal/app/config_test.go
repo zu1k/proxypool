@@ -11,7 +11,7 @@ import (
 )
 
 func TestConfigFile(t *testing.T) {
-	c, err := config.Parse("../source.yaml")
+	c, err := config.Parse("../../source.yaml")
 	if err != nil {
 		t.Error(err)
 		return
