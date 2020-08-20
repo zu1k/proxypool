@@ -39,6 +39,8 @@ func String2Proxy(link string) proxy.Proxy {
 		data, err = proxy.ParseVmessLink(link)
 	} else if strings.HasPrefix(link, "ss://") {
 		data, err = proxy.ParseSSLink(link)
+	} else if strings.HasPrefix(link, "trojan://") {
+		data, err = proxy.ParseTrojanLink(link)
 	}
 	if err != nil {
 		return nil
