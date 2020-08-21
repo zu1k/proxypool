@@ -17,25 +17,11 @@ func init() {
 
 type WebFanqiangdang struct {
 	c         *colly.Collector
-	NumNeeded int
 	Url       string
 	results   proxy.ProxyList
 }
 
 func NewWebFanqiangdangGetter(options tool.Options) (getter Getter, err error) {
-	num, found := options["num"]
-
-	t := 200
-	switch num.(type) {
-	case int:
-		t = num.(int)
-	case float64:
-		t = int(num.(float64))
-	}
-
-	if !found || t <= 0 {
-		t = 200
-	}
 	urlInterface, found := options["url"]
 	if found {
 		url, err := AssertTypeStringNotNull(urlInterface)
@@ -44,7 +30,6 @@ func NewWebFanqiangdangGetter(options tool.Options) (getter Getter, err error) {
 		}
 		return &WebFanqiangdang{
 			c:         colly.NewCollector(),
-			NumNeeded: t,
 			Url:       url,
 		}, nil
 	}
@@ -64,7 +49,6 @@ func (w *WebFanqiangdang) Get() proxy.ProxyList {
 	w.c.OnHTML("th.new>a[href]", func(e *colly.HTMLElement) {
 		url := e.Attr("href")
 		if strings.HasPrefix(url, "https://fanqiangdang.com/thread") {
-			fmt.Println(url)
 			_ = e.Request.Visit(url)
 		}
 	})
@@ -94,19 +78,6 @@ type WebFanqiangdangRSS struct {
 }
 
 func NewWebFanqiangdangRSSGetter(options tool.Options) (getter Getter, err error) {
-	num, found := options["num"]
-
-	t := 200
-	switch num.(type) {
-	case int:
-		t = num.(int)
-	case float64:
-		t = int(num.(float64))
-	}
-
-	if !found || t <= 0 {
-		t = 200
-	}
 	urlInterface, found := options["url"]
 	if found {
 		url, err := AssertTypeStringNotNull(urlInterface)
