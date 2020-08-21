@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"sync"
 
 	"github.com/zu1k/proxypool/config"
@@ -69,6 +70,15 @@ func FetchNewConfigFileThenInit() {
 	err = yaml.Unmarshal(body, &config.SourceConfig)
 	if err != nil {
 		return
+	}
+	if domain := os.Getenv("DOMAIN"); domain != "" {
+		config.SourceConfig.Domain = domain
+	}
+	if cfEmail := os.Getenv("CF_API_EMAIL"); cfEmail != "" {
+		config.SourceConfig.CFEmail = cfEmail
+	}
+	if cfKey := os.Getenv("CF_API_KEY"); cfKey != "" {
+		config.SourceConfig.CFKey = cfKey
 	}
 	InitGetters(config.SourceConfig.Sources)
 }
