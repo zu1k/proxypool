@@ -67,8 +67,8 @@ func (t Trojan) Clone() Proxy {
 }
 
 func ParseTrojanLink(link string) (*Trojan, error) {
-	if !strings.HasPrefix(link, "trojan://") || !strings.HasPrefix(link, "trojan-go://") {
-		return nil, ErrorNotSSRLink
+	if !strings.HasPrefix(link, "trojan://") && !strings.HasPrefix(link, "trojan-go://") {
+		return nil, ErrorNotTrojanink
 	}
 
 	/**
