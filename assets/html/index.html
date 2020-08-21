@@ -111,7 +111,7 @@
             <p>可用节点数量：{{ .useful_proxies_count }}</p>
             <br>
             <h5><a href="/clash">Clash</a></h5>
-            <p>Clash配置文件：<a href="https://{{ .domain }}/clash/config">https://{{ .domain }}/clash/config</a> <a
+            <p>Clash配置文件：https://{{ .domain }}/clash/config <a
                         href="clash://install-config?url=https://{{ .domain }}/clash/config">一键导入</a></p>
             <p>Clash proxy-provider(Shadowrocket添加订阅方式可用)：<a href="https://{{ .domain }}/clash/proxies">https://{{ .domain }}/clash/proxies</a>
             </p>
@@ -119,11 +119,12 @@
 			</p>
 			<br>
 			<h5><a href="/surge">Surge</a></h5>
-            <p>Surge配置文件：<a href="https://{{ .domain }}/surge/config">https://{{ .domain }}/surge/config</a> <a
+            <p>Surge配置文件：https://{{ .domain }}/surge/config <a
                         href="surge3:///install-config?url=https://{{ .domain }}/surge/config">一键导入</a></p>
             <p>Surge proxy list：<a href="https://{{ .domain }}/surge/proxies">https://{{ .domain }}/surge/proxies</a>
             </p>
             <br>
+            {{- /* 所有使用本代码提供服务的禁止删除该行*/}}
             <p>抓取程序已开源：<a href="https://github.com/zu1k/proxypool">https://github.com/zu1k/proxypool</a></p>
         </div>
     </div>
