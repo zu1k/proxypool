@@ -64,6 +64,8 @@ func checkClashSupport(p proxy.Proxy) bool {
 		if checkInList(ssCipherList, ss.Cipher) {
 			return true
 		}
+	case "trojan":
+		return true
 	default:
 		return false
 	}
