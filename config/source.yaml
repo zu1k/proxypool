@@ -24,10 +24,9 @@ sources:
       num: 200
 
   # 翻墙党论坛抓取
-  - type: web-fanqiangdang
+  - type: web-fanqiangdang-rss
     options:
       url: https://fanqiangdang.com/forum.php?mod=rss&fid=50&auth=0
-      num: 200
 
   # 某个网站抓取
   - type: web-freessrxyz
