@@ -21,8 +21,21 @@ func (ps ProxyList) TypeLen(t string) int {
 	return l
 }
 
+var sortType = make(map[string]int)
+
+func init() {
+	sortType["ss"] = 1
+	sortType["ssr"] = 2
+	sortType["vmess"] = 3
+	sortType["trojan"] = 4
+}
+
 func (ps ProxyList) Less(i, j int) bool {
-	return ps[i].BaseInfo().Name < ps[j].BaseInfo().Name
+	if ps[i].BaseInfo().Name == ps[j].BaseInfo().Name {
+		return sortType[ps[i].BaseInfo().Type] < sortType[ps[j].BaseInfo().Type]
+	} else {
+		return ps[i].BaseInfo().Name < ps[j].BaseInfo().Name
+	}
 }
 
 func (ps ProxyList) Swap(i, j int) {
