@@ -41,6 +41,10 @@ func CrawlGo() {
 	proxies.NameAddCounrty().Sort().NameAddIndex()
 	cache.SetProxies("allproxies", proxies)
 	cache.AllProxiesCount = proxies.Len()
+	cache.SSProxiesCount = proxies.TypeLen("ss")
+	cache.SSRProxiesCount = proxies.TypeLen("ssr")
+	cache.VmessProxiesCount = proxies.TypeLen("vmess")
+	cache.TrojanProxiesCount = proxies.TypeLen("trojan")
 
 	// 可用性检测
 	proxies = proxy.CleanBadProxies(proxies)

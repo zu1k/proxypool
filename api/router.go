@@ -26,6 +26,10 @@ func setupRouter() {
 		c.HTML(http.StatusOK, "index.html", gin.H{
 			"domain":               domain,
 			"all_proxies_count":    cache.AllProxiesCount,
+			"ss_proxies_count":     cache.SSProxiesCount,
+			"ssr_proxies_count":    cache.SSRProxiesCount,
+			"vmess_proxies_count":  cache.VmessProxiesCount,
+			"trojan_proxies_count": cache.TrojanProxiesCount,
 			"useful_proxies_count": cache.UsefullProxiesCount,
 		})
 	})

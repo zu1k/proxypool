@@ -11,6 +11,16 @@ func (ps ProxyList) Len() int {
 	return len(ps)
 }
 
+func (ps ProxyList) TypeLen(t string) int {
+	l := 0
+	for _, p := range ps {
+		if p.TypeName() == t {
+			l++
+		}
+	}
+	return l
+}
+
 func (ps ProxyList) Less(i, j int) bool {
 	return ps[i].BaseInfo().Name < ps[j].BaseInfo().Name
 }
