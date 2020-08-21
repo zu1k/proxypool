@@ -8,4 +8,6 @@ var (
 	TrojanProxiesCount = 0
 
 	UsefullProxiesCount = 0
+
+	LastCrawlTime = "程序刚升级完成，正在爬取中..."
 )
