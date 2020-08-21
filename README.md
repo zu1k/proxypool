@@ -20,14 +20,12 @@
 
 ## 支持
 
-- 支持ss、ssr、vmess、trojan节点链接与订阅
-- 任意 Telegram 频道抓取
-- 机场订阅地址抓取解析
+- 支持ss、ssr、vmess、trojan多种类型
+- Telegram频道抓取
+- 订阅地址抓取解析
 - 公开互联网页面模糊抓取
-- 翻墙党论坛新节点信息
-- 其他节点分享网站
-- 定时抓取更新
-- 使用配置文件提供抓取源
+- 定时抓取自动更新
+- 通过配置文件设置抓取源
 - 自动检测节点可用性
 
 ## 安装
@@ -35,6 +33,10 @@
 ### 使用Heroku
 
 点击按钮进入部署页面，填写基本信息然后运行
+
+其中 `DOMAIN` 需要填写为你需要绑定的域名，`CONFIG_FILE` 需要填写你的配置文件路径，配置文件模板见 config/source.yaml 文件
+
+`CF` 开头的选项暂不需要填写，不影响程序运行
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
@@ -63,19 +65,17 @@ docker pull docker.pkg.github.com/zu1k/proxypool/proxypool:latest
 
 ### 修改配置文件
 
-首先修改 source.yaml 中的必要配置信息，其中域名修改为你自己的域名，cf开头的配置信息可以留空
+首先修改 source.yaml 中的必要配置信息，cf开头的选项不需要填写
+
+配置文件中定义了抓取源，需要定期手动维护更新
 
 ### 启动程序
+
+使用 `-c` 参数指定配置文件路径，支持http链接
 
 ```shell
 proxypool -c source.yaml
 ```
-
-### 用户使用
-
-目前公开版本： https://proxy.tgbot.co
-
-访问页面，按照相关指导进行使用
 
 ## 截图
 
