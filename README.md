@@ -16,8 +16,6 @@
   </a>
 </p>
 
-![Star](https://img.shields.io/github/stars/zu1k/proxypool.svg?style=social&label=Star) 来都来了，不点个Star再走？ 
-
 ## 支持
 
 - 支持ss、ssr、vmess、trojan多种类型
