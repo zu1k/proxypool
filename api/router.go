@@ -31,6 +31,7 @@ func setupRouter() {
 			"vmess_proxies_count":  cache.VmessProxiesCount,
 			"trojan_proxies_count": cache.TrojanProxiesCount,
 			"useful_proxies_count": cache.UsefullProxiesCount,
+			"last_crawl_time":      cache.LastCrawlTime,
 		})
 	})
 

@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"sync"
+	"time"
 
 	"github.com/zu1k/proxypool/config"
 	"github.com/zu1k/proxypool/internal/cache"
@@ -14,6 +15,8 @@ import (
 	"github.com/zu1k/proxypool/pkg/tool"
 	"gopkg.in/yaml.v2"
 )
+
+var location, _ = time.LoadLocation("PRC")
 
 func CrawlGo() {
 	if config.NeedFetch {
@@ -46,6 +49,7 @@ func CrawlGo() {
 	cache.SSRProxiesCount = proxies.TypeLen("ssr")
 	cache.VmessProxiesCount = proxies.TypeLen("vmess")
 	cache.TrojanProxiesCount = proxies.TypeLen("trojan")
+	cache.LastCrawlTime = time.Now().In(location).Format("2006-01-02 15:04:05")
 
 	// 可用性检测
 	proxies = proxy.CleanBadProxies(proxies)
