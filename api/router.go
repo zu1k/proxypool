@@ -12,6 +12,8 @@ import (
 	"github.com/zu1k/proxypool/pkg/provider"
 )
 
+const version = "v0.3.0"
+
 var router *gin.Engine
 
 func setupRouter() {
@@ -28,6 +30,7 @@ func setupRouter() {
 			"trojan_proxies_count": cache.TrojanProxiesCount,
 			"useful_proxies_count": cache.UsefullProxiesCount,
 			"last_crawl_time":      cache.LastCrawlTime,
+			"version":              version,
 		})
 	})
 
