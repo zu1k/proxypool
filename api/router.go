@@ -1,13 +1,13 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 
+	"github.com/zu1k/proxypool/config"
+
 	"github.com/gin-gonic/gin"
 	_ "github.com/heroku/x/hmetrics/onload"
-	"github.com/zu1k/proxypool/config"
 	"github.com/zu1k/proxypool/internal/cache"
 	"github.com/zu1k/proxypool/pkg/provider"
 )
@@ -16,15 +16,12 @@ var router *gin.Engine
 var domain = "proxy.tgbot.co"
 
 func setupRouter() {
-	domain = config.SourceConfig.Domain
-	fmt.Println("Domain:", domain)
-
 	router = gin.Default()
 	router.LoadHTMLGlob("assets/html/*")
 
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
-			"domain":               domain,
+			"domain":               config.SourceConfig.Domain,
 			"all_proxies_count":    cache.AllProxiesCount,
 			"ss_proxies_count":     cache.SSProxiesCount,
 			"ssr_proxies_count":    cache.SSRProxiesCount,

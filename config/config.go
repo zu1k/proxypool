@@ -33,7 +33,6 @@ func Parse(path string) (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
-	SourceConfig = Config{}
 	err = yaml.Unmarshal(fileData, &SourceConfig)
 	if err != nil {
 		return nil, err
