@@ -13,7 +13,6 @@ import (
 )
 
 var router *gin.Engine
-var domain = "proxy.tgbot.co"
 
 func setupRouter() {
 	router = gin.Default()
@@ -34,25 +33,25 @@ func setupRouter() {
 
 	router.GET("/clash", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "clash.html", gin.H{
-			"domain": domain,
+			"domain": config.SourceConfig.Domain,
 		})
 	})
 
 	router.GET("/surge", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "surge.html", gin.H{
-			"domain": domain,
+			"domain": config.SourceConfig.Domain,
 		})
 	})
 
 	router.GET("/clash/config", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "clash-config.yaml", gin.H{
-			"domain": domain,
+			"domain": config.SourceConfig.Domain,
 		})
 	})
 
 	router.GET("/surge/config", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "surge.conf", gin.H{
-			"domain": domain,
+			"domain": config.SourceConfig.Domain,
 		})
 	})
 
