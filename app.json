@@ -4,8 +4,8 @@
   "website": "https://proxy.tgbot.co/",
   "repository": "https://github.com/zu1k/proxypool",
   "success_url": "/",
-  "logo": "https://raw.githubusercontent.com/zu1k/proxypool/master/assets/proxy.jpg",
-  "keywords": ["golang", "ss", "ssr", "vmess", "shadowsocks", "shadowsocksr"],
+  "logo": "https://raw.githubusercontent.com/zu1k/proxypool/heroku/assets/proxy.jpg",
+  "keywords": ["golang", "ss", "ssr", "vmess", "shadowsocks", "shadowsocksr", "trojan"],
   "env": {
     "CONFIG_FILE": {
       "description": "Path to config file, could be a url."
