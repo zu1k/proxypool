@@ -75,6 +75,7 @@ func FetchNewConfigFileThenInit() {
 
 	err = yaml.Unmarshal(body, &config.SourceConfig)
 	if err != nil {
+		fmt.Errorf("Config file Error: %s\n", err.Error())
 		return
 	}
 	if domain := os.Getenv("DOMAIN"); domain != "" {
