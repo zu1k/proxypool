@@ -11,18 +11,19 @@ import (
 var Getters = make([]getter.Getter, 0)
 
 func InitConfigAndGetters(path string) (err error) {
-	c, err := config.Parse(path)
+	err = config.Parse(path)
 	if err != nil {
-		return err
+		return
 	}
-	if c == nil {
+	if s := config.Config.Sources; len(s) == 0 {
 		return errors.New("no sources")
+	} else {
+		initGetters(s)
 	}
-	InitGetters(c.Sources)
-	return nil
+	return
 }
 
-func InitGetters(sources []config.Source) {
+func initGetters(sources []config.Source) {
 	Getters = make([]getter.Getter, 0)
 	for _, source := range sources {
 		g, err := getter.NewGetter(source.Type, source.Options)

@@ -1,66 +1,76 @@
 package config
 
 import (
-	"fmt"
+	"errors"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"github.com/ghodss/yaml"
 	"github.com/zu1k/proxypool/pkg/tool"
 )
 
-var (
-	NeedFetch = true
-	Url       = "source.yaml"
-)
+var configFilePath = "config.yaml"
 
 type Source struct {
 	Type    string       `json:"type" yaml:"type"`
 	Options tool.Options `json:"options" yaml:"options"`
 }
 
-type Config struct {
+type ConfigOptions struct {
 	Domain  string   `json:"domain" yaml:"domain"`
 	CFEmail string   `json:"cf_email" yaml:"cf_email"`
 	CFKey   string   `json:"cf_key" yaml:"cf_key"`
 	Sources []Source `json:"sources" yaml:"sources"`
 }
 
-var SourceConfig = Config{}
+// Config 配置
+var Config ConfigOptions
 
-func Parse(path string) (*Config, error) {
-	fileData, err := readFile(path)
-	if err != nil {
-		return nil, err
+// Parse 解析配置文件，支持本地文件系统和网络链接
+func Parse(path string) error {
+	if path == "" {
+		path = configFilePath
+	} else {
+		configFilePath = path
 	}
-	err = yaml.Unmarshal(fileData, &SourceConfig)
+	fileData, err := readConfigFile(path)
 	if err != nil {
-		return nil, err
+		return err
 	}
+	Config = ConfigOptions{}
+	err = yaml.Unmarshal(fileData, &Config)
+	if err != nil {
+		return err
+	}
+
+	// 部分配置环境变量优先
 	if domain := os.Getenv("DOMAIN"); domain != "" {
-		SourceConfig.Domain = domain
+		Config.Domain = domain
 	}
 	if cfEmail := os.Getenv("CF_API_EMAIL"); cfEmail != "" {
-		SourceConfig.CFEmail = cfEmail
+		Config.CFEmail = cfEmail
 	}
 	if cfKey := os.Getenv("CF_API_KEY"); cfKey != "" {
-		SourceConfig.CFKey = cfKey
+		Config.CFKey = cfKey
 	}
-	return &SourceConfig, nil
+
+	return nil
 }
 
-func readFile(path string) ([]byte, error) {
-	if _, err := os.Stat(path); os.IsNotExist(err) {
-		return nil, err
+// 从本地文件或者http链接读取配置文件内容
+func readConfigFile(path string) ([]byte, error) {
+	if strings.HasPrefix(path, "http://") || strings.HasPrefix(path, "https://") {
+		resp, err := tool.GetHttpClient().Get(path)
+		if err != nil {
+			return nil, errors.New("config file http get fail")
+		}
+		defer resp.Body.Close()
+		return ioutil.ReadAll(resp.Body)
+	} else {
+		if _, err := os.Stat(path); os.IsNotExist(err) {
+			return nil, err
+		}
+		return ioutil.ReadFile(path)
 	}
-	data, err := ioutil.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
-
-	if len(data) == 0 {
-		return nil, fmt.Errorf("Configuration file %s is empty", path)
-	}
-
-	return data, err
 }

@@ -1,27 +1,18 @@
 package app
 
 import (
-	"fmt"
-	"io/ioutil"
 	"log"
-	"os"
 	"sync"
 	"time"
 
-	"github.com/zu1k/proxypool/config"
 	"github.com/zu1k/proxypool/internal/cache"
 	"github.com/zu1k/proxypool/pkg/provider"
 	"github.com/zu1k/proxypool/pkg/proxy"
-	"github.com/zu1k/proxypool/pkg/tool"
-	"gopkg.in/yaml.v2"
 )
 
 var location, _ = time.LoadLocation("PRC")
 
 func CrawlGo() {
-	if config.NeedFetch {
-		FetchNewConfigFileThenInit()
-	}
 	wg := &sync.WaitGroup{}
 	var pc = make(chan proxy.Proxy)
 	for _, g := range Getters {
@@ -60,32 +51,4 @@ func CrawlGo() {
 
 	cache.SetString("clashproxies", provider.Clash{Proxies: proxies}.Provide())
 	cache.SetString("surgeproxies", provider.Surge{Proxies: proxies}.Provide())
-}
-
-func FetchNewConfigFileThenInit() {
-	fmt.Println("fetch new config file...")
-	resp, err := tool.GetHttpClient().Get(config.Url)
-	if err != nil {
-		return
-	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-
-	fmt.Println(string(body))
-
-	err = yaml.Unmarshal(body, &config.SourceConfig)
-	if err != nil {
-		fmt.Errorf("Config file Error: %s\n", err.Error())
-		return
-	}
-	if domain := os.Getenv("DOMAIN"); domain != "" {
-		config.SourceConfig.Domain = domain
-	}
-	if cfEmail := os.Getenv("CF_API_EMAIL"); cfEmail != "" {
-		config.SourceConfig.CFEmail = cfEmail
-	}
-	if cfKey := os.Getenv("CF_API_KEY"); cfKey != "" {
-		config.SourceConfig.CFKey = cfKey
-	}
-	InitGetters(config.SourceConfig.Sources)
 }
