@@ -52,10 +52,10 @@ func main() {
 }
 
 func initConfigFile(path string) {
+	fmt.Println("Config file:", path)
 	if strings.HasPrefix(path, "http") {
 		config.Url = path
 		config.NeedFetch = true
-		app.FetchNewConfigFileThenInit()
 	} else {
 		err := app.InitConfigAndGetters(configFilePath)
 		if err != nil {
