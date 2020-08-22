@@ -9,13 +9,13 @@ import (
 )
 
 func test() {
-	api, err := cloudflare.New(config.SourceConfig.CFKey, config.SourceConfig.CFKey)
+	api, err := cloudflare.New(config.Config.CFKey, config.Config.CFKey)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Fetch the zone ID
-	id, err := api.ZoneIDByName(config.SourceConfig.Domain)
+	id, err := api.ZoneIDByName(config.Config.Domain)
 	if err != nil {
 		log.Fatal(err)
 	}
