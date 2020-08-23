@@ -1,6 +1,6 @@
 domain: example.com
 cf_email: ""
 cf_key: ""
-sources:
+source-files:
   - ./source.yaml
   - https://example.com/source.yaml
