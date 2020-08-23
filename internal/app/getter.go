@@ -28,21 +28,23 @@ func InitConfigAndGetters(path string) (err error) {
 func initGetters(sourceFiles []string) {
 	Getters = make([]getter.Getter, 0)
 	for _, path := range sourceFiles {
-		source := config.Source{}
 		data, err := config.ReadFile(path)
 		if err != nil {
 			fmt.Errorf("Init SourceFile Error: %s\n", err.Error())
 			continue
 		}
-		err = yaml.Unmarshal(data, &source)
+		sourceList := make([]config.Source, 0)
+		err = yaml.Unmarshal(data, &sourceList)
 		if err != nil {
 			fmt.Errorf("Init SourceFile Error: %s\n", err.Error())
 			continue
 		}
-		g, err := getter.NewGetter(source.Type, source.Options)
-		if err == nil && g != nil {
-			Getters = append(Getters, g)
-			fmt.Println("init getter:", source.Type, source.Options)
+		for _, source := range sourceList {
+			g, err := getter.NewGetter(source.Type, source.Options)
+			if err == nil && g != nil {
+				Getters = append(Getters, g)
+				fmt.Println("init getter:", source.Type, source.Options)
+			}
 		}
 	}
 	fmt.Println("Getter count:", len(Getters))
