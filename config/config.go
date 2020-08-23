@@ -12,16 +12,11 @@ import (
 
 var configFilePath = "config.yaml"
 
-type Source struct {
-	Type    string       `json:"type" yaml:"type"`
-	Options tool.Options `json:"options" yaml:"options"`
-}
-
 type ConfigOptions struct {
-	Domain  string   `json:"domain" yaml:"domain"`
-	CFEmail string   `json:"cf_email" yaml:"cf_email"`
-	CFKey   string   `json:"cf_key" yaml:"cf_key"`
-	Sources []Source `json:"sources" yaml:"sources"`
+	Domain      string   `json:"domain" yaml:"domain"`
+	CFEmail     string   `json:"cf_email" yaml:"cf_email"`
+	CFKey       string   `json:"cf_key" yaml:"cf_key"`
+	SourceFiles []string `json:"source-files" yaml:"source-files"`
 }
 
 // Config 配置
@@ -34,7 +29,7 @@ func Parse(path string) error {
 	} else {
 		configFilePath = path
 	}
-	fileData, err := readConfigFile(path)
+	fileData, err := ReadFile(path)
 	if err != nil {
 		return err
 	}
@@ -59,7 +54,7 @@ func Parse(path string) error {
 }
 
 // 从本地文件或者http链接读取配置文件内容
-func readConfigFile(path string) ([]byte, error) {
+func ReadFile(path string) ([]byte, error) {
 	if strings.HasPrefix(path, "http://") || strings.HasPrefix(path, "https://") {
 		resp, err := tool.GetHttpClient().Get(path)
 		if err != nil {
