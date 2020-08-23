@@ -1,0 +1,30 @@
+sources:
+  # 模糊抓取订阅链接
+  - type: webfuzzsub
+    options:
+      url: https://raw.githubusercontent.com/du5/free/master/sub.list
+
+  # 订阅链接
+  - type: subscribe
+    options:
+      url: https://raw.githubusercontent.com/ssrsub/ssr/master/v2ray
+
+  # 网页模糊抓取
+  - type: webfuzz
+    options:
+      url: https://merlinblog.xyz/wiki/freess.html
+
+  # tg频道抓取
+  - type: tgchannel
+    options:
+      channel: ssrList
+      num: 200
+
+  # 翻墙党论坛抓取
+  - type: web-fanqiangdang-rss
+    options:
+      url: https://fanqiangdang.com/forum.php?mod=rss&fid=50&auth=0
+
+  # 某个网站抓取
+  - type: web-freessrxyz
+    options:

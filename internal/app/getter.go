@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/ghodss/yaml"
+
 	"github.com/zu1k/proxypool/config"
 	"github.com/zu1k/proxypool/pkg/getter"
 )
@@ -15,7 +17,7 @@ func InitConfigAndGetters(path string) (err error) {
 	if err != nil {
 		return
 	}
-	if s := config.Config.Sources; len(s) == 0 {
+	if s := config.Config.SourceFiles; len(s) == 0 {
 		return errors.New("no sources")
 	} else {
 		initGetters(s)
@@ -23,9 +25,20 @@ func InitConfigAndGetters(path string) (err error) {
 	return
 }
 
-func initGetters(sources []config.Source) {
+func initGetters(sourceFiles []string) {
 	Getters = make([]getter.Getter, 0)
-	for _, source := range sources {
+	for _, path := range sourceFiles {
+		source := config.Source{}
+		data, err := config.ReadFile(path)
+		if err != nil {
+			fmt.Errorf("Init SourceFile Error: %s\n", err.Error())
+			continue
+		}
+		err = yaml.Unmarshal(data, &source)
+		if err != nil {
+			fmt.Errorf("Init SourceFile Error: %s\n", err.Error())
+			continue
+		}
 		g, err := getter.NewGetter(source.Type, source.Options)
 		if err == nil && g != nil {
 			Getters = append(Getters, g)
