@@ -1,6 +1,8 @@
 package cache
 
 var (
+	GettersCount = 0
+
 	AllProxiesCount    = 0
 	SSRProxiesCount    = 0
 	SSProxiesCount     = 0

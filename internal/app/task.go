@@ -35,6 +35,7 @@ func CrawlGo() {
 	proxies = provider.Clash{Proxies: proxies}.CleanProxies()
 	proxies.NameAddCounrty().Sort().NameAddIndex()
 	cache.SetProxies("allproxies", proxies)
+	cache.GettersCount = len(Getters)
 	cache.AllProxiesCount = proxies.Len()
 	cache.SSProxiesCount = proxies.TypeLen("ss")
 	cache.SSRProxiesCount = proxies.TypeLen("ssr")
