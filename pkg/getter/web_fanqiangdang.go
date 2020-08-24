@@ -16,9 +16,9 @@ func init() {
 }
 
 type WebFanqiangdang struct {
-	c         *colly.Collector
-	Url       string
-	results   proxy.ProxyList
+	c       *colly.Collector
+	Url     string
+	results proxy.ProxyList
 }
 
 func NewWebFanqiangdangGetter(options tool.Options) (getter Getter, err error) {
@@ -29,8 +29,8 @@ func NewWebFanqiangdangGetter(options tool.Options) (getter Getter, err error) {
 			return nil, err
 		}
 		return &WebFanqiangdang{
-			c:         colly.NewCollector(),
-			Url:       url,
+			c:   colly.NewCollector(),
+			Url: url,
 		}, nil
 	}
 	return nil, ErrorUrlNotFound
@@ -70,11 +70,10 @@ func (w *WebFanqiangdang) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
 	}
 }
 
-
 type WebFanqiangdangRSS struct {
-	c         *colly.Collector
-	Url       string
-	results   []string
+	c       *colly.Collector
+	Url     string
+	results []string
 }
 
 func NewWebFanqiangdangRSSGetter(options tool.Options) (getter Getter, err error) {
@@ -85,8 +84,8 @@ func NewWebFanqiangdangRSSGetter(options tool.Options) (getter Getter, err error
 			return nil, err
 		}
 		return &WebFanqiangdangRSS{
-			c:         colly.NewCollector(),
-			Url:       url,
+			c:   tool.GetColly(),
+			Url: url,
 		}, nil
 	}
 	return nil, ErrorUrlNotFound

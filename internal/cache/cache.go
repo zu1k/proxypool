@@ -1,7 +1,6 @@
 package cache
 
 import (
-	"log"
 	"time"
 
 	"github.com/patrickmn/go-cache"
@@ -13,10 +12,8 @@ var c = cache.New(cache.NoExpiration, 10*time.Minute)
 func GetProxies(key string) proxy.ProxyList {
 	result, found := c.Get(key)
 	if found {
-		log.Println("found cache for:", key, "length:", len(result.(proxy.ProxyList)))
 		return result.(proxy.ProxyList)
 	}
-	log.Println("cache not found:", key)
 	return nil
 }
 

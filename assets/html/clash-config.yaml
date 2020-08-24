@@ -50,6 +50,19 @@ proxy-groups:
       - provider
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
+  - name: 网址 https://proxy.tgbot.co
+    type: select
+    proxies:
+      - DIRECT
+  - name: 欢迎Star https://github.com/zu1k/proxypool
+    type: select
+    proxies:
+      - DIRECT
+  - name: TG频道 @peekfun
+    type: select
+    proxies:
+      - DIRECT
+
 
 proxy-providers:
   provider:

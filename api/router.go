@@ -17,7 +17,9 @@ const version = "v0.3.1"
 var router *gin.Engine
 
 func setupRouter() {
-	router = gin.Default()
+	gin.SetMode(gin.ReleaseMode)
+	router = gin.New()
+	router.Use(gin.Recovery())
 	router.LoadHTMLGlob("assets/html/*")
 
 	router.GET("/", func(c *gin.Context) {
