@@ -37,15 +37,15 @@ func NewGeoIP(filePath string) (geoip GeoIP) {
 }
 
 // find ip info
-func (g GeoIP) Find(ipORdomain string) (country string, err error) {
+func (g GeoIP) Find(ipORdomain string) (ip, country string, err error) {
 	ips, err := net.LookupIP(ipORdomain)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 	ipData := net.ParseIP(ips[0].String())
 	record, err := g.db.City(ipData)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
-	return record.Country.IsoCode, nil
+	return ips[0].String(), record.Country.IsoCode, nil
 }

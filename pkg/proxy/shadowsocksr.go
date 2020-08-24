@@ -34,7 +34,7 @@ type ShadowsocksR struct {
 }
 
 func (ssr ShadowsocksR) Identifier() string {
-	return net.JoinHostPort(ssr.Server, strconv.Itoa(ssr.Port)) + ssr.ProtocolParam
+	return net.JoinHostPort(ssr.Server, strconv.Itoa(ssr.Port)) + ssr.Password + ssr.ProtocolParam
 }
 
 func (ssr ShadowsocksR) String() string {

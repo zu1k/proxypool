@@ -40,7 +40,7 @@ func NewTGChannelGetter(options tool.Options) (getter Getter, err error) {
 			return nil, err
 		}
 		return &TGChannelGetter{
-			c:         colly.NewCollector(),
+			c:         tool.GetColly(),
 			NumNeeded: t,
 			Url:       "https://t.me/s/" + url,
 		}, nil

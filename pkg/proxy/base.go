@@ -19,6 +19,10 @@ func (b *Base) SetName(name string) {
 	b.Name = name
 }
 
+func (b *Base) SetIP(ip string) {
+	b.Server = ip
+}
+
 func (b *Base) BaseInfo() *Base {
 	return b
 }
@@ -34,6 +38,7 @@ type Proxy interface {
 	ToSurge() string
 	Identifier() string
 	SetName(name string)
+	SetIP(ip string)
 	TypeName() string
 	BaseInfo() *Base
 	Clone() Proxy

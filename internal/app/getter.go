@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/zu1k/proxypool/internal/cache"
+
 	"github.com/ghodss/yaml"
 
 	"github.com/zu1k/proxypool/config"
@@ -48,4 +50,5 @@ func initGetters(sourceFiles []string) {
 		}
 	}
 	fmt.Println("Getter count:", len(Getters))
+	cache.GettersCount = len(Getters)
 }
