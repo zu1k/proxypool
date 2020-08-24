@@ -32,7 +32,7 @@
 
 点击按钮进入部署页面，填写基本信息然后运行
 
-其中 `DOMAIN` 需要填写为你需要绑定的域名，`CONFIG_FILE` 需要填写你的配置文件路径，配置文件模板见 config/source.yaml 文件
+其中 `DOMAIN` 需要填写为你需要绑定的域名，`CONFIG_FILE` 需要填写你的配置文件路径，配置文件模板见 config/config.yaml 文件
 
 `CF` 开头的选项暂不需要填写，不影响程序运行
 
@@ -53,6 +53,8 @@ $ go get -u -v github.com/zu1k/proxypool
 
 从这里下载预编译好的程序 [release](https://github.com/zu1k/proxypool/releases)
 
+除了编译好的二进制程序，你还需要下载仓库 `assets` 文件夹，放置在可执行文件同目录
+
 ### 使用docker
 
 ```sh
@@ -63,16 +65,16 @@ docker pull docker.pkg.github.com/zu1k/proxypool/proxypool:latest
 
 ### 修改配置文件
 
-首先修改 source.yaml 中的必要配置信息，cf开头的选项不需要填写
+首先修改 config.yaml 中的必要配置信息，cf开头的选项不需要填写
 
-配置文件中定义了抓取源，需要定期手动维护更新
+source.yaml 文件中定义了抓取源，需要定期手动维护更新
 
 ### 启动程序
 
 使用 `-c` 参数指定配置文件路径，支持http链接
 
 ```shell
-proxypool -c source.yaml
+proxypool -c config.yaml
 ```
 
 ## 截图
