@@ -9,7 +9,7 @@ RUN go mod download && \
 
 FROM alpine:latest
 
-RUN apk add --no-cache ca-certificates
+RUN apk add --no-cache ca-certificates tzdata
 WORKDIR /proxypool-src
 COPY ./assets /proxypool-src/assets
 COPY --from=builder /proxypool /proxypool-src/
