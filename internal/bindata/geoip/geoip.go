@@ -27,7 +27,7 @@ type asset struct {
 
 // assetsGeolite2CityMmdb reads file data from disk. It returns an error on failure.
 func assetsGeolite2CityMmdb() (*asset, error) {
-	path := "D:\\Project\\proxypool\\assets\\GeoLite2-City.mmdb"
+	path := "assets/GeoLite2-City.mmdb"
 	name := "assets/GeoLite2-City.mmdb"
 	bytes, err := bindataRead(path, name)
 	if err != nil {
