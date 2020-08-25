@@ -6,11 +6,16 @@ import (
 	"os"
 
 	"github.com/oschwald/geoip2-golang"
+	bingeoip "github.com/zu1k/proxypool/internal/bindata/geoip"
 )
 
 var geoIp GeoIP
 
 func InitGeoIpDB() {
+	err := bingeoip.RestoreAsset("", "assets/GeoLite2-City.mmdb")
+	if err != nil {
+		panic(err)
+	}
 	geoIp = NewGeoIP("assets/GeoLite2-City.mmdb")
 }
 
