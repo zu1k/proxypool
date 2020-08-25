@@ -53,8 +53,6 @@ $ go get -u -v github.com/zu1k/proxypool
 
 从这里下载预编译好的程序 [release](https://github.com/zu1k/proxypool/releases)
 
-除了编译好的二进制程序，你还需要下载仓库 `assets` 文件夹，放置在可执行文件同目录
-
 ### 使用docker
 
 ```sh
