@@ -26,6 +26,12 @@ jobs:
         run: |
           go test ./...
 
+      - name: gen go-bindata
+        run: |
+          go get -u github.com/go-bindata/go-bindata/...
+          go-bindata -o internal/bindata/geoip/geoip.go -pkg bingeoip  assets/GeoLite2-City.mmdb
+          go-bindata -o internal/bindata/html/html.go -pkg binhtml  assets/html/
+
       - name: Build
         if: startsWith(github.ref, 'refs/tags/')
         env:
