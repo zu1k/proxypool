@@ -31,7 +31,7 @@ type asset struct {
 
 // assetsHtmlClashConfigYaml reads file data from disk. It returns an error on failure.
 func assetsHtmlClashConfigYaml() (*asset, error) {
-	path := "D:\\Project\\proxypool\\assets\\html\\clash-config.yaml"
+	path := "assets/html/clash-config.yaml"
 	name := "assets/html/clash-config.yaml"
 	bytes, err := bindataRead(path, name)
 	if err != nil {
@@ -49,7 +49,7 @@ func assetsHtmlClashConfigYaml() (*asset, error) {
 
 // assetsHtmlClashHtml reads file data from disk. It returns an error on failure.
 func assetsHtmlClashHtml() (*asset, error) {
-	path := "D:\\Project\\proxypool\\assets\\html\\clash.html"
+	path := "assets/html/clash.html"
 	name := "assets/html/clash.html"
 	bytes, err := bindataRead(path, name)
 	if err != nil {
@@ -67,7 +67,7 @@ func assetsHtmlClashHtml() (*asset, error) {
 
 // assetsHtmlIndexHtml reads file data from disk. It returns an error on failure.
 func assetsHtmlIndexHtml() (*asset, error) {
-	path := "D:\\Project\\proxypool\\assets\\html\\index.html"
+	path := "assets/html/index.html"
 	name := "assets/html/index.html"
 	bytes, err := bindataRead(path, name)
 	if err != nil {
@@ -85,7 +85,7 @@ func assetsHtmlIndexHtml() (*asset, error) {
 
 // assetsHtmlSurgeConf reads file data from disk. It returns an error on failure.
 func assetsHtmlSurgeConf() (*asset, error) {
-	path := "D:\\Project\\proxypool\\assets\\html\\surge.conf"
+	path := "assets/html/surge.conf"
 	name := "assets/html/surge.conf"
 	bytes, err := bindataRead(path, name)
 	if err != nil {
@@ -103,7 +103,7 @@ func assetsHtmlSurgeConf() (*asset, error) {
 
 // assetsHtmlSurgeHtml reads file data from disk. It returns an error on failure.
 func assetsHtmlSurgeHtml() (*asset, error) {
-	path := "D:\\Project\\proxypool\\assets\\html\\surge.html"
+	path := "assets/html/surge.html"
 	name := "assets/html/surge.html"
 	bytes, err := bindataRead(path, name)
 	if err != nil {
