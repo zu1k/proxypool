@@ -51,9 +51,9 @@ func CrawlGo() {
 	cache.LastCrawlTime = time.Now().In(location).Format("2006-01-02 15:04:05")
 
 	// 可用性检测
-	log.Println("Now check proxy health...")
+	log.Println("Now proceed proxy health check...")
 	proxies = proxy.CleanBadProxiesWithGrpool(proxies)
-	log.Println("CrawlGo clash usefull node count:", len(proxies))
+	log.Println("CrawlGo clash usable node count:", len(proxies))
 	proxies.NameReIndex()
 	cache.SetProxies("proxies", proxies)
 	cache.UsefullProxiesCount = proxies.Len()
