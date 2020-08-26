@@ -3,6 +3,7 @@ package proxy
 import (
 	"fmt"
 	"sort"
+	"strings"
 	"sync"
 )
 
@@ -94,8 +95,7 @@ func (ps ProxyList) NameReIndex() ProxyList {
 	num := len(ps)
 	for i := 0; i < num; i++ {
 		originName := ps[i].BaseInfo().Name
-		// country := string([]rune(originName)[:2])
-		country := string([]rune(originName)[:5])
+		country := strings.SplitN(originName, "_", 2)[0]
 		ps[i].SetName(fmt.Sprintf("%s_%+02v", country, i+1))
 	}
 	return ps
