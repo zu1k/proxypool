@@ -54,7 +54,7 @@ func (c Clash) Provide() string {
 		}
 		if !noNeedFilterCountry {
 			for _, c := range countries {
-				if strings.HasPrefix(p.BaseInfo().Name, c) {
+				if strings.Contains(p.BaseInfo().Name, c) {
 					countryOk = true
 					break
 				}
