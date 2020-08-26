@@ -1,6 +1,7 @@
 // Code generated for package bingeoip by go-bindata DO NOT EDIT. (@generated)
 // sources:
 // assets/GeoLite2-City.mmdb
+// assets/flags.json
 package bingeoip
 
 import (
@@ -29,6 +30,24 @@ type asset struct {
 func assetsGeolite2CityMmdb() (*asset, error) {
 	path := "assets/GeoLite2-City.mmdb"
 	name := "assets/GeoLite2-City.mmdb"
+	bytes, err := bindataRead(path, name)
+	if err != nil {
+		return nil, err
+	}
+
+	fi, err := os.Stat(path)
+	if err != nil {
+		err = fmt.Errorf("Error reading asset info %s at %s: %v", name, path, err)
+	}
+
+	a := &asset{bytes: bytes, info: fi}
+	return a, err
+}
+
+// assetsFlagsJson reads file data from disk. It returns an error on failure.
+func assetsFlagsJson() (*asset, error) {
+	path := "assets/flags.json"
+	name := "assets/flags.json"
 	bytes, err := bindataRead(path, name)
 	if err != nil {
 		return nil, err
@@ -96,6 +115,7 @@ func AssetNames() []string {
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
 	"assets/GeoLite2-City.mmdb": assetsGeolite2CityMmdb,
+	"assets/flags.json":         assetsFlagsJson,
 }
 
 // AssetDir returns the file names below a certain
@@ -141,6 +161,7 @@ type bintree struct {
 var _bintree = &bintree{nil, map[string]*bintree{
 	"assets": &bintree{nil, map[string]*bintree{
 		"GeoLite2-City.mmdb": &bintree{assetsGeolite2CityMmdb, map[string]*bintree{}},
+		"flags.json":         &bintree{assetsFlagsJson, map[string]*bintree{}},
 	}},
 }}
 
