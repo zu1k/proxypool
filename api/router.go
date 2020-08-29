@@ -69,8 +69,9 @@ func setupRouter() {
 	router.GET("/clash/proxies", func(c *gin.Context) {
 		proxyTypes := c.DefaultQuery("type", "")
 		proxyCountry := c.DefaultQuery("c", "")
+		proxyNotCountry := c.DefaultQuery("nc", "")
 		text := ""
-		if proxyTypes == "" && proxyCountry == "" {
+		if proxyTypes == "" && proxyCountry == "" && proxyNotCountry == "" {
 			text = cache.GetString("clashproxies")
 			if text == "" {
 				proxies := cache.GetProxies("proxies")
@@ -80,11 +81,21 @@ func setupRouter() {
 			}
 		} else if proxyTypes == "all" {
 			proxies := cache.GetProxies("allproxies")
-			clash := provider.Clash{Proxies: proxies, Types: proxyTypes, Country: proxyCountry}
+			clash := provider.Clash{
+				Proxies:    proxies,
+				Types:      proxyTypes,
+				Country:    proxyCountry,
+				NotCountry: proxyNotCountry,
+			}
 			text = clash.Provide()
 		} else {
 			proxies := cache.GetProxies("proxies")
-			clash := provider.Clash{Proxies: proxies, Types: proxyTypes, Country: proxyCountry}
+			clash := provider.Clash{
+				Proxies:    proxies,
+				Types:      proxyTypes,
+				Country:    proxyCountry,
+				NotCountry: proxyNotCountry,
+			}
 			text = clash.Provide()
 		}
 		c.String(200, text)
