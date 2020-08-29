@@ -2,6 +2,7 @@ package getter
 
 import (
 	"fmt"
+	"log"
 	"sync"
 
 	"github.com/gocolly/colly"
@@ -79,6 +80,7 @@ func (g *TGChannelGetter) Get() proxy.ProxyList {
 func (g *TGChannelGetter) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
 	defer wg.Done()
 	nodes := g.Get()
+	log.Printf("STATISTIC: TGChannel\tcount=%d\turl=%s\n", len(nodes), g.Url)
 	for _, node := range nodes {
 		pc <- node
 	}
