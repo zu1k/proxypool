@@ -2,6 +2,7 @@ package getter
 
 import (
 	"io/ioutil"
+	"log"
 	"strings"
 	"sync"
 
@@ -41,6 +42,7 @@ func (s *Subscribe) Get() proxy.ProxyList {
 func (s *Subscribe) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
 	defer wg.Done()
 	nodes := s.Get()
+	log.Printf("STATISTIC: Subscribe\tcount=%d\turl=%s\n", len(nodes), s.Url)
 	for _, node := range nodes {
 		pc <- node
 	}

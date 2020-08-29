@@ -2,6 +2,7 @@ package getter
 
 import (
 	"fmt"
+	"log"
 	"strings"
 	"sync"
 
@@ -113,6 +114,7 @@ func (w *WebFanqiangdangRSS) Get() proxy.ProxyList {
 func (w *WebFanqiangdangRSS) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
 	defer wg.Done()
 	nodes := w.Get()
+	log.Printf("STATISTIC: Fanqiangdang\tcount=%d\turl=%s\n", len(nodes), w.Url)
 	for _, node := range nodes {
 		pc <- node
 	}

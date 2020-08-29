@@ -3,6 +3,7 @@ package getter
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"sync"
 
 	"github.com/zu1k/proxypool/pkg/proxy"
@@ -34,6 +35,7 @@ func (w *WebFreessrXyz) Get() proxy.ProxyList {
 func (w *WebFreessrXyz) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
 	defer wg.Done()
 	nodes := w.Get()
+	log.Printf("STATISTIC: FreeSSRxyz\tcount=%d\turl=%s\n", len(nodes), "api.free-ssr.xyz")
 	for _, node := range nodes {
 		pc <- node
 	}

@@ -20,7 +20,7 @@ var router *gin.Engine
 func setupRouter() {
 	gin.SetMode(gin.ReleaseMode)
 	router = gin.New()
-	router.Use(gin.Logger(), gin.Recovery())
+	router.Use(gin.Recovery())
 	temp, err := loadTemplate()
 	if err != nil {
 		panic(err)
