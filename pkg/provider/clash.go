@@ -7,9 +7,10 @@ import (
 )
 
 type Clash struct {
-	Proxies proxy.ProxyList `yaml:"proxies"`
-	Types   string          `yaml:"type"`
-	Country string          `yaml:"country"`
+	Proxies    proxy.ProxyList `yaml:"proxies"`
+	Types      string          `yaml:"type"`
+	Country    string          `yaml:"country"`
+	NotCountry string          `yaml:"not_country"`
 }
 
 func (c Clash) CleanProxies() (proxies proxy.ProxyList) {
@@ -26,44 +27,63 @@ func (c Clash) Provide() string {
 	var resultBuilder strings.Builder
 	resultBuilder.WriteString("proxies:\n")
 
-	noNeedFilterType := false
-	noNeedFilterCountry := false
+	needFilterType := true
+	needFilterCountry := true
+	needFilterNotCountry := true
 	if c.Types == "" || c.Types == "all" {
-		noNeedFilterType = true
+		needFilterType = false
 	}
 	if c.Country == "" || c.Country == "all" {
-		noNeedFilterCountry = true
+		needFilterCountry = false
+	}
+	if c.NotCountry == "" {
+		needFilterNotCountry = false
 	}
 	types := strings.Split(c.Types, ",")
 	countries := strings.Split(c.Country, ",")
+	notCountries := strings.Split(c.NotCountry, ",")
 
 	for _, p := range c.Proxies {
 		if !checkClashSupport(p) {
 			continue
 		}
 
-		typeOk := false
-		countryOk := false
-		if !noNeedFilterType {
+		if needFilterType {
+			typeOk := false
 			for _, t := range types {
 				if p.TypeName() == t {
 					typeOk = true
 					break
 				}
 			}
+			if !typeOk {
+				goto exclude
+			}
 		}
-		if !noNeedFilterCountry {
+
+		if needFilterNotCountry {
+			for _, c := range notCountries {
+				if strings.Contains(p.BaseInfo().Name, c) {
+					goto exclude
+				}
+			}
+		}
+
+		if needFilterCountry {
+			countryOk := false
 			for _, c := range countries {
 				if strings.Contains(p.BaseInfo().Name, c) {
 					countryOk = true
 					break
 				}
 			}
+			if !countryOk {
+				goto exclude
+			}
 		}
 
-		if (noNeedFilterType || typeOk) && (noNeedFilterCountry || countryOk) {
-			resultBuilder.WriteString(p.ToClash() + "\n")
-		}
+		resultBuilder.WriteString(p.ToClash() + "\n")
+	exclude:
 	}
 
 	return resultBuilder.String()
