@@ -81,34 +81,19 @@ proxy-groups:
   - name: 延迟最低
     type: url-test
     use:
-      - cn
-      - jp
-      - sg
-      - us
-      - ca
-      - others
+      - all
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
   - name: 负载均衡
     type: load-balance
     use:
-      - cn
-      - jp
-      - sg
-      - us
-      - ca
-      - others
+      - all
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
   - name: 失败切换
     type: fallback
     use:
-      - cn
-      - jp
-      - sg
-      - us
-      - ca
-      - others
+      - all
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
 
