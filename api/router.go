@@ -13,7 +13,7 @@ import (
 	"github.com/zu1k/proxypool/pkg/provider"
 )
 
-const version = "v0.3.3"
+const version = "v0.3.4"
 
 var router *gin.Engine
 
