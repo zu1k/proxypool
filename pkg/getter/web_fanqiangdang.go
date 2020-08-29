@@ -12,7 +12,6 @@ import (
 )
 
 func init() {
-	Register("web-fanqiangdang-rss", NewWebFanqiangdangRSSGetter)
 	Register("web-fanqiangdang", NewWebFanqiangdangGetter)
 }
 
@@ -64,54 +63,6 @@ func (w *WebFanqiangdang) Get() proxy.ProxyList {
 }
 
 func (w *WebFanqiangdang) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
-	defer wg.Done()
-	nodes := w.Get()
-	for _, node := range nodes {
-		pc <- node
-	}
-}
-
-type WebFanqiangdangRSS struct {
-	c       *colly.Collector
-	Url     string
-	results []string
-}
-
-func NewWebFanqiangdangRSSGetter(options tool.Options) (getter Getter, err error) {
-	urlInterface, found := options["url"]
-	if found {
-		url, err := AssertTypeStringNotNull(urlInterface)
-		if err != nil {
-			return nil, err
-		}
-		return &WebFanqiangdangRSS{
-			c:   tool.GetColly(),
-			Url: url,
-		}, nil
-	}
-	return nil, ErrorUrlNotFound
-}
-
-func (w *WebFanqiangdangRSS) Get() proxy.ProxyList {
-	w.results = make([]string, 0)
-	w.c.OnHTML("td.t_f", func(e *colly.HTMLElement) {
-		w.results = append(w.results, GrepLinksFromString(e.Text)...)
-	})
-
-	w.c.OnXML("//item//link", func(e *colly.XMLElement) {
-		_ = e.Request.Visit(e.Text)
-	})
-
-	w.results = make([]string, 0)
-	err := w.c.Visit(w.Url)
-	if err != nil {
-		_ = fmt.Errorf("%s", err.Error())
-	}
-
-	return StringArray2ProxyArray(w.results)
-}
-
-func (w *WebFanqiangdangRSS) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {
 	defer wg.Done()
 	nodes := w.Get()
 	log.Printf("STATISTIC: Fanqiangdang\tcount=%d\turl=%s\n", len(nodes), w.Url)
