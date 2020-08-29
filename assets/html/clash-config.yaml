@@ -25,47 +25,149 @@ proxy-groups:
     type: select
     proxies:
       - 延迟最低
+      - 选择国家
+      - 选择节点
       - 失败切换
-      - 手动选择
       - 负载均衡
-  - name: 手动选择
+  - name: 选择国家
+    type: select
+    proxies:
+      - 🇨🇳 中国
+      - 🇯🇵 日本
+      - 🇸🇬 新加坡
+      - 🇺🇸 美国
+      - 🇨🇦 加拿大
+      - 其他国家
+  - name: 选择节点
     type: select
     use:
-      - provider
+      - all
+  - name: 🇨🇳 中国
+    type: url-test
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    use:
+      - cn
+  - name: 🇯🇵 日本
+    type: url-test
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    use:
+      - jp
+  - name: 🇸🇬 新加坡
+    type: url-test
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    use:
+      - sg
+  - name: 🇺🇸 美国
+    type: url-test
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    use:
+      - us
+  - name: 🇨🇦 加拿大
+    type: url-test
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    use:
+      - ca
+  - name: 其他国家
+    type: url-test
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    use:
+      - others
   - name: 延迟最低
     type: url-test
     use:
-      - provider
+      - cn
+      - jp
+      - sg
+      - us
+      - ca
+      - others
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
   - name: 负载均衡
     type: load-balance
     use:
-      - provider
+      - cn
+      - jp
+      - sg
+      - us
+      - ca
+      - others
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
   - name: 失败切换
     type: fallback
     use:
-      - provider
+      - cn
+      - jp
+      - sg
+      - us
+      - ca
+      - others
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
-  - name: 网址 https://proxy.tgbot.co
-    type: select
-    proxies:
-      - DIRECT
-  - name: 欢迎Star https://github.com/zu1k/proxypool
-    type: select
-    proxies:
-      - DIRECT
-  - name: TG频道 @peekfun
-    type: select
-    proxies:
-      - DIRECT
-
 
 proxy-providers:
-  provider:
+  cn:
+    type: http
+    url: "https://{{ .domain }}/clash/proxies?c=CN,HK,TW"
+    interval: 3600
+    path: ./provider-cn.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
+  us:
+    type: http
+    url: "https://{{ .domain }}/clash/proxies?c=US"
+    interval: 3600
+    path: ./provider-us.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
+  ca:
+    type: http
+    url: "https://{{ .domain }}/clash/proxies?c=CA"
+    interval: 3600
+    path: ./provider-ca.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
+  jp:
+    type: http
+    url: "https://{{ .domain }}/clash/proxies?c=JP"
+    interval: 3600
+    path: ./provider-jp.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
+  sg:
+    type: http
+    url: "https://{{ .domain }}/clash/proxies?c=SG"
+    interval: 3600
+    path: ./provider-sg.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
+  others:
+    type: http
+    url: "https://{{ .domain }}/clash/proxies?nc=CN,HK,TW,US,CA,JP,SG"
+    interval: 3600
+    path: ./provider-others.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
+  all:
     type: http
     url: "https://{{ .domain }}/clash/proxies"
     interval: 3600
