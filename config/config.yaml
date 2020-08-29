@@ -1,6 +1,13 @@
+# your domain
 domain: example.com
+
+# cloudflare api
 cf_email: ""
 cf_key: ""
+
+# source definition file
 source-files:
-  - ./source.yaml
+  # use local file
+  - source.yaml
+  # use web file
   - https://example.com/source.yaml
