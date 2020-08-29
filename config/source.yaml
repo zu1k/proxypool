@@ -20,9 +20,9 @@
     num: 200
 
 # 翻墙党论坛抓取
-- type: web-fanqiangdang-rss
+- type: web-fanqiangdang
   options:
-    url: https://fanqiangdang.com/forum.php?mod=rss&fid=50&auth=0
+    url: https://fanqiangdang.com/forum-48-1.html
 
 # 某个网站抓取
 - type: web-freessrxyz
