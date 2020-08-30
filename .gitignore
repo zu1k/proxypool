@@ -21,4 +21,4 @@ vendor
 # macOS file
 .DS_Store
 
-*.exe
+assets/html/
