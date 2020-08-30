@@ -37,6 +37,7 @@ proxy-groups:
       - 🇸🇬 新加坡
       - 🇺🇸 美国
       - 🇨🇦 加拿大
+      - 🇷🇺 俄罗斯
       - 🇦🇺 澳大利亚
       - 🇨🇭 瑞士
       - 🇩🇪 德国
@@ -78,6 +79,12 @@ proxy-groups:
     interval: 300
     use:
       - ca
+  - name: 🇷🇺 俄罗斯
+    type: url-test
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    use:
+      - ru
   - name: 🇦🇺 澳大利亚
     type: url-test
     url: 'http://www.gstatic.com/generate_204'
@@ -194,6 +201,15 @@ proxy-providers:
       enable: true
       interval: 600
       url: http://www.gstatic.com/generate_204
+  ru:
+    type: http
+    url: "https://{{ .domain }}/clash/proxies?c=RU"
+    interval: 3600
+    path: ./provider-ru.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
   ch:
     type: http
     url: "https://{{ .domain }}/clash/proxies?c=CH"
@@ -241,7 +257,7 @@ proxy-providers:
       url: http://www.gstatic.com/generate_204
   others:
     type: http
-    url: "https://{{ .domain }}/clash/proxies?nc=CN,HK,TW,US,CA,JP,SG,AU,CH,DE,GB,NL,FR"
+    url: "https://{{ .domain }}/clash/proxies?nc=CN,HK,TW,US,CA,JP,SG,AU,CH,DE,GB,NL,FR,RU"
     interval: 3600
     path: ./provider-others.yaml
     health-check:
