@@ -115,21 +115,19 @@
             <p>可用节点数量：{{ .useful_proxies_count }}</p>
             <p>最后更新时间：{{ .last_crawl_time }}</p>
             <br>
-            <h4><a href="/clash">Clash</a></h4>
+            <h3><a href="/clash">Clash</a></h3>
             <p>Clash配置文件：https://{{ .domain }}/clash/config <a
                         href="clash://install-config?url=https://{{ .domain }}/clash/config">一键导入</a></p>
-            <p>Clash proxy-provider(Shadowrocket添加订阅方式可用)：<a href="https://{{ .domain }}/clash/proxies">https://{{ .domain }}/clash/proxies</a>
-            </p>
+            <p>Clash proxy-provider(Shadowrocket添加订阅方式可用)：https://{{ .domain }}/clash/proxies</p>
             <p>筛选代理类型：https://{{ .domain }}/clash/proxies?type=ss,ssr,vmess</p>
             <p>筛选国家：https://{{ .domain }}/clash/proxies?c=HK,TW,US&nc=JP （c为需要的国家，nc为不需要的国家）</p>
 			<br>
-			<h4><a href="/surge">Surge</a></h4>
+			<h3><a href="/surge">Surge</a></h3>
             <p>Surge配置文件：https://{{ .domain }}/surge/config <a
                         href="surge3:///install-config?url=https://{{ .domain }}/surge/config">一键导入</a></p>
-            <p>Surge proxy list：<a href="https://{{ .domain }}/surge/proxies">https://{{ .domain }}/surge/proxies</a>
-            </p>
+            <p>Surge proxy list：https://{{ .domain }}/surge/proxies</p>
             <br>
-            {{- /* 所有使用本代码提供服务的禁止删除该行*/}}
+            {{- /* 所有使用本代码提供服务的禁止删除、修改版权信息*/}}
             <p>欢迎关注tg频道：<a href="https://t.me/peekfun">@peekfun</a></p>
             <p>抓取程序已开源：<a href="https://github.com/zu1k/proxypool">https://github.com/zu1k/proxypool</a> {{ .version }}</p>
         </div>
