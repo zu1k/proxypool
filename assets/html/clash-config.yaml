@@ -37,6 +37,12 @@ proxy-groups:
       - 🇸🇬 新加坡
       - 🇺🇸 美国
       - 🇨🇦 加拿大
+      - 🇦🇺 澳大利亚
+      - 🇨🇭 瑞士
+      - 🇩🇪 德国
+      - 🇫🇷 法国
+      - 🇬🇧 英国
+      - 🇳🇱 荷兰
       - 其他国家
   - name: 选择节点
     type: select
@@ -72,6 +78,42 @@ proxy-groups:
     interval: 300
     use:
       - ca
+  - name: 🇦🇺 澳大利亚
+    type: url-test
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    use:
+      - au
+  - name: 🇨🇭 瑞士
+    type: url-test
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    use:
+      - ch
+  - name: 🇩🇪 德国
+    type: url-test
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    use:
+      - de
+  - name: 🇫🇷 法国
+    type: url-test
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    use:
+      - fr
+  - name: 🇬🇧 英国
+    type: url-test
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    use:
+      - gb
+  - name: 🇳🇱 荷兰
+    type: url-test
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    use:
+      - nl
   - name: 其他国家
     type: url-test
     url: 'http://www.gstatic.com/generate_204'
@@ -98,6 +140,15 @@ proxy-groups:
     interval: 300
 
 proxy-providers:
+  au:
+    type: http
+    url: "https://{{ .domain }}/clash/proxies?c=AU"
+    interval: 3600
+    path: ./provider-au.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
   cn:
     type: http
     url: "https://{{ .domain }}/clash/proxies?c=CN,HK,TW"
@@ -143,9 +194,54 @@ proxy-providers:
       enable: true
       interval: 600
       url: http://www.gstatic.com/generate_204
+  ch:
+    type: http
+    url: "https://{{ .domain }}/clash/proxies?c=CH"
+    interval: 3600
+    path: ./provider-ch.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
+  de:
+    type: http
+    url: "https://{{ .domain }}/clash/proxies?c=DE"
+    interval: 3600
+    path: ./provider-de.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
+  fr:
+    type: http
+    url: "https://{{ .domain }}/clash/proxies?c=FR"
+    interval: 3600
+    path: ./provider-fr.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
+  gb:
+    type: http
+    url: "https://{{ .domain }}/clash/proxies?c=GB"
+    interval: 3600
+    path: ./provider-gb.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
+  nl:
+    type: http
+    url: "https://{{ .domain }}/clash/proxies?c=NL"
+    interval: 3600
+    path: ./provider-nl.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
   others:
     type: http
-    url: "https://{{ .domain }}/clash/proxies?nc=CN,HK,TW,US,CA,JP,SG"
+    url: "https://{{ .domain }}/clash/proxies?nc=CN,HK,TW,US,CA,JP,SG,AU,CH,DE,GB,NL,FR"
     interval: 3600
     path: ./provider-others.yaml
     health-check:
