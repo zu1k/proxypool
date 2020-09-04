@@ -26,3 +26,7 @@ func Base64DecodeString(src string) (dst string, err error) {
 	dst = string(dstbytes)
 	return
 }
+
+func Base64EncodeString(origin string) (result string) {
+	return base64.StdEncoding.EncodeToString([]byte(origin))
+}

@@ -65,6 +65,13 @@ func (ss Shadowsocks) Clone() Proxy {
 	return &ss
 }
 
+// https://shadowsocks.org/en/config/quick-guide.html
+func (ss Shadowsocks) Link() (link string) {
+	payload := fmt.Sprintf("%s:%s@%s:%d", ss.Cipher, ss.Password, ss.Server, ss.Port)
+	payload = tool.Base64EncodeString(payload)
+	return fmt.Sprintf("ss://%s#%s", payload, ss.Name)
+}
+
 func ParseSSLink(link string) (*Shadowsocks, error) {
 	if !strings.HasPrefix(link, "ss://") {
 		return nil, ErrorNotSSRLink
