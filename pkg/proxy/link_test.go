@@ -46,3 +46,17 @@ func TestTrojanLink(t *testing.T) {
 	}
 	fmt.Println(trojan)
 }
+
+func TestVmessLink(t *testing.T) {
+	v, err := ParseVmessLink("vmess://ew0KICAidiI6ICIyIiwNCiAgInBzIjogIuW+ruS/oeWFrOS8l+WPtyDlpJrlvannmoTlpKfljYPkuJbnlYwiLA0KICAiYWRkIjogInMyNzEuc25vZGUueHl6IiwNCiAgInBvcnQiOiAiNDQzIiwNCiAgImlkIjogIjZhOTAwZDYzLWNiOTItMzVhMC1hZWYwLTNhMGMxMWFhODUyMyIsDQogICJhaWQiOiAiMSIsDQogICJuZXQiOiAid3MiLA0KICAidHlwZSI6ICJub25lIiwNCiAgImhvc3QiOiAiczI3MS5zbm9kZS54eXoiLA0KICAicGF0aCI6ICIvcGFuZWwiLA0KICAidGxzIjogInRscyINCn0=")
+	if err != nil {
+		t.Error(err)
+	}
+	fmt.Println(v)
+	fmt.Println(v.Link())
+	v, err = ParseVmessLink(v.Link())
+	if err != nil {
+		t.Error(err)
+	}
+	fmt.Println(v)
+}

@@ -86,6 +86,14 @@ func (v Vmess) Clone() Proxy {
 	return &v
 }
 
+func (v Vmess) Link() (link string) {
+	vjv, err := json.Marshal(v.toLinkJson())
+	if err != nil {
+		return
+	}
+	return fmt.Sprintf("vmess://%s", tool.Base64EncodeBytes(vjv))
+}
+
 type vmessLinkJson struct {
 	Add  string      `json:"add"`
 	V    string      `json:"v"`
@@ -98,6 +106,27 @@ type vmessLinkJson struct {
 	Host string      `json:"host"`
 	Path string      `json:"path"`
 	Tls  string      `json:"tls"`
+}
+
+func (v Vmess) toLinkJson() vmessLinkJson {
+	vj := vmessLinkJson{
+		Add:  v.Server,
+		Ps:   v.Name,
+		Port: v.Port,
+		Id:   v.UUID,
+		Aid:  strconv.Itoa(v.AlterID),
+		Net:  v.Network,
+		Path: v.WSPath,
+		Host: v.ServerName,
+		V:    "2",
+	}
+	if v.TLS {
+		vj.Tls = "tls"
+	}
+	if host, ok := v.WSHeaders["HOST"]; ok && host != "" {
+		vj.Host = host
+	}
+	return vj
 }
 
 func ParseVmessLink(link string) (*Vmess, error) {
@@ -190,10 +219,11 @@ func ParseVmessLink(link string) (*Vmess, error) {
 		}
 		port := 443
 		portInterface := vmessJson.Port
-		if i, ok := portInterface.(int); ok {
-			port = i
-		} else if s, ok := portInterface.(string); ok {
-			port, _ = strconv.Atoi(s)
+		switch portInterface.(type) {
+		case int:
+			port = portInterface.(int)
+		case string:
+			port, _ = strconv.Atoi(portInterface.(string))
 		}
 
 		alterId, err := strconv.Atoi(vmessJson.Aid)
