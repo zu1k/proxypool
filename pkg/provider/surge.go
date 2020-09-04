@@ -7,18 +7,18 @@ import (
 )
 
 type Surge struct {
-	Proxies proxy.ProxyList `yaml:"proxies"`
+	Base
 }
 
 func (s Surge) Provide() string {
-	var resultBuilder strings.Builder
+	s.preFilter()
 
-	for _, p := range s.Proxies {
+	var resultBuilder strings.Builder
+	for _, p := range *s.Proxies {
 		if checkSurgeSupport(p) {
-			resultBuilder.WriteString(p.ToSurge() + "\n")
+			resultBuilder.WriteString(p.ToClash() + "\n")
 		}
 	}
-
 	return resultBuilder.String()
 }
 

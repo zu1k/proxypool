@@ -13,7 +13,7 @@ import (
 	"github.com/zu1k/proxypool/pkg/provider"
 )
 
-const version = "v0.3.4"
+const version = "v0.3.5"
 
 var router *gin.Engine
 
@@ -75,40 +75,111 @@ func setupRouter() {
 			text = cache.GetString("clashproxies")
 			if text == "" {
 				proxies := cache.GetProxies("proxies")
-				clash := provider.Clash{Proxies: proxies}
+				clash := provider.Clash{
+					provider.Base{
+						Proxies: &proxies,
+					},
+				}
 				text = clash.Provide()
 				cache.SetString("clashproxies", text)
 			}
 		} else if proxyTypes == "all" {
 			proxies := cache.GetProxies("allproxies")
 			clash := provider.Clash{
-				Proxies:    proxies,
-				Types:      proxyTypes,
-				Country:    proxyCountry,
-				NotCountry: proxyNotCountry,
+				provider.Base{
+					Proxies:    &proxies,
+					Types:      proxyTypes,
+					Country:    proxyCountry,
+					NotCountry: proxyNotCountry,
+				},
 			}
 			text = clash.Provide()
 		} else {
 			proxies := cache.GetProxies("proxies")
 			clash := provider.Clash{
-				Proxies:    proxies,
-				Types:      proxyTypes,
-				Country:    proxyCountry,
-				NotCountry: proxyNotCountry,
+				provider.Base{
+					Proxies:    &proxies,
+					Types:      proxyTypes,
+					Country:    proxyCountry,
+					NotCountry: proxyNotCountry,
+				},
 			}
 			text = clash.Provide()
 		}
 		c.String(200, text)
 	})
 	router.GET("/surge/proxies", func(c *gin.Context) {
-		text := cache.GetString("surgeproxies")
-		if text == "" {
-			proxies := cache.GetProxies("proxies")
-			surge := provider.Surge{Proxies: proxies}
+		proxyTypes := c.DefaultQuery("type", "")
+		proxyCountry := c.DefaultQuery("c", "")
+		proxyNotCountry := c.DefaultQuery("nc", "")
+		text := ""
+		if proxyTypes == "" && proxyCountry == "" && proxyNotCountry == "" {
+			text = cache.GetString("surgeproxies")
+			if text == "" {
+				proxies := cache.GetProxies("proxies")
+				surge := provider.Surge{
+					provider.Base{
+						Proxies: &proxies,
+					},
+				}
+				text = surge.Provide()
+				cache.SetString("surgeproxies", text)
+			}
+		} else if proxyTypes == "all" {
+			proxies := cache.GetProxies("allproxies")
+			surge := provider.Surge{
+				provider.Base{
+					Proxies:    &proxies,
+					Types:      proxyTypes,
+					Country:    proxyCountry,
+					NotCountry: proxyNotCountry,
+				},
+			}
 			text = surge.Provide()
-			cache.SetString("surgeproxies", text)
+		} else {
+			proxies := cache.GetProxies("proxies")
+			surge := provider.Surge{
+				provider.Base{
+					Proxies:    &proxies,
+					Types:      proxyTypes,
+					Country:    proxyCountry,
+					NotCountry: proxyNotCountry,
+				},
+			}
+			text = surge.Provide()
 		}
 		c.String(200, text)
+	})
+
+	router.GET("/ss/sub", func(c *gin.Context) {
+		proxies := cache.GetProxies("proxies")
+		ssSub := provider.SSSub{
+			provider.Base{
+				Proxies: &proxies,
+				Types:   "ss",
+			},
+		}
+		c.String(200, ssSub.Provide())
+	})
+	router.GET("/ssr/sub", func(c *gin.Context) {
+		proxies := cache.GetProxies("proxies")
+		ssrSub := provider.SSRSub{
+			provider.Base{
+				Proxies: &proxies,
+				Types:   "ssr",
+			},
+		}
+		c.String(200, ssrSub.Provide())
+	})
+	router.GET("/vmess/sub", func(c *gin.Context) {
+		proxies := cache.GetProxies("proxies")
+		vmessSub := provider.VmessSub{
+			provider.Base{
+				Proxies: &proxies,
+				Types:   "vmess",
+			},
+		}
+		c.String(200, vmessSub.Provide())
 	})
 }
 

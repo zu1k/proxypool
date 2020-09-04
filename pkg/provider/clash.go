@@ -7,15 +7,12 @@ import (
 )
 
 type Clash struct {
-	Proxies    proxy.ProxyList `yaml:"proxies"`
-	Types      string          `yaml:"type"`
-	Country    string          `yaml:"country"`
-	NotCountry string          `yaml:"not_country"`
+	Base
 }
 
 func (c Clash) CleanProxies() (proxies proxy.ProxyList) {
 	proxies = make(proxy.ProxyList, 0)
-	for _, p := range c.Proxies {
+	for _, p := range *c.Proxies {
 		if checkClashSupport(p) {
 			proxies = append(proxies, p)
 		}
@@ -24,68 +21,15 @@ func (c Clash) CleanProxies() (proxies proxy.ProxyList) {
 }
 
 func (c Clash) Provide() string {
+	c.preFilter()
+
 	var resultBuilder strings.Builder
 	resultBuilder.WriteString("proxies:\n")
-
-	needFilterType := true
-	needFilterCountry := true
-	needFilterNotCountry := true
-	if c.Types == "" || c.Types == "all" {
-		needFilterType = false
-	}
-	if c.Country == "" || c.Country == "all" {
-		needFilterCountry = false
-	}
-	if c.NotCountry == "" {
-		needFilterNotCountry = false
-	}
-	types := strings.Split(c.Types, ",")
-	countries := strings.Split(c.Country, ",")
-	notCountries := strings.Split(c.NotCountry, ",")
-
-	for _, p := range c.Proxies {
-		if !checkClashSupport(p) {
-			continue
+	for _, p := range *c.Proxies {
+		if checkClashSupport(p) {
+			resultBuilder.WriteString(p.ToClash() + "\n")
 		}
-
-		if needFilterType {
-			typeOk := false
-			for _, t := range types {
-				if p.TypeName() == t {
-					typeOk = true
-					break
-				}
-			}
-			if !typeOk {
-				goto exclude
-			}
-		}
-
-		if needFilterNotCountry {
-			for _, c := range notCountries {
-				if strings.Contains(p.BaseInfo().Name, c) {
-					goto exclude
-				}
-			}
-		}
-
-		if needFilterCountry {
-			countryOk := false
-			for _, c := range countries {
-				if strings.Contains(p.BaseInfo().Name, c) {
-					countryOk = true
-					break
-				}
-			}
-			if !countryOk {
-				goto exclude
-			}
-		}
-
-		resultBuilder.WriteString(p.ToClash() + "\n")
-	exclude:
 	}
-
 	return resultBuilder.String()
 }
 
