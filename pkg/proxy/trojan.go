@@ -66,6 +66,24 @@ func (t Trojan) Clone() Proxy {
 	return &t
 }
 
+// https://p4gefau1t.github.io/trojan-go/developer/url/
+func (t Trojan) Link() (link string) {
+	query := url.Values{}
+	if t.SNI != "" {
+		query.Set("sni", url.QueryEscape(t.SNI))
+	}
+
+	uri := url.URL{
+		Scheme:   "trojan",
+		User:     url.User(url.QueryEscape(t.Password)),
+		Host:     net.JoinHostPort(t.Server, strconv.Itoa(t.Port)),
+		RawQuery: query.Encode(),
+		Fragment: t.Name,
+	}
+
+	return uri.String()
+}
+
 func ParseTrojanLink(link string) (*Trojan, error) {
 	if !strings.HasPrefix(link, "trojan://") && !strings.HasPrefix(link, "trojan-go://") {
 		return nil, ErrorNotTrojanink
