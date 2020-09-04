@@ -17,5 +17,5 @@ func (sub VmessSub) Provide() string {
 	for _, p := range *sub.Proxies {
 		resultBuilder.WriteString(p.Link() + "\n")
 	}
-	return tool.Base64EncodeString(resultBuilder.String())
+	return tool.Base64EncodeString(resultBuilder.String(), false)
 }
