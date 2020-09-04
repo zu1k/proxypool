@@ -36,6 +36,7 @@ type Proxy interface {
 	String() string
 	ToClash() string
 	ToSurge() string
+	Link() string
 	Identifier() string
 	SetName(name string)
 	SetIP(ip string)

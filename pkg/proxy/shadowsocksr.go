@@ -62,6 +62,7 @@ func (ssr ShadowsocksR) Clone() Proxy {
 	return &ssr
 }
 
+// https://github.com/HMBSbige/ShadowsocksR-Windows/wiki/SSR-QRcode-scheme
 func (ssr ShadowsocksR) Link() (link string) {
 	payload := fmt.Sprintf("%s:%d:%s:%s:%s:%s",
 		ssr.Server, ssr.Port, ssr.Protocol, ssr.Cipher, ssr.Obfs, tool.Base64EncodeString(ssr.Password))

@@ -30,3 +30,7 @@ func Base64DecodeString(src string) (dst string, err error) {
 func Base64EncodeString(origin string) (result string) {
 	return base64.StdEncoding.EncodeToString([]byte(origin))
 }
+
+func Base64EncodeBytes(origin []byte) (result string) {
+	return base64.StdEncoding.EncodeToString([]byte(origin))
+}
