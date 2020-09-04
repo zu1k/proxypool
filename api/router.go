@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/heroku/x/hmetrics/onload"
@@ -180,6 +181,18 @@ func setupRouter() {
 			},
 		}
 		c.String(200, vmessSub.Provide())
+	})
+	router.GET("/link/:id", func(c *gin.Context) {
+		idx := c.Param("id")
+		proxies := cache.GetProxies("allproxies")
+		id, err := strconv.Atoi(idx)
+		if err != nil {
+			c.String(500, err.Error())
+		}
+		if id >= proxies.Len() {
+			c.String(500, "id too big")
+		}
+		c.String(200, proxies[id].Link())
 	})
 }
 
