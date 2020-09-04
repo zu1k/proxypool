@@ -26,7 +26,7 @@ type Base struct {
 	NotCountry string           `yaml:"not_country"`
 }
 
-func (b Base) preFilter() {
+func (b *Base) preFilter() {
 	proxies := make(proxy.ProxyList, 0)
 
 	needFilterType := true
