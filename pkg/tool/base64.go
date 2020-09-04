@@ -27,7 +27,10 @@ func Base64DecodeString(src string) (dst string, err error) {
 	return
 }
 
-func Base64EncodeString(origin string) (result string) {
+func Base64EncodeString(origin string, urlsafe bool) (result string) {
+	if urlsafe {
+		return base64.URLEncoding.EncodeToString([]byte(origin))
+	}
 	return base64.StdEncoding.EncodeToString([]byte(origin))
 }
 
