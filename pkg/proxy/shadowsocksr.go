@@ -3,6 +3,7 @@ package proxy
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"math/rand"
 	"net"
 	"net/url"
@@ -59,6 +60,18 @@ func (ssr ShadowsocksR) ToSurge() string {
 
 func (ssr ShadowsocksR) Clone() Proxy {
 	return &ssr
+}
+
+func (ssr ShadowsocksR) Link() (link string) {
+	payload := fmt.Sprintf("%s:%d:%s:%s:%s:%s",
+		ssr.Server, ssr.Port, ssr.Protocol, ssr.Cipher, ssr.Obfs, tool.Base64EncodeString(ssr.Password))
+	query := url.Values{}
+	query.Add("obfsparam", tool.Base64EncodeString(ssr.ObfsParam))
+	query.Add("protoparam", tool.Base64EncodeString(ssr.ProtocolParam))
+	query.Add("remarks", tool.Base64EncodeString(ssr.Name))
+	query.Add("group", tool.Base64EncodeString("proxy.tgbot.co"))
+	payload = tool.Base64EncodeString(fmt.Sprintf("%s/?%s", payload, query.Encode()))
+	return fmt.Sprintf("ssr://%s", payload)
 }
 
 func ParseSSRLink(link string) (*ShadowsocksR, error) {
