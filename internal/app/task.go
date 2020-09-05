@@ -33,7 +33,6 @@ func CrawlGo() {
 	}
 	// 节点去重
 	proxies = proxies.Deduplication()
-	database.SaveProxyList(proxies)
 	log.Println("CrawlGo node count:", len(proxies))
 	proxies = provider.Clash{
 		provider.Base{
@@ -43,6 +42,9 @@ func CrawlGo() {
 	log.Println("CrawlGo cleaned node count:", len(proxies))
 	proxies.NameAddCounrty().Sort().NameAddIndex().NameAddTG()
 	log.Println("Proxy rename DONE!")
+
+	// 全节点存储到数据库
+	database.SaveProxyList(proxies)
 
 	cache.SetProxies("allproxies", proxies)
 	cache.AllProxiesCount = proxies.Len()
