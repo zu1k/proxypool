@@ -76,6 +76,7 @@ func (ps ProxyList) NameAddCounrty() ProxyList {
 				country = "🏁 ZZ"
 			}
 			ps[ii].SetName(fmt.Sprintf("%s", country))
+			ps[ii].SetCountry(country)
 			//ps[ii].SetIP(ip)
 		}()
 	}

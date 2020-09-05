@@ -5,6 +5,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/zu1k/proxypool/internal/database"
+
 	"github.com/zu1k/proxypool/internal/cache"
 	"github.com/zu1k/proxypool/pkg/provider"
 	"github.com/zu1k/proxypool/pkg/proxy"
@@ -31,6 +33,7 @@ func CrawlGo() {
 	}
 	// 节点去重
 	proxies = proxies.Deduplication()
+	database.SaveProxyList(proxies)
 	log.Println("CrawlGo node count:", len(proxies))
 	proxies = provider.Clash{
 		provider.Base{
