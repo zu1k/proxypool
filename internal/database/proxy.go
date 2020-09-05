@@ -26,6 +26,9 @@ func InitTables() {
 }
 
 func SaveProxyList(pl proxy.ProxyList) {
+	if DB == nil {
+		return
+	}
 	proxies := make([]Proxy, pl.Len())
 	for i, p := range pl {
 		proxies[i] = Proxy{

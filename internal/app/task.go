@@ -5,9 +5,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/zu1k/proxypool/internal/database"
-
 	"github.com/zu1k/proxypool/internal/cache"
+	"github.com/zu1k/proxypool/internal/database"
 	"github.com/zu1k/proxypool/pkg/provider"
 	"github.com/zu1k/proxypool/pkg/proxy"
 )
