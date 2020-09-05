@@ -1,6 +1,9 @@
 # your domain
 domain: example.com
 
+# database url
+database_url: ""
+
 # cloudflare api
 cf_email: ""
 cf_key: ""
