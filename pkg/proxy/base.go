@@ -1,13 +1,13 @@
 package proxy
 
 type Base struct {
-	Name    string `yaml:"name" json:"name"`
-	Server  string `yaml:"server" json:"server"`
-	Port    int    `yaml:"port" json:"port"`
-	Type    string `yaml:"type" json:"type"`
+	Name    string `yaml:"name" json:"name" gorm:"index"`
+	Server  string `yaml:"server" json:"server" gorm:"index"`
+	Port    int    `yaml:"port" json:"port" gorm:"index"`
+	Type    string `yaml:"type" json:"type" gorm:"index"`
 	UDP     bool   `yaml:"udp,omitempty" json:"udp,omitempty"`
-	Country string `yaml:"country,omitempty" json:"country,omitempty"`
-	Useable bool   `yaml:"useable,omitempty" json:"useable,omitempty"`
+	Country string `yaml:"country,omitempty" json:"country,omitempty" gorm:"index"`
+	Useable bool   `yaml:"useable,omitempty" json:"useable,omitempty" gorm:"index"`
 }
 
 func (b *Base) TypeName() string {

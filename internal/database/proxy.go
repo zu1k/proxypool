@@ -7,9 +7,9 @@ import (
 
 type Proxy struct {
 	gorm.Model
-	proxy.Base `gorm:"index"`
+	proxy.Base
 	Link       string
-	Identifier string `gorm:"primaryKey"`
+	Identifier string `gorm:"unique"`
 }
 
 func InitTables() {
