@@ -206,6 +206,7 @@ func Run() {
 }
 
 func loadTemplate() (t *template.Template, err error) {
+	_ = binhtml.RestoreAssets("", "assets/html")
 	t = template.New("")
 	for _, fileName := range binhtml.AssetNames() {
 		data := binhtml.MustAsset(fileName)
