@@ -25,17 +25,26 @@ func InitTables() {
 	}
 }
 
+const roundSize = 100
+
 func SaveProxyList(pl proxy.ProxyList) {
 	if DB == nil {
 		return
 	}
-	proxies := make([]Proxy, pl.Len())
-	for i, p := range pl {
-		proxies[i] = Proxy{
-			Base:       *p.BaseInfo(),
-			Link:       p.Link(),
-			Identifier: p.Identifier(),
+
+	size := pl.Len()
+	round := (size + roundSize - 1) / roundSize
+
+	for r := 0; r < round; r++ {
+		proxies := make([]Proxy, 0, roundSize)
+		for i, j := r*roundSize, (r+1)*roundSize-1; i < j && i < size; i++ {
+			p := pl[i]
+			proxies = append(proxies, Proxy{
+				Base:       *p.BaseInfo(),
+				Link:       p.Link(),
+				Identifier: p.Identifier(),
+			})
 		}
+		DB.Create(&proxies)
 	}
-	DB.Create(&proxies)
 }
