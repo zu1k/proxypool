@@ -109,7 +109,10 @@ func CleanBadProxies(proxies []Proxy) (cproxies []Proxy) {
 	cproxies = make(ProxyList, 0, 500)
 	for _, p := range proxies {
 		if _, ok := okMap[p.Identifier()]; ok {
+			p.SetUseable(true)
 			cproxies = append(cproxies, p.Clone())
+		} else {
+			p.SetUseable(false)
 		}
 	}
 	return

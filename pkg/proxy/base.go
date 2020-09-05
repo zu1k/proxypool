@@ -1,11 +1,13 @@
 package proxy
 
 type Base struct {
-	Name   string `yaml:"name" json:"name"`
-	Server string `yaml:"server" json:"server"`
-	Port   int    `yaml:"port" json:"port"`
-	Type   string `yaml:"type" json:"type"`
-	UDP    bool   `yaml:"udp,omitempty" json:"udp,omitempty"`
+	Name    string `yaml:"name" json:"name"`
+	Server  string `yaml:"server" json:"server"`
+	Port    int    `yaml:"port" json:"port"`
+	Type    string `yaml:"type" json:"type"`
+	UDP     bool   `yaml:"udp,omitempty" json:"udp,omitempty"`
+	country string `yaml:"country,omitempty" json:"country,omitempty"`
+	useable bool   `yaml:"useable,omitempty" json:"useable,omitempty"`
 }
 
 func (b *Base) TypeName() string {
@@ -32,6 +34,22 @@ func (b *Base) Clone() Base {
 	return c
 }
 
+func (b *Base) SetUseable(useable bool) {
+	b.useable = useable
+}
+
+func (b *Base) Useable() bool {
+	return b.useable
+}
+
+func (b *Base) SetCountry(country string) {
+	b.country = country
+}
+
+func (b *Base) Country() string {
+	return b.country
+}
+
 type Proxy interface {
 	String() string
 	ToClash() string
@@ -43,4 +61,8 @@ type Proxy interface {
 	TypeName() string
 	BaseInfo() *Base
 	Clone() Proxy
+	SetUseable(useable bool)
+	Useable() bool
+	SetCountry(country string)
+	Country() string
 }
