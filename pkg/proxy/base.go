@@ -6,8 +6,8 @@ type Base struct {
 	Port    int    `yaml:"port" json:"port"`
 	Type    string `yaml:"type" json:"type"`
 	UDP     bool   `yaml:"udp,omitempty" json:"udp,omitempty"`
-	country string `yaml:"country,omitempty" json:"country,omitempty"`
-	useable bool   `yaml:"useable,omitempty" json:"useable,omitempty"`
+	Country string `yaml:"country,omitempty" json:"country,omitempty"`
+	Useable bool   `yaml:"useable,omitempty" json:"useable,omitempty"`
 }
 
 func (b *Base) TypeName() string {
@@ -35,19 +35,11 @@ func (b *Base) Clone() Base {
 }
 
 func (b *Base) SetUseable(useable bool) {
-	b.useable = useable
-}
-
-func (b *Base) Useable() bool {
-	return b.useable
+	b.Useable = useable
 }
 
 func (b *Base) SetCountry(country string) {
-	b.country = country
-}
-
-func (b *Base) Country() string {
-	return b.country
+	b.Country = country
 }
 
 type Proxy interface {
@@ -62,7 +54,5 @@ type Proxy interface {
 	BaseInfo() *Base
 	Clone() Proxy
 	SetUseable(useable bool)
-	Useable() bool
 	SetCountry(country string)
-	Country() string
 }
