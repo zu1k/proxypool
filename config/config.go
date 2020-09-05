@@ -14,6 +14,7 @@ var configFilePath = "config.yaml"
 
 type ConfigOptions struct {
 	Domain      string   `json:"domain" yaml:"domain"`
+	DatabaseUrl string   `json:"database_url" yaml:"database_url"`
 	CFEmail     string   `json:"cf_email" yaml:"cf_email"`
 	CFKey       string   `json:"cf_key" yaml:"cf_key"`
 	SourceFiles []string `json:"source-files" yaml:"source-files"`
