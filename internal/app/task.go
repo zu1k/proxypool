@@ -21,6 +21,7 @@ func CrawlGo() {
 		go g.Get2Chan(pc, wg)
 	}
 	proxies := cache.GetProxies("allproxies")
+	proxies = append(proxies, database.GetAllProxies()...)
 	go func() {
 		wg.Wait()
 		close(pc)

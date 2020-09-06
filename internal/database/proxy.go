@@ -1,6 +1,7 @@
 package database
 
 import (
+	"github.com/zu1k/proxypool/pkg/getter"
 	"github.com/zu1k/proxypool/pkg/proxy"
 	"gorm.io/gorm"
 )
@@ -47,4 +48,21 @@ func SaveProxyList(pl proxy.ProxyList) {
 		}
 		DB.Create(&proxies)
 	}
+}
+
+func GetAllProxies() (proxies proxy.ProxyList) {
+	proxies = make(proxy.ProxyList, 0)
+	if DB == nil {
+		return
+	}
+
+	proxiesDB := make([]Proxy, 0)
+	DB.Select("link").Find(&proxiesDB)
+
+	for _, proxyDB := range proxiesDB {
+		if proxiesDB != nil {
+			proxies = append(proxies, getter.String2Proxy(proxyDB.Link))
+		}
+	}
+	return
 }
