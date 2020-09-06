@@ -22,11 +22,22 @@ type ssJson struct {
 }
 
 func (sub SSSub) Provide() string {
-	sub.Types = "ss"
+	sub.Types = "ss,ssr"
 	sub.preFilter()
 	proxies := make([]ssJson, 0, sub.Proxies.Len())
 	for _, p := range *sub.Proxies {
-		pp := p.(*proxy.Shadowsocks)
+		var pp *proxy.Shadowsocks
+
+		if p.TypeName() == "ssr" {
+			var err error
+			pp, err = proxy.SSR2SS(p.(*proxy.ShadowsocksR))
+			if err != nil {
+				continue
+			}
+		} else if p.TypeName() == "ss" {
+			pp = p.(*proxy.Shadowsocks)
+		}
+
 		proxies = append(proxies, ssJson{
 			Remarks:    pp.Name,
 			Server:     pp.Server,
