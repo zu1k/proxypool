@@ -3,6 +3,8 @@ package provider
 import (
 	"strings"
 
+	"github.com/zu1k/proxypool/pkg/tool"
+
 	"github.com/zu1k/proxypool/pkg/proxy"
 )
 
@@ -30,7 +32,7 @@ func checkSurgeSupport(p proxy.Proxy) bool {
 		return true
 	case *proxy.Shadowsocks:
 		ss := p.(*proxy.Shadowsocks)
-		if checkInList(ssCipherList, ss.Cipher) {
+		if tool.CheckInList(proxy.SSCipherList, ss.Cipher) {
 			return true
 		}
 	default:
