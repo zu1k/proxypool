@@ -7,10 +7,13 @@ import (
 )
 
 func SS2SSR(ss *Shadowsocks) (ssr *ShadowsocksR, err error) {
+	if ss == nil {
+		return nil, errors.New("ss is nil")
+	}
 	if !tool.CheckInList(SSRCipherList, ss.Cipher) {
 		return nil, errors.New("cipher not support")
 	}
-	base := ssr.Base
+	base := ss.Base
 	base.Type = "ssr"
 	return &ShadowsocksR{
 		Base:     base,
@@ -23,6 +26,9 @@ func SS2SSR(ss *Shadowsocks) (ssr *ShadowsocksR, err error) {
 }
 
 func SSR2SS(ssr *ShadowsocksR) (ss *Shadowsocks, err error) {
+	if ssr == nil {
+		return nil, errors.New("ssr is nil")
+	}
 	if !tool.CheckInList(SSCipherList, ssr.Cipher) {
 		return nil, errors.New("cipher not support")
 	}
