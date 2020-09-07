@@ -33,20 +33,29 @@ func SaveProxyList(pl proxy.ProxyList) {
 		return
 	}
 
-	size := pl.Len()
-	round := (size + roundSize - 1) / roundSize
+	// TODO 批量插入因为是生成一个sql，如果插入失败（重复）就全都没了
+	//size := pl.Len()
+	//round := (size + roundSize - 1) / roundSize
+	//
+	//for r := 0; r < round; r++ {
+	//	proxies := make([]Proxy, 0, roundSize)
+	//	for i, j := r*roundSize, (r+1)*roundSize-1; i < j && i < size; i++ {
+	//		p := pl[i]
+	//		proxies = append(proxies, Proxy{
+	//			Base:       *p.BaseInfo(),
+	//			Link:       p.Link(),
+	//			Identifier: p.Identifier(),
+	//		})
+	//	}
+	//	DB.Create(&proxies)
+	//}
 
-	for r := 0; r < round; r++ {
-		proxies := make([]Proxy, 0, roundSize)
-		for i, j := r*roundSize, (r+1)*roundSize-1; i < j && i < size; i++ {
-			p := pl[i]
-			proxies = append(proxies, Proxy{
-				Base:       *p.BaseInfo(),
-				Link:       p.Link(),
-				Identifier: p.Identifier(),
-			})
-		}
-		DB.Create(&proxies)
+	for _, p := range pl {
+		DB.Create(&Proxy{
+			Base:       *p.BaseInfo(),
+			Link:       p.Link(),
+			Identifier: p.Identifier(),
+		})
 	}
 }
 
