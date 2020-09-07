@@ -40,7 +40,7 @@ func CrawlGo() {
 		},
 	}.CleanProxies()
 	log.Println("CrawlGo cleaned node count:", len(proxies))
-	proxies.NameAddCounrty().Sort().NameAddIndex().NameAddTG()
+	proxies.NameSetCounrty().Sort().NameAddIndex().NameAddTG()
 	log.Println("Proxy rename DONE!")
 
 	// 全节点存储到数据库

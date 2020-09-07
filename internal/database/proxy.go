@@ -1,7 +1,6 @@
 package database
 
 import (
-	"github.com/zu1k/proxypool/pkg/getter"
 	"github.com/zu1k/proxypool/pkg/proxy"
 	"gorm.io/gorm"
 )
@@ -70,7 +69,7 @@ func GetAllProxies() (proxies proxy.ProxyList) {
 
 	for _, proxyDB := range proxiesDB {
 		if proxiesDB != nil {
-			proxies = append(proxies, getter.String2Proxy(proxyDB.Link))
+			proxies = append(proxies, proxy.ParseProxyFromLink(proxyDB.Link))
 		}
 	}
 	return

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"sort"
 	"strings"
-	"sync"
 )
 
 type ProxyList []Proxy
@@ -63,32 +62,11 @@ func (ps ProxyList) Sort() ProxyList {
 	return ps
 }
 
-func (ps ProxyList) NameAddCounrty() ProxyList {
+func (ps ProxyList) NameSetCounrty() ProxyList {
 	num := len(ps)
-	wg := &sync.WaitGroup{}
-	wg.Add(num)
 	for i := 0; i < num; i++ {
-		ii := i
-		go func() {
-			defer wg.Done()
-			country := ps[ii].BaseInfo().Country
-			if country == "" {
-				ip, c, err := geoIp.Find(ps[ii].BaseInfo().Server)
-				if err != nil {
-					country = "🏁 ZZ"
-				} else {
-					country = c
-				}
-				ps[ii].SetCountry(country)
-				// trojan依赖域名？
-				if ps[ii].TypeName() != "trojan" {
-					ps[ii].SetIP(ip)
-				}
-			}
-			ps[ii].SetName(country)
-		}()
+		ps[i].SetName(ps[i].BaseInfo().Country)
 	}
-	wg.Wait()
 	return ps
 }
 
