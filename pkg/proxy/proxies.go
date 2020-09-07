@@ -71,13 +71,17 @@ func (ps ProxyList) NameAddCounrty() ProxyList {
 		ii := i
 		go func() {
 			defer wg.Done()
-			_, country, err := geoIp.Find(ps[ii].BaseInfo().Server)
+			ip, country, err := geoIp.Find(ps[ii].BaseInfo().Server)
 			if err != nil {
 				country = "🏁 ZZ"
 			}
 			ps[ii].SetName(fmt.Sprintf("%s", country))
 			ps[ii].SetCountry(country)
-			//ps[ii].SetIP(ip)
+
+			// trojan依赖域名？
+			if ps[ii].TypeName() != "trojan" {
+				ps[ii].SetIP(ip)
+			}
 		}()
 	}
 	wg.Wait()
