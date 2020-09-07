@@ -69,7 +69,10 @@ func GetAllProxies() (proxies proxy.ProxyList) {
 
 	for _, proxyDB := range proxiesDB {
 		if proxiesDB != nil {
-			proxies = append(proxies, proxy.ParseProxyFromLink(proxyDB.Link))
+			p, err := proxy.ParseProxyFromLink(proxyDB.Link)
+			if err == nil && p != nil {
+				proxies = append(proxies, p)
+			}
 		}
 	}
 	return

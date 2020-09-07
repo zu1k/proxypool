@@ -61,29 +61,27 @@ type Proxy interface {
 	SetCountry(country string)
 }
 
-func ParseProxyFromLink(link string) Proxy {
-	var err error
-	var data Proxy
+func ParseProxyFromLink(link string) (p Proxy, err error) {
 	if strings.HasPrefix(link, "ssr://") {
-		data, err = ParseSSRLink(link)
+		p, err = ParseSSRLink(link)
 	} else if strings.HasPrefix(link, "vmess://") {
-		data, err = ParseVmessLink(link)
+		p, err = ParseVmessLink(link)
 	} else if strings.HasPrefix(link, "ss://") {
-		data, err = ParseSSLink(link)
+		p, err = ParseSSLink(link)
 	} else if strings.HasPrefix(link, "trojan://") {
-		data, err = ParseTrojanLink(link)
+		p, err = ParseTrojanLink(link)
 	}
 	if err != nil {
-		return nil
+		return
 	}
-	ip, country, err := geoIp.Find(data.BaseInfo().Server)
+	ip, country, err := geoIp.Find(p.BaseInfo().Server)
 	if err != nil {
 		country = "🏁 ZZ"
 	}
-	data.SetCountry(country)
+	p.SetCountry(country)
 	// trojan依赖域名？
-	if data.TypeName() != "trojan" {
-		data.SetIP(ip)
+	if p.TypeName() != "trojan" {
+		p.SetIP(ip)
 	}
-	return data
+	return
 }

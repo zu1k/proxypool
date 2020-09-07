@@ -32,7 +32,10 @@ func NewGetter(sourceType string, options tool.Options) (getter Getter, err erro
 func StringArray2ProxyArray(origin []string) proxy.ProxyList {
 	results := make(proxy.ProxyList, 0)
 	for _, link := range origin {
-		results = append(results, proxy.ParseProxyFromLink(link))
+		p, err := proxy.ParseProxyFromLink(link)
+		if err == nil && p != nil {
+			results = append(results, p)
+		}
 	}
 	return results
 }
