@@ -124,6 +124,9 @@ func (ps ProxyList) Clone() ProxyList {
 func (ps ProxyList) Derive() ProxyList {
 	proxies := ps
 	for _, p := range ps {
+		if p == nil {
+			continue
+		}
 		if p.TypeName() == "ss" {
 			ssr, err := Convert2SSR(p)
 			if err == nil {
