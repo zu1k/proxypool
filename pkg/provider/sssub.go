@@ -3,6 +3,9 @@ package provider
 import (
 	"encoding/json"
 	"strconv"
+	"strings"
+
+	"github.com/zu1k/proxypool/pkg/tool"
 
 	"github.com/zu1k/proxypool/pkg/proxy"
 )
@@ -22,22 +25,11 @@ type ssJson struct {
 }
 
 func (sub SSSub) Provide() string {
-	sub.Types = "ss,ssr"
+	sub.Types = "ss"
 	sub.preFilter()
 	proxies := make([]ssJson, 0, sub.Proxies.Len())
 	for _, p := range *sub.Proxies {
-		var pp *proxy.Shadowsocks
-
-		if p.TypeName() == "ssr" {
-			var err error
-			pp, err = proxy.SSR2SS(p.(*proxy.ShadowsocksR))
-			if err != nil {
-				continue
-			}
-		} else if p.TypeName() == "ss" {
-			pp = p.(*proxy.Shadowsocks)
-		}
-
+		pp := p.(*proxy.Shadowsocks)
 		proxies = append(proxies, ssJson{
 			Remarks:    pp.Name,
 			Server:     pp.Server,
@@ -53,4 +45,18 @@ func (sub SSSub) Provide() string {
 		return ""
 	}
 	return string(text)
+}
+
+type SIP002Sub struct {
+	Base
+}
+
+func (sub SIP002Sub) Provide() string {
+	sub.Types = "ss"
+	sub.preFilter()
+	var resultBuilder strings.Builder
+	for _, p := range *sub.Proxies {
+		resultBuilder.WriteString(p.Link() + "\n")
+	}
+	return tool.Base64EncodeString(resultBuilder.String(), false)
 }

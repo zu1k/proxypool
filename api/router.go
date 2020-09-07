@@ -182,6 +182,18 @@ func setupRouter() {
 		}
 		c.String(200, vmessSub.Provide())
 	})
+
+	router.GET("/sip002/sub", func(c *gin.Context) {
+		proxies := cache.GetProxies("proxies")
+		sip002Sub := provider.SIP002Sub{
+			provider.Base{
+				Proxies: &proxies,
+				Types:   "ss",
+			},
+		}
+		c.String(200, sip002Sub.Provide())
+	})
+
 	router.GET("/link/:id", func(c *gin.Context) {
 		idx := c.Param("id")
 		proxies := cache.GetProxies("allproxies")

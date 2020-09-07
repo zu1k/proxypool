@@ -6,44 +6,56 @@ import (
 	"github.com/zu1k/proxypool/pkg/tool"
 )
 
-func SS2SSR(ss *Shadowsocks) (ssr *ShadowsocksR, err error) {
-	if ss == nil {
-		return nil, errors.New("ss is nil")
+var ErrorTypeCanNotConvert = errors.New("type not support")
+
+// Convert2SS convert proxy to ShadowsocksR if possible
+func Convert2SSR(p Proxy) (ssr *ShadowsocksR, err error) {
+	if p.TypeName() == "ss" {
+		ss := p.(*Shadowsocks)
+		if ss == nil {
+			return nil, errors.New("ss is nil")
+		}
+		if !tool.CheckInList(SSRCipherList, ss.Cipher) {
+			return nil, errors.New("cipher not support")
+		}
+		base := ss.Base
+		base.Type = "ssr"
+		return &ShadowsocksR{
+			Base:     base,
+			Password: ss.Password,
+			Cipher:   ss.Cipher,
+			Protocol: "origin",
+			Obfs:     "plain",
+			Group:    "proxy.tgbot.co",
+		}, nil
 	}
-	if !tool.CheckInList(SSRCipherList, ss.Cipher) {
-		return nil, errors.New("cipher not support")
-	}
-	base := ss.Base
-	base.Type = "ssr"
-	return &ShadowsocksR{
-		Base:     base,
-		Password: ss.Password,
-		Cipher:   ss.Cipher,
-		Protocol: "origin",
-		Obfs:     "plain",
-		Group:    "proxy.tgbot.co",
-	}, nil
+	return nil, ErrorTypeCanNotConvert
 }
 
-func SSR2SS(ssr *ShadowsocksR) (ss *Shadowsocks, err error) {
-	if ssr == nil {
-		return nil, errors.New("ssr is nil")
+// Convert2SS convert proxy to Shadowsocks if possible
+func Convert2SS(p Proxy) (ss *Shadowsocks, err error) {
+	if p.TypeName() == "ss" {
+		ssr := p.(*ShadowsocksR)
+		if ssr == nil {
+			return nil, errors.New("ssr is nil")
+		}
+		if !tool.CheckInList(SSCipherList, ssr.Cipher) {
+			return nil, errors.New("cipher not support")
+		}
+		if ssr.Protocol != "origin" || ssr.Obfs != "plain" {
+			return nil, errors.New("protocol or obfs not allowed")
+		}
+		base := ssr.Base
+		base.Type = "ss"
+		return &Shadowsocks{
+			Base:       base,
+			Password:   ssr.Password,
+			Cipher:     ssr.Cipher,
+			Plugin:     "",
+			PluginOpts: nil,
+		}, nil
 	}
-	if !tool.CheckInList(SSCipherList, ssr.Cipher) {
-		return nil, errors.New("cipher not support")
-	}
-	if ssr.Protocol != "origin" || ssr.Obfs != "plain" {
-		return nil, errors.New("protocol or obfs not allowed")
-	}
-	base := ssr.Base
-	base.Type = "ss"
-	return &Shadowsocks{
-		Base:       base,
-		Password:   ssr.Password,
-		Cipher:     ssr.Cipher,
-		Plugin:     "",
-		PluginOpts: nil,
-	}, nil
+	return nil, ErrorTypeCanNotConvert
 }
 
 var SSRCipherList = []string{

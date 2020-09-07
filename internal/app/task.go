@@ -31,8 +31,8 @@ func CrawlGo() {
 			proxies = append(proxies, node)
 		}
 	}
-	// 节点去重
-	proxies = proxies.Deduplication()
+	// 节点衍生并去重
+	proxies = proxies.Derive()
 	log.Println("CrawlGo node count:", len(proxies))
 	proxies = provider.Clash{
 		provider.Base{

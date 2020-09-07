@@ -110,20 +110,6 @@ func (ps ProxyList) NameAddTG() ProxyList {
 	return ps
 }
 
-func Deduplication(src ProxyList) ProxyList {
-	result := make(ProxyList, 0, len(src))
-	temp := map[string]struct{}{}
-	for _, item := range src {
-		if item != nil {
-			if _, ok := temp[item.Identifier()]; !ok {
-				temp[item.Identifier()] = struct{}{}
-				result = append(result, item)
-			}
-		}
-	}
-	return result
-}
-
 func (ps ProxyList) Clone() ProxyList {
 	result := make(ProxyList, 0, len(ps))
 	for _, pp := range ps {
@@ -132,4 +118,23 @@ func (ps ProxyList) Clone() ProxyList {
 		}
 	}
 	return result
+}
+
+// Derive 将原有节点中的ss和ssr互相转换进行衍生
+func (ps ProxyList) Derive() ProxyList {
+	proxies := ps
+	for _, p := range ps {
+		if p.TypeName() == "ss" {
+			ssr, err := Convert2SSR(p)
+			if err == nil {
+				proxies = append(proxies, ssr)
+			}
+		} else if p.TypeName() == "ssr" {
+			ss, err := Convert2SS(p)
+			if err == nil {
+				proxies = append(proxies, ss)
+			}
+		}
+	}
+	return proxies.Deduplication()
 }
