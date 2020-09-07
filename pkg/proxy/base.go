@@ -1,6 +1,7 @@
 package proxy
 
 import (
+	"errors"
 	"strings"
 )
 
@@ -71,8 +72,8 @@ func ParseProxyFromLink(link string) (p Proxy, err error) {
 	} else if strings.HasPrefix(link, "trojan://") {
 		p, err = ParseTrojanLink(link)
 	}
-	if err != nil {
-		return
+	if err != nil || p == nil {
+		return nil, errors.New("link parse failed")
 	}
 	ip, country, err := geoIp.Find(p.BaseInfo().Server)
 	if err != nil {
