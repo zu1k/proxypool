@@ -65,6 +65,8 @@ docker pull docker.pkg.github.com/zu1k/proxypool/proxypool:latest
 
 首先修改 config.yaml 中的必要配置信息，cf开头的选项不需要填写
 
+数据库使用的是PostgreSQL, 如果使用heroku只需要添加一个Addon，如果是自托管需要自己进行安装
+
 source.yaml 文件中定义了抓取源，需要定期手动维护更新
 
 ### 启动程序
@@ -85,4 +87,4 @@ proxypool -c config.yaml
 
 本项目遵循 GNU General Public License v3.0 开源，在此基础上，所有使用本项目提供服务者都必须在网站首页保留指向本项目的链接
 
-禁止使用本项目进行营利和做其他违法事情，产生的一切后果本项目概不负责
+本项目仅限个人自己使用，禁止使用本项目进行营利和做其他违法事情，产生的一切后果本项目概不负责
