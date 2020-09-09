@@ -24,16 +24,15 @@ var router *gin.Engine
 func setupRouter() {
 	gin.SetMode(gin.ReleaseMode)
 	router = gin.New()
-	router.Use(gin.Recovery())
+	store := persistence.NewInMemoryStore(time.Minute)
+	router.Use(gin.Recovery(), cache.SiteCache(store, time.Minute))
 	temp, err := loadTemplate()
 	if err != nil {
 		panic(err)
 	}
 	router.SetHTMLTemplate(temp)
 
-	store := persistence.NewInMemoryStore(time.Second)
-
-	router.GET("/", cache.CachePage(store, time.Minute, func(c *gin.Context) {
+	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "assets/html/index.html", gin.H{
 			"domain":               config.Config.Domain,
 			"getters_count":        C.GettersCount,
@@ -46,33 +45,33 @@ func setupRouter() {
 			"last_crawl_time":      C.LastCrawlTime,
 			"version":              version,
 		})
-	}))
+	})
 
-	router.GET("/clash", cache.CachePage(store, time.Minute, func(c *gin.Context) {
+	router.GET("/clash", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "assets/html/clash.html", gin.H{
 			"domain": config.Config.Domain,
 		})
-	}))
+	})
 
-	router.GET("/surge", cache.CachePage(store, time.Minute, func(c *gin.Context) {
+	router.GET("/surge", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "assets/html/surge.html", gin.H{
 			"domain": config.Config.Domain,
 		})
-	}))
+	})
 
-	router.GET("/clash/config", cache.CachePage(store, time.Minute, func(c *gin.Context) {
+	router.GET("/clash/config", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "assets/html/clash-config.yaml", gin.H{
 			"domain": config.Config.Domain,
 		})
-	}))
+	})
 
-	router.GET("/surge/config", cache.CachePage(store, time.Minute, func(c *gin.Context) {
+	router.GET("/surge/config", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "assets/html/surge.conf", gin.H{
 			"domain": config.Config.Domain,
 		})
-	}))
+	})
 
-	router.GET("/clash/proxies", cache.CachePage(store, time.Minute, func(c *gin.Context) {
+	router.GET("/clash/proxies", func(c *gin.Context) {
 		proxyTypes := c.DefaultQuery("type", "")
 		proxyCountry := c.DefaultQuery("c", "")
 		proxyNotCountry := c.DefaultQuery("nc", "")
@@ -113,9 +112,9 @@ func setupRouter() {
 			text = clash.Provide()
 		}
 		c.String(200, text)
-	}))
+	})
 
-	router.GET("/surge/proxies", cache.CachePage(store, time.Minute, func(c *gin.Context) {
+	router.GET("/surge/proxies", func(c *gin.Context) {
 		proxyTypes := c.DefaultQuery("type", "")
 		proxyCountry := c.DefaultQuery("c", "")
 		proxyNotCountry := c.DefaultQuery("nc", "")
@@ -156,9 +155,9 @@ func setupRouter() {
 			text = surge.Provide()
 		}
 		c.String(200, text)
-	}))
+	})
 
-	router.GET("/ss/sub", cache.CachePage(store, time.Minute, func(c *gin.Context) {
+	router.GET("/ss/sub", func(c *gin.Context) {
 		proxies := C.GetProxies("proxies")
 		ssSub := provider.SSSub{
 			provider.Base{
@@ -167,9 +166,9 @@ func setupRouter() {
 			},
 		}
 		c.String(200, ssSub.Provide())
-	}))
+	})
 
-	router.GET("/ssr/sub", cache.CachePage(store, time.Minute, func(c *gin.Context) {
+	router.GET("/ssr/sub", func(c *gin.Context) {
 		proxies := C.GetProxies("proxies")
 		ssrSub := provider.SSRSub{
 			provider.Base{
@@ -178,9 +177,9 @@ func setupRouter() {
 			},
 		}
 		c.String(200, ssrSub.Provide())
-	}))
+	})
 
-	router.GET("/vmess/sub", cache.CachePage(store, time.Minute, func(c *gin.Context) {
+	router.GET("/vmess/sub", func(c *gin.Context) {
 		proxies := C.GetProxies("proxies")
 		vmessSub := provider.VmessSub{
 			provider.Base{
@@ -189,9 +188,9 @@ func setupRouter() {
 			},
 		}
 		c.String(200, vmessSub.Provide())
-	}))
+	})
 
-	router.GET("/sip002/sub", cache.CachePage(store, time.Minute, func(c *gin.Context) {
+	router.GET("/sip002/sub", func(c *gin.Context) {
 		proxies := C.GetProxies("proxies")
 		sip002Sub := provider.SIP002Sub{
 			provider.Base{
@@ -200,9 +199,9 @@ func setupRouter() {
 			},
 		}
 		c.String(200, sip002Sub.Provide())
-	}))
+	})
 
-	router.GET("/link/:id", cache.CachePage(store, time.Minute, func(c *gin.Context) {
+	router.GET("/link/:id", func(c *gin.Context) {
 		idx := c.Param("id")
 		proxies := C.GetProxies("allproxies")
 		id, err := strconv.Atoi(idx)
@@ -213,7 +212,7 @@ func setupRouter() {
 			c.String(500, "id out of range")
 		}
 		c.String(200, proxies[id].Link())
-	}))
+	})
 }
 
 func Run() {
