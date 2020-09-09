@@ -13,6 +13,7 @@ require (
 	github.com/antchfx/xpath v1.1.8 // indirect
 	github.com/cloudflare/cloudflare-go v0.13.2
 	github.com/ghodss/yaml v1.0.0
+	github.com/gin-contrib/cache v1.1.0 // indirect
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-playground/validator/v10 v10.3.0 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
