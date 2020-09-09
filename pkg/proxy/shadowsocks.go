@@ -148,6 +148,10 @@ func ParseSSLink(link string) (*Shadowsocks, error) {
 	}, nil
 }
 
+func ParseSSJson(json string) (*Shadowsocks, error) {
+	return nil, nil
+}
+
 var (
 	ssPlainRe = regexp.MustCompile("ss://([A-Za-z0-9+/_&?=@:%.-])+")
 )

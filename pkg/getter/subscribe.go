@@ -19,6 +19,7 @@ type Subscribe struct {
 }
 
 func (s *Subscribe) Get() proxy.ProxyList {
+
 	resp, err := tool.GetHttpClient().Get(s.Url)
 	if err != nil {
 		return nil
@@ -31,7 +32,7 @@ func (s *Subscribe) Get() proxy.ProxyList {
 
 	nodesString, err := tool.Base64DecodeString(string(body))
 	if err != nil {
-		return nil
+		nodesString = string(body)
 	}
 	nodesString = strings.ReplaceAll(nodesString, "\t", "")
 

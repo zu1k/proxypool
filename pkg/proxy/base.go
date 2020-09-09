@@ -71,7 +71,14 @@ func ParseProxyFromLink(link string) (p Proxy, err error) {
 		p, err = ParseSSLink(link)
 	} else if strings.HasPrefix(link, "trojan://") {
 		p, err = ParseTrojanLink(link)
+	} else if strings.HasPrefix(link, "- {") {
+		p, err = ParseSurgeLink(link)
 	}
+	// else if strings.HasPrefix(link, "[{") && strings.HasSuffix(link, "}]") {
+	// 	fmt.Println("$$$$$$ " + link + " ######")
+	// 	p = nil
+	// }
+
 	if err != nil || p == nil {
 		return nil, errors.New("link parse failed")
 	}
