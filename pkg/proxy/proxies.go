@@ -91,7 +91,7 @@ func (ps ProxyList) NameReIndex() ProxyList {
 func (ps ProxyList) NameAddTG() ProxyList {
 	num := len(ps)
 	for i := 0; i < num; i++ {
-		ps[i].SetName(fmt.Sprintf("%s %s", ps[i].BaseInfo().Name, "@peekfun"))
+		ps[i].SetName(fmt.Sprintf("%s %s", ps[i].BaseInfo().Name, "TG@peekfun"))
 	}
 	return ps
 }
