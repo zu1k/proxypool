@@ -122,8 +122,8 @@ github.com/grpc-ecosystem/grpc-gateway v1.9.6/go.mod h1:vNeuVxBJEsws4ogUvrchl83t
 github.com/hashicorp/golang-lru v0.5.0/go.mod h1:/m3WP610KZHVQ1SGc6re/UDhFvYD7pJ4Ao+sR/qLZy8=
 github.com/hashicorp/golang-lru v0.5.1/go.mod h1:/m3WP610KZHVQ1SGc6re/UDhFvYD7pJ4Ao+sR/qLZy8=
 github.com/heroku/rollrus v0.2.0/go.mod h1:B3MwEcr9nmf4xj0Sr5l9eSht7wLKMa1C+9ajgAU79ek=
-github.com/heroku/x v0.0.25 h1:6/2rENs6rfUds9jOxy9oO59b0fiOx/FeTCGOyLMXcZw=
-github.com/heroku/x v0.0.25/go.mod h1:qE/I0jp6rIeTBBosrPYV4ygRX3OMhqmC/A6x8ewodJQ=
+github.com/heroku/x v0.0.29 h1:ag5bFKz7ngujjHTuocUeEsaOFbIcTIOoTjh1flolXgM=
+github.com/heroku/x v0.0.29/go.mod h1:qE/I0jp6rIeTBBosrPYV4ygRX3OMhqmC/A6x8ewodJQ=
 github.com/hpcloud/tail v1.0.0/go.mod h1:ab1qPbhIpdTxEkNHXyeSf5vhxWSCs/tWer42PpOxQnU=
 github.com/hydrogen18/memlistener v0.0.0-20141126152155-54553eb933fb/go.mod h1:qEIFzExnS6016fRpRfxrExeVn2gbClQA99gQhnIcdhE=
 github.com/inconshreveable/mousetrap v1.0.0/go.mod h1:PxqpIevigyE2G7u3NXJIT2ANytuPF1OarO4DADm73n8=
