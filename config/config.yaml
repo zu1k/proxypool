@@ -2,7 +2,7 @@
 domain: example.com
 
 # database url
-database_url: ""
+database_url: "https://github.com/zu1k/proxypool.git"
 
 # cloudflare api
 cf_email: ""
