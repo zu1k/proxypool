@@ -196,8 +196,8 @@ github.com/hashicorp/mdns v1.0.0/go.mod h1:tL+uN++7HEJ6SQLQ2/p+z2pH24WQKWjBPkE0m
 github.com/hashicorp/memberlist v0.1.3/go.mod h1:ajVTdAv/9Im8oMAAj5G31PhhMCZJV2pPBoIllUwCN7I=
 github.com/hashicorp/serf v0.8.2/go.mod h1:6hOLApaqBFA1NXqRQAsxw9QxuDEvNxSQRwA/JwenrHc=
 github.com/heroku/rollrus v0.2.0/go.mod h1:B3MwEcr9nmf4xj0Sr5l9eSht7wLKMa1C+9ajgAU79ek=
-github.com/heroku/x v0.0.29 h1:ag5bFKz7ngujjHTuocUeEsaOFbIcTIOoTjh1flolXgM=
-github.com/heroku/x v0.0.29/go.mod h1:qE/I0jp6rIeTBBosrPYV4ygRX3OMhqmC/A6x8ewodJQ=
+github.com/heroku/x v0.0.30 h1:iHKPbgGMB0QBcx8vOTWwxgIH0AAmyrv5aEzO83M1vF4=
+github.com/heroku/x v0.0.30/go.mod h1:qE/I0jp6rIeTBBosrPYV4ygRX3OMhqmC/A6x8ewodJQ=
 github.com/hpcloud/tail v1.0.0/go.mod h1:ab1qPbhIpdTxEkNHXyeSf5vhxWSCs/tWer42PpOxQnU=
 github.com/hudl/fargo v1.3.0/go.mod h1:y3CKSmjA+wD2gak7sUSXTAoopbhU08POFhmITJgmKTg=
 github.com/hydrogen18/memlistener v0.0.0-20141126152155-54553eb933fb/go.mod h1:qEIFzExnS6016fRpRfxrExeVn2gbClQA99gQhnIcdhE=
